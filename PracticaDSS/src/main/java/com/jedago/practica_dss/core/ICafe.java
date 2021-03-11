@@ -9,9 +9,15 @@ package com.jedago.practica_dss.core;
  */
 public interface ICafe {
 	//Crear nuevo pedido
+	public void newOrder();
 	//Ver productos disponibles
-	//Añadir productos al pedido
-	//Eliminar productos del pedido
+	public void showProducts();
+	//Añadir producto al pedido
+	public void addProductToOrder();
+	//Eliminar producto del pedido
+	public void deleteProductFromOrder();
 	//Finalizar pedido
+	public void FinishOrder();
 	//Consultar caja del día
+	public void showCashBox();
 }
