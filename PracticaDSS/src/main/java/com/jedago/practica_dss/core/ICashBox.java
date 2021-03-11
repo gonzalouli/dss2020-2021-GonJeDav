@@ -5,5 +5,5 @@ interface ICashBox {
 	
 	public int getnOrders_();
 	
-	public void addOrder(Order o);
+	public void addOrder(IOrder o);
 }

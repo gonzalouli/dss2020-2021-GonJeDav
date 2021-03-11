@@ -30,7 +30,7 @@ class CashBox implements ICashBox {
 		this.nOrders_ = nOrders_;
 	}*/
 	
-	public void addOrder(Order o) {
+	public void addOrder(IOrder o) {
 		this.nOrders_++;
 		//this.total_+= sumar el total del pedido
 	}
