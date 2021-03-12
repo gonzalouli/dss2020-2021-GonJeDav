@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 interface IOrder {
+	
 	public long getId_oder();
 	public double getPrice();
 	public Date getDate();
+	public boolean isEmpty();
+	public int size();
 	public List<IOrderLine> getProducts();
 	public void setProduct(IOrderLine currentOrderLine ); 
 	public void setNProducts(IOrderLine currentOrderLine ); 

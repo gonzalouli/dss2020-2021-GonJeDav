@@ -36,7 +36,18 @@ public class Order implements IOrder
 	public Date getDate() {
 		return date;
 	}
-
+	
+	@Override
+	public boolean isEmpty() {
+		return OrderLineProduct.isEmpty();
+	}
+	
+	@Override
+	public int size() {
+		return OrderLineProduct.size();
+	}
+	
+	
 //#########################################################
 	@Override
 	public List<IOrderLine> getProducts() 
