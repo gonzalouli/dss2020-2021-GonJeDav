@@ -32,7 +32,7 @@ class CashBox implements ICashBox {
 	
 	public void addOrder(IOrder o) {
 		this.nOrders_++;
-		//this.total_+= sumar el total del pedido
+		this.total_+= o.getPrice();
 	}
 
 	

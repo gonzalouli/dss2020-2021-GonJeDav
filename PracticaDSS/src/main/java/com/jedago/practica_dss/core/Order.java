@@ -6,7 +6,11 @@ public class Order implements IOrder
 {
 	private static long currentid = 0;
 	private long id_order;
+<<<<<<< HEAD
 	private List<IOrderLine> OrderLineProduct;
+=======
+	private List<IOrderLine> products;
+>>>>>>> cbc2b1eac3334efe9efff832aae208de8ba1ee06
 	//private enum payment_method {CARD,CASH};
 	private double price;
 	private Date date;
@@ -84,6 +88,18 @@ public class Order implements IOrder
 	
 	public void finishOrder() {
 		CashBox.addOrder(this);		
+	}
+
+	@Override
+	public void setProducts(Product currenProduct) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addProductToOrder() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
