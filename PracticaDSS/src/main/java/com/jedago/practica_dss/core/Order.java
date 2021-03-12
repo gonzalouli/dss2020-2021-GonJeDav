@@ -6,7 +6,7 @@ public class Order implements IOrder
 {
 	private static long currentid = 0;
 	private long id_order;
-	private List<IProduct> products;
+	private List<IOrderLine> OrderLineProduct;
 	//private enum payment_method {CARD,CASH};
 	private double price;
 	private Date date;
@@ -33,24 +33,22 @@ public class Order implements IOrder
 	
 //#########################################################
 	
-	public List<IProduct> getProducts() 
+	public List<IOrderLine> getProducts() 
 	{
-		return this.products;
+		return this.OrderLine.product_;
 	}
 	
 	public void setProduct(Product currentProduct ) 
-	{
-		this.products.add(currentProduct);
-		//price=+currentProduct.getVaule();
+	{	
+		OrderLine OL = new OrderLine(currentProduct,1);
+		this.OrderLineProduct.add(OL);
+		price=+currentProduct.getVaule();
 	}
 	
 	public void setNProducts(Product currentProduct , int cant ) 
 	{
-		while(cant!=0) {
-			this.products.add(currentProduct);
-			//price=+currentProduct.getVaule();
-			cant--;
-		}
+		OrderLine OL = new OrderLine(currentProduct,cant);
+		this.OrderLineProduct.add(OL);
 	}
 
 //################ Operaciones #################
