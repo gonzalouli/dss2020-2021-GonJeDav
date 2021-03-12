@@ -6,11 +6,8 @@ public class Order implements IOrder
 {
 	private static long currentid = 0;
 	private long id_order;
-<<<<<<< HEAD
 	private List<IOrderLine> OrderLineProduct;
-=======
-	private List<IOrderLine> products;
->>>>>>> cbc2b1eac3334efe9efff832aae208de8ba1ee06
+
 	//private enum payment_method {CARD,CASH};
 	private double price;
 	private Date date;
@@ -26,82 +23,110 @@ public class Order implements IOrder
 	}
 	
 //#########################################################
-	
+	@Override
 	public long getId_oder() {
 		return this.id_order;
 	}
-	
+	@Override
 	public double getPrice() {
 		return this.price;
 	}
 	
+	@Override
+	public Date getDate() {
+		return date;
+	}
+
 //#########################################################
-	
+	@Override
 	public List<IOrderLine> getProducts() 
 	{
-		return this.OrderLine.product_;
+		return this.OrderLineProduct;
 	}
 	
-	public void setProduct(Product currentProduct ) 
+	@Override
+	public void setProduct(IOrderLine currentOrderLine ) 
 	{	
-		OrderLine OL = new OrderLine(currentProduct,1);
-		this.OrderLineProduct.add(OL);
-		price=+currentProduct.getVaule();
+		this.OrderLineProduct.add(currentOrderLine);
+		price+=currentOrderLine.getAmount();
 	}
 	
-	public void setNProducts(Product currentProduct , int cant ) 
-	{
-		OrderLine OL = new OrderLine(currentProduct,cant);
-		this.OrderLineProduct.add(OL);
+	@Override
+	public void setNProducts(IOrderLine currentOrderLine ) 
+	{	
+		this.OrderLineProduct.add(currentOrderLine);
+		this.price += currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
 	}
 
-//################ Operaciones #################
-
+//################ Operaciones ¿Externas?#################
+	
+	@Override
 	public void showProducts() {
 		
-		for( int i = 0; i<products.size() ; i++) {
-			System.out.println("ID_Pedido : "+ this.products.get(i).getId_product());
-			System.out.println("Nombre : "+ this.products.get(i).getName() );
-			System.out.println("PrecioU : "+ this.products.get(i).getPrice);
-			System.out.println("Stock : "+ this.products.get(i).getStock);
+		for( int i = 0; i<OrderLineProduct.size() ; i++) {
+			System.out.println("ID_Pedido : "+ this.OrderLineProduct.get(i).getProduct().getId_product());
+			System.out.println("Nombre : "+ this.OrderLineProduct.get(i).getProduct().getName());
+			System.out.println("PrecioU : "+ this.OrderLineProduct.get(i).getProduct().getPrice());
+			System.out.println("Stock : "+ this.OrderLineProduct.get(i).getProduct().getStock());
 		}
 	}
-
-	public void addProductToOrder(Product currentProduct)
-	{
-		setProduct(currentProduct);	
+	
+	@Override
+	public void addProductToOrder(IProduct currentProduct)
+	{	
+		for(IOrderLine pivot : OrderLineProduct) {
+			if(pivot.getProductName() == currentProduct.getName()) {
+				pivot.setAmount(pivot.getAmount()+1);
+				return;
+			}
+		}
+		OrderLine ol = new OrderLine(currentProduct,1);
+		setProduct(ol);	
 		
 	}
 	
-	public void addProductToOrder(Product currentProduct , int cant)
-	{
-		setNProducts( currentProduct ,  cant );
-	}
+	@Override
+	public void addProductToOrder(IProduct currentProduct , int cant)
+	{	
+		for(IOrderLine pivot : OrderLineProduct) {
+			if(pivot.getProductName() == currentProduct.getName()) {
+				pivot.setAmount(pivot.getAmount()+cant);
+				return;
+			}
+		}
 
-	public void deleteProductFromOrder(Product currentProduct) 
+		OrderLine ol = new OrderLine(currentProduct,cant);
+		setNProducts( ol );
+	}
+	
+	@Override
+	public void deteteProductFromOrder(IOrderLine currentOrderLine, int cant) {
+		if(cant>0) {
+			if(cant > currentOrderLine.getAmount() ) {
+				deleteOrderlineFromOrder(currentOrderLine);
+				System.out.println("Productos eliminados.");
+			}else {
+				int newamount = currentOrderLine.getAmount()-cant;
+				currentOrderLine.setAmount(newamount);
+				System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
+				this.price -= currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
+
+			}
+		}
+	}
+	
+	@Override
+	public void deleteOrderlineFromOrder(IOrderLine currentOrderLine) 
 	{
-		if (products.remove(currentProduct))
+		if (OrderLineProduct.remove(currentOrderLine))
 			System.out.println("Producto eliminado");
 		else
 			System.out.println("Producto desconocido o inexistente en el pedido");
 	}
-	
-	public void finishOrder() {
-		CashBox.addOrder(this);		
-	}
 
-	@Override
-	public void setProducts(Product currenProduct) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void addProductToOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
+
 }
 	
 

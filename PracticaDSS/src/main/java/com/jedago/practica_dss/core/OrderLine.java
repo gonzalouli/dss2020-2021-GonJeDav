@@ -9,11 +9,14 @@ class OrderLine implements IOrderLine{
 		this.product_ = product_;
 		this.amount = amount;
 	}
-
+	
+	public IProduct getProduct() {
+		return product_;
+	}
+	
 	@Override
 	public String getProductName() {
-		// return product.getName();
-		return null;
+		return product.getName();
 	}
 
 	@Override
@@ -23,7 +26,10 @@ class OrderLine implements IOrderLine{
 	
 	@Override
 	public void setAmount(int q){
-		this.amount = q;
+		if(q >0)
+			this.amount = q;
+		else
+			System.out.println("Cantidad no permitida...");
 		// TODO Auto-generated method stub
 		
 	}
