@@ -3,7 +3,7 @@ package com.jedago.practica_dss.core;
 import java.util.Date;
 import java.util.List;
 
-interface IOrder {
+public interface IOrder {
 	
 	public long getId_oder();
 	public double getPrice();
