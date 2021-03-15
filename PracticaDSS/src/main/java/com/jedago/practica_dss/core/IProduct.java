@@ -1,14 +1,11 @@
 package com.jedago.practica_dss.core;
 
 public interface IProduct {
-	private static
 	
-	public String  getID();
-	public String  getName();
-	public double  getPriceUnit();
-	public int 	   getStock();
-	public double  setPriceUnit(double price_);
-	public int 	   setStock(int stock_);
-	
-	
+	public int 	  	getStock();
+	public void	  	setStock(int stock_); 
+	public void  	setPriceUnit(double price_);
+	public double  	getPriceUnit();
+	public String getName();
+	public int getID();
 }
