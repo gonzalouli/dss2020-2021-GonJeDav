@@ -2,7 +2,7 @@ package com.jedago.practica_dss.core;
 import java.lang.*;
 import java.util.*;
 
-public class Order implements IOrder 
+public class Order implements IOrder , Iterable<IOrderLine>
 {
 	private static long currentid = 0;
 	private long id_order;
@@ -112,20 +112,24 @@ public class Order implements IOrder
 		setNProducts( ol );
 	}
 	
-	@Override
-	public void deteteProductFromOrder(IOrderLine currentOrderLine, int cant) {
-		if(cant>0) {
-			if(cant > currentOrderLine.getAmount() ) {
-				deleteOrderlineFromOrder(currentOrderLine);
-				System.out.println("Productos eliminados.");
-			}else {
-				int newamount = currentOrderLine.getAmount()-cant;
-				currentOrderLine.setAmount(newamount);
-				System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
-				this.price -= currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
-
+	public void deteteProductFromOrder(IProduct currentProduct, int cant) {
+		
+		for(IOrderLine pivot : OrderLineProduct) {
+			if(pivot.getProductName() == currentProduct.getName()) {
+				if(cant>0) {
+					if(cant > pivot.getAmount() ) {
+						deleteOrderlineFromOrder(pivot);
+						System.out.println("Productos eliminados.");
+					}else {
+						int newamount = pivot.getAmount()-cant;
+						pivot.setAmount(newamount);
+						System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
+						this.price -= pivot.getProduct().getPriceUnit()*pivot.getAmount();
+		
+					}
+				}
 			}
-		}
+		}	
 	}
 	
 	@Override
@@ -136,6 +140,13 @@ public class Order implements IOrder
 		else
 			System.out.println("Producto desconocido o inexistente en el pedido");
 	}
+
+	@Override
+	public Iterator<IOrderLine> iterator() {
+		return OrderLineProduct.iterator();
+	}
+
+
 	
 }
 	
