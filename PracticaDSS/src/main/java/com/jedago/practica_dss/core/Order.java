@@ -2,7 +2,7 @@ package com.jedago.practica_dss.core;
 import java.lang.*;
 import java.util.*;
 
-public class Order implements IOrder 
+public class Order implements IOrder , Iterable<IOrderLine>
 {
 	private static long currentid = 0;
 	private long id_order;
@@ -69,25 +69,25 @@ public class Order implements IOrder
 		this.price += currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
 	}
 
-//################ Operaciones ¿Externas?#################
+//################ Operaciones ï¿½Externas?#################
 	
-	@Override
-	public void showProducts() {
-		
-		for( int i = 0; i<OrderLineProduct.size() ; i++) {
-			System.out.println("ID_Pedido : "+ this.OrderLineProduct.get(i).getProduct().getId_product());
-			System.out.println("Nombre : "+ this.OrderLineProduct.get(i).getProduct().getName());
-			System.out.println("PrecioU : "+ this.OrderLineProduct.get(i).getProduct().getPrice());
-			System.out.println("Stock : "+ this.OrderLineProduct.get(i).getProduct().getStock());
-		}
-	}
-	
+//	public void showOrderProducts() {
+//		
+//		for(IOrderLine io : OrderLineProduct) {
+//			System.out.println("ID_Pedido : "+ io.get(i).getProduct().getId_product());
+//			System.out.println("Nombre : "+ io.get(i).getProduct().getName());
+//			System.out.println("PrecioU : "+ io.get(i).getProduct().getPrice());
+//			System.out.println("Stock : "+ io.getProduct().getStock());
+//		}
+//	}
+//	
 	@Override
 	public void addProductToOrder(IProduct currentProduct)
 	{	
 		for(IOrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+1);
+				price+=pivot.getAmount();
 				return;
 			}
 		}
@@ -96,12 +96,14 @@ public class Order implements IOrder
 		
 	}
 	
+	
 	@Override
 	public void addProductToOrder(IProduct currentProduct , int cant)
 	{	
 		for(IOrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+cant);
+				this.price += pivot.getProduct().getPriceUnit()*pivot.getAmount();
 				return;
 			}
 		}
@@ -110,20 +112,24 @@ public class Order implements IOrder
 		setNProducts( ol );
 	}
 	
-	@Override
-	public void deteteProductFromOrder(IOrderLine currentOrderLine, int cant) {
-		if(cant>0) {
-			if(cant > currentOrderLine.getAmount() ) {
-				deleteOrderlineFromOrder(currentOrderLine);
-				System.out.println("Productos eliminados.");
-			}else {
-				int newamount = currentOrderLine.getAmount()-cant;
-				currentOrderLine.setAmount(newamount);
-				System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
-				this.price -= currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
-
+	public void deteteProductFromOrder(IProduct currentProduct, int cant) {
+		
+		for(IOrderLine pivot : OrderLineProduct) {
+			if(pivot.getProductName() == currentProduct.getName()) {
+				if(cant>0) {
+					if(cant > pivot.getAmount() ) {
+						deleteOrderlineFromOrder(pivot);
+						System.out.println("Productos eliminados.");
+					}else {
+						int newamount = pivot.getAmount()-cant;
+						pivot.setAmount(newamount);
+						System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
+						this.price -= pivot.getProduct().getPriceUnit()*pivot.getAmount();
+		
+					}
+				}
 			}
-		}
+		}	
 	}
 	
 	@Override
@@ -134,6 +140,13 @@ public class Order implements IOrder
 		else
 			System.out.println("Producto desconocido o inexistente en el pedido");
 	}
+
+	@Override
+	public Iterator<IOrderLine> iterator() {
+		return OrderLineProduct.iterator();
+	}
+
+
 	
 }
 	
