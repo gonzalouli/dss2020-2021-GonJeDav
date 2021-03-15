@@ -1,5 +1,6 @@
 package com.jedago.practica_dss.core;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -46,7 +47,7 @@ class Cafe implements ICafe {
 
 	@Override
 	public void deleteProductFromOrder(IOrder ord, IProduct p) {
-		
+
 	}
 	
 	@Override
@@ -56,15 +57,35 @@ class Cafe implements ICafe {
 	}
 
 	@Override
-	public void FinishOrder() {
-		// TODO Auto-generated method stub
-		
+	public void FinishOrder(IOrder ord) {
+		IProduct p;
+		int c;
+		boolean found;
+		for(IOrderLine ol: ord) //Habría que extender iterable
+		{
+			//Pillar de cada orderLine el producto y las cantidades, y una actualizarlos de la lista de productos disponibles
+			p = ol.getProduct();
+			c = ol.getAmount();
+			Iterator<IProduct> i = products_.iterator();
+			while(!found && i.hasNext())
+			{
+				if(i.)
+			}
+		}
+		orders_.add(ord);
 	}
 
 	@Override
 	public void showCashBox() {
-		// TODO Auto-generated method stub
-		//Recorrer todas las ordenes y sumar su precio y calcular cuantas órdenes hay en total
+		int n_orders = 0;
+		float total = 0;
+		for(IOrder o : orders_)
+		{
+			n_orders++;
+			total+=o.getPrice();
+		}
+		System.out.println("Pedidos registrados: "+n_orders);
+		System.out.println("Caja: "+total);
 		
 	}
 

@@ -21,7 +21,7 @@ public interface ICafe {
 	//Eliminar producto del pedido en curso
 	public void deleteProductFromOrder(IOrder ord, IProduct p, int c);
 	//Finalizar pedido
-	public void FinishOrder();
+	public void FinishOrder(IOrder ord);
 	//Consultar caja del día
 	public void showCashBox();
 }
