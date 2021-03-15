@@ -16,7 +16,7 @@ class OrderLine implements IOrderLine{
 	
 	@Override
 	public String getProductName() {
-		return product.getName();
+		return product_.getName();
 	}
 
 	@Override
