@@ -17,7 +17,7 @@ public class testCafe {
 	}
 
 	@Test
-	public void test() {
+	public void contructor() {
 		fail("Not yet implemented");
 	}
 

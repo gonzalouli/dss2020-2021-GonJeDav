@@ -13,31 +13,44 @@ class Cafe implements ICafe {
 	private List<IProduct> products_;
 	
 	public Cafe(List<IOrder> orders_, List<IProduct> products_) {
-		super();
 		this.orders_ = orders_;
 		this.products_ = products_;
 	}
 
 	@Override
-	public void newOrder() {
-		// TODO Auto-generated method stub
-		
+	public IOrder newOrder() {
+		IOrder o = new Order();
+		return o;
 	}
 
 	@Override
 	public void showProducts() {
-		// TODO Auto-generated method stub
-		
+		int i = 1;
+		for(IProduct p : products_)
+		{
+			System.out.println(i+". "+p.getname()+" ("+p.getprice()+")");
+			i++;
+		}
 	}
 
 	@Override
-	public void addProductToOrder(IProduct p) {
-		// TODO Auto-generated method stub
+	public void addProductToOrder(IOrder ord, IProduct p) {
+		ord.addProductToOrder(p);
 		
+	}
+	
+	@Override
+	public void addProductToOrder(IOrder ord, IProduct p, int c) {
+		ord.addProductToOrder(p, c);
 	}
 
 	@Override
-	public void deleteProductFromOrder(IProduct p) {
+	public void deleteProductFromOrder(IOrder ord, IProduct p) {
+		
+	}
+	
+	@Override
+	public void deleteProductFromOrder(IOrder ord, IProduct p, int c) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,5 +67,6 @@ class Cafe implements ICafe {
 		//Recorrer todas las ordenes y sumar su precio y calcular cuantas órdenes hay en total
 		
 	}
+
 
 }
