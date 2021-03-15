@@ -1,11 +1,11 @@
 package com.jedago.practica_dss.core;
 import java.util.*;
 
-public class Order implements IOrder
+public class Order implements Iterable<OrderLine>
 {
 	private static long currentid = 0;
 	private long id_order;
-	private List<IOrderLine> OrderLineProduct;
+	private List<OrderLine> OrderLineProduct;
 
 	//private enum payment_method {CARD,CASH};
 	private double price;
@@ -22,47 +22,39 @@ public class Order implements IOrder
 	}
 	
 //#########################################################
-	@Override
 	public long getId_oder() {
 		return this.id_order;
 	}
-	@Override
 	public double getPrice() {
 		return this.price;
 	}
 	
-	@Override
 	public Date getDate() {
 		return date;
 	}
 	
-	@Override
 	public boolean isEmpty() {
 		return OrderLineProduct.isEmpty();
 	}
 	
-	@Override
 	public int size() {
 		return OrderLineProduct.size();
 	}
 	
 	
 //#########################################################
-	@Override
-	public List<IOrderLine> getProducts() 
+	public List<OrderLine> getProducts() 
 	{
 		return this.OrderLineProduct;
 	}
 	
-	@Override
-	public void setProduct(IOrderLine currentOrderLine ) 
+	public void setProduct(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
 		price+=currentOrderLine.getAmount();
 	}
 	
-	@Override
-	public void setNProducts(IOrderLine currentOrderLine ) 
+	public void setNProducts(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
 		this.price += currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
@@ -80,10 +72,9 @@ public class Order implements IOrder
 //		}
 //	}
 //	
-	@Override
-	public void addProductToOrder(IProduct currentProduct)
+	public void addProductToOrder(Product currentProduct)
 	{	
-		for(IOrderLine pivot : OrderLineProduct) {
+		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+1);
 				price+=pivot.getAmount();
@@ -95,11 +86,9 @@ public class Order implements IOrder
 		
 	}
 	
-	
-	@Override
-	public void addProductToOrder(IProduct currentProduct , int cant)
+	public void addProductToOrder(Product currentProduct , int cant)
 	{	
-		for(IOrderLine pivot : OrderLineProduct) {
+		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+cant);
 				this.price += pivot.getProduct().getPriceUnit()*pivot.getAmount();
@@ -111,9 +100,9 @@ public class Order implements IOrder
 		setNProducts( ol );
 	}
 	
-	public void deteteProductFromOrder(IProduct currentProduct, int cant) {
+	public void deteteProductFromOrder(Product currentProduct, int cant) {
 		
-		for(IOrderLine pivot : OrderLineProduct) {
+		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				if(cant>0) {
 					if(cant > pivot.getAmount() ) {
@@ -131,8 +120,7 @@ public class Order implements IOrder
 		}	
 	}
 	
-	@Override
-	public void deleteOrderlineFromOrder(IOrderLine currentOrderLine) 
+	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
 		if (OrderLineProduct.remove(currentOrderLine))
 			System.out.println("Producto eliminado");
@@ -140,8 +128,7 @@ public class Order implements IOrder
 			System.out.println("Producto desconocido o inexistente en el pedido");
 	}
 
-	@Override
-	public Iterator<IOrderLine> iterator() {
+	@Override	public Iterator<OrderLine> iterator() {
 		return OrderLineProduct.iterator();
 	}
 

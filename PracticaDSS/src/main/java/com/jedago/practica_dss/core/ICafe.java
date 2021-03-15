@@ -9,19 +9,19 @@ package com.jedago.practica_dss.core;
  */
 public interface ICafe {
 	//Crear nuevo pedido
-	public IOrder newOrder();
+	public Order newOrder();
 	//Ver productos disponibles
 	public void showProducts();
 	//Añadir producto al pedido en curso
-	public void addProductToOrder(IOrder ord, IProduct p);
+	public void addProductToOrder(Order ord, Product p);
 	//Añadir producto al pedido en curso
-	public void addProductToOrder(IOrder ord, IProduct p, int c);
+	public void addProductToOrder(Order ord, Product p, int c);
 	//Eliminar producto del pedido en curso
-	public void deleteProductFromOrder(IOrder ord, IProduct p);
+	public void deleteProductFromOrder(Order ord, Product p);
 	//Eliminar producto del pedido en curso
-	public void deleteProductFromOrder(IOrder ord, IProduct p, int c);
+	public void deleteProductFromOrder(Order ord, Product p, int c);
 	//Finalizar pedido
-	public void FinishOrder(IOrder ord);
+	public void FinishOrder(Order ord);
 	//Consultar caja del día
 	public void showCashBox();
 }

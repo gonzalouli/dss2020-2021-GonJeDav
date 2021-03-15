@@ -1,30 +1,27 @@
 package com.jedago.practica_dss.core;
 
-class OrderLine implements IOrderLine{
+class OrderLine{
 	
-	IProduct product_;
+	Product product_;
 	int amount;
 
-	public OrderLine(IProduct product_, int amount) {
+	public OrderLine(Product product_, int amount) {
 		this.product_ = product_;
 		this.amount = amount;
 	}
 	
-	public IProduct getProduct() {
+	public Product getProduct() {
 		return product_;
 	}
 	
-	@Override
 	public String getProductName() {
 		return product_.getName();
 	}
 
-	@Override
 	public int getAmount() {
 		return amount;
 	}
 	
-	@Override
 	public void setAmount(int q){
 		if(q >0)
 			this.amount = q;
@@ -34,7 +31,6 @@ class OrderLine implements IOrderLine{
 		
 	}
 
-	@Override
 	public float getTotalPrice() {
 		// return product.getPrice*amount;
 		return 0;

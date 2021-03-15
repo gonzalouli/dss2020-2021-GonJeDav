@@ -1,4 +1,4 @@
-package com.jedago.practica_dss.tests;
+package com.jedago.practica_dss.test;
 
 import static org.junit.Assert.*;
 
@@ -17,7 +17,8 @@ public class testCafe {
 	}
 
 	@Test
-	public void contructor() {
+	public void test() {
+		//¿Que tengo que probar?
 		fail("Not yet implemented");
 	}
 
