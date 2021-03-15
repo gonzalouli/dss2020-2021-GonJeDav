@@ -12,10 +12,10 @@ public interface ICafe {
 	public void newOrder();
 	//Ver productos disponibles
 	public void showProducts();
-	//Añadir producto al pedido
-	public void addProductToOrder();
-	//Eliminar producto del pedido
-	public void deleteProductFromOrder();
+	//Añadir producto al pedido en curso
+	public void addProductToOrder(IProduct p);
+	//Eliminar producto del pedido en curso
+	public void deleteProductFromOrder(IProduct p);
 	//Finalizar pedido
 	public void FinishOrder();
 	//Consultar caja del día
