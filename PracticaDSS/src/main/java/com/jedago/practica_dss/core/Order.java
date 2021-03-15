@@ -71,17 +71,16 @@ public class Order implements IOrder
 
 //################ Operaciones �Externas?#################
 	
-	@Override
-	public void showOrderProducts() {
-		
-		for( int i = 0; i<OrderLineProduct.size() ; i++) {
-			System.out.println("ID_Pedido : "+ this.OrderLineProduct.get(i).getProduct().getId_product());
-			System.out.println("Nombre : "+ this.OrderLineProduct.get(i).getProduct().getName());
-			System.out.println("PrecioU : "+ this.OrderLineProduct.get(i).getProduct().getPrice());
-			System.out.println("Stock : "+ this.OrderLineProduct.get(i).getProduct().getStock());
-		}
-	}
-	
+//	public void showOrderProducts() {
+//		
+//		for(IOrderLine io : OrderLineProduct) {
+//			System.out.println("ID_Pedido : "+ io.get(i).getProduct().getId_product());
+//			System.out.println("Nombre : "+ io.get(i).getProduct().getName());
+//			System.out.println("PrecioU : "+ io.get(i).getProduct().getPrice());
+//			System.out.println("Stock : "+ io.getProduct().getStock());
+//		}
+//	}
+//	
 	@Override
 	public void addProductToOrder(IProduct currentProduct)
 	{	
