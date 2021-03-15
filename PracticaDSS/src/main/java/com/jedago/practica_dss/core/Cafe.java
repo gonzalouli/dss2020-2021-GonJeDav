@@ -64,30 +64,35 @@ class Cafe implements ICafe {
 		IProduct p;
 		int c;
 		boolean found;
-		for(IOrderLine ol: ord) //Habría que extender iterable
+		for(IOrderLine ol: ord) //Recorro los orderLine de cada order
 		{
-			//Pillar de cada orderLine el producto y las cantidades, y una actualizarlos de la lista de productos disponibles
+			//Pillar de cada orderLine el producto y las cantidadesy
 			p = ol.getProduct();
 			c = ol.getAmount();
 			Iterator<IProduct> i = products_.iterator();
+			found=false;
 			while(!found && i.hasNext())
 			{
-				if(i.)
+				//Actualizarlos de la lista de productos disponibles
+				if(i.getID() == p.getID())
+				{
+					//Restarle la cantidad al stock
+					i.stock()-=c;
+					//Eliminarlo si se queda a 0
+					if(i.stock() == 0)
+						i.remove();
+				}
+				i.next();
 			}
 		}
+		total+=ord.getPrice();
+		nOrders++;
 		orders_.add(ord);
 	}
 
 	@Override
 	public void showCashBox() {
-		int n_orders = 0;
-		float total = 0;
-		for(IOrder o : orders_)
-		{
-			n_orders++;
-			total+=o.getPrice();
-		}
-		System.out.println("Pedidos registrados: "+n_orders);
+		System.out.println("Pedidos registrados: "+nOrders);
 		System.out.println("Caja: "+total);
 		
 	}
