@@ -30,18 +30,15 @@ class Cafe implements ICafe {
 
 	@Override
 	public void showProducts() {
-		int i = 1;
 		for(IProduct p : products_)
 		{
-			System.out.println(i+". "+p.getname()+" ("+p.getprice()+")");
-			i++;
+			System.out.println(p.getID() +". "+p.getName()+" ("+p.getPriceUnit()+")");
 		}
 	}
 
 	@Override
 	public void addProductToOrder(IOrder ord, IProduct p) {
 		ord.addProductToOrder(p);
-		
 	}
 	
 	@Override
@@ -74,13 +71,14 @@ class Cafe implements ICafe {
 			while(!found && i.hasNext())
 			{
 				//Actualizarlos de la lista de productos disponibles
-				if(i.getID() == p.getID())
+				if(((IProduct) i).getID() == p.getID())
 				{
 					//Restarle la cantidad al stock
-					i.stock()-=c;
+					((IProduct) i).setStock(((IProduct) i).getStock() - c); 
 					//Eliminarlo si se queda a 0
-					if(i.stock() == 0)
+					if(((IProduct) i).getStock() == 0)
 						i.remove();
+					found=true;
 				}
 				i.next();
 			}
@@ -94,7 +92,6 @@ class Cafe implements ICafe {
 	public void showCashBox() {
 		System.out.println("Pedidos registrados: "+nOrders);
 		System.out.println("Caja: "+total);
-		
 	}
 
 
