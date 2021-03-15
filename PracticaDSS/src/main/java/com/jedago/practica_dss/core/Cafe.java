@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jedago.practica_dss.core;
 
 import java.util.List;
@@ -34,13 +31,13 @@ class Cafe implements ICafe {
 	}
 
 	@Override
-	public void addProductToOrder() {
+	public void addProductToOrder(IProduct p) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteProductFromOrder() {
+	public void deleteProductFromOrder(IProduct p) {
 		// TODO Auto-generated method stub
 		
 	}
