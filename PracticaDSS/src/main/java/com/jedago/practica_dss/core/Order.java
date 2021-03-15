@@ -2,7 +2,7 @@ package com.jedago.practica_dss.core;
 import java.lang.*;
 import java.util.*;
 
-public class Order implements IOrder , Iterable<IOrderLine>
+public class Order implements IOrder
 {
 	private static long currentid = 0;
 	private long id_order;

@@ -3,19 +3,23 @@ package com.jedago.practica_dss.core;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * @author jeseg
- *
- */
 class Cafe implements ICafe {
 
-	//Atributos?
 	private List<IOrder> orders_;
 	private List<IProduct> products_;
+	private int nOrders;
+	private float total;
+	
 	
 	public Cafe(List<IOrder> orders_, List<IProduct> products_) {
 		this.orders_ = orders_;
 		this.products_ = products_;
+		this.nOrders = orders_.size();
+		this.total=0;
+		for(IOrder ord:orders_)
+		{
+			this.total+=ord.getPrice();
+		}
 	}
 
 	@Override
@@ -47,13 +51,12 @@ class Cafe implements ICafe {
 
 	@Override
 	public void deleteProductFromOrder(IOrder ord, IProduct p) {
-
+		ord.deteteProductFromOrder(p, 1);
 	}
 	
 	@Override
 	public void deleteProductFromOrder(IOrder ord, IProduct p, int c) {
-		// TODO Auto-generated method stub
-		
+		ord.deteteProductFromOrder(p, c);
 	}
 
 	@Override

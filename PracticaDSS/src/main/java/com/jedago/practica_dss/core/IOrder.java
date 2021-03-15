@@ -1,9 +1,10 @@
 package com.jedago.practica_dss.core;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
-public interface IOrder {
+public interface IOrder extends Iterable<IOrderLine>{
 	
 	public long getId_oder();
 	public double getPrice();
@@ -18,5 +19,6 @@ public interface IOrder {
 	public void addProductToOrder(IProduct currentProduct , int cant);
 	public void deteteProductFromOrder(IProduct currentProduct, int cant);
 	public void deleteOrderlineFromOrder(IOrderLine currentOrderLine);
+	public Iterator<IOrderLine> iterator();
 
 }
