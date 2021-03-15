@@ -13,7 +13,7 @@ public interface IOrder {
 	public List<IOrderLine> getProducts();
 	public void setProduct(IOrderLine currentOrderLine ); 
 	public void setNProducts(IOrderLine currentOrderLine ); 
-	public void showProducts();
+	public void showOrderProducts();
 	public void addProductToOrder(IProduct currentProduct);
 	public void addProductToOrder(IProduct currentProduct , int cant);
 	public void deteteProductFromOrder(IOrderLine currentOrderLine, int cant); 

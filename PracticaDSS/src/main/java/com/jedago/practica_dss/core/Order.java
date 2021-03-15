@@ -69,10 +69,10 @@ public class Order implements IOrder
 		this.price += currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
 	}
 
-//################ Operaciones ¿Externas?#################
+//################ Operaciones ï¿½Externas?#################
 	
 	@Override
-	public void showProducts() {
+	public void showOrderProducts() {
 		
 		for( int i = 0; i<OrderLineProduct.size() ; i++) {
 			System.out.println("ID_Pedido : "+ this.OrderLineProduct.get(i).getProduct().getId_product());
@@ -88,6 +88,7 @@ public class Order implements IOrder
 		for(IOrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+1);
+				price+=pivot.getAmount();
 				return;
 			}
 		}
@@ -96,12 +97,14 @@ public class Order implements IOrder
 		
 	}
 	
+	
 	@Override
 	public void addProductToOrder(IProduct currentProduct , int cant)
 	{	
 		for(IOrderLine pivot : OrderLineProduct) {
 			if(pivot.getProductName() == currentProduct.getName()) {
 				pivot.setAmount(pivot.getAmount()+cant);
+				this.price += pivot.getProduct().getPriceUnit()*pivot.getAmount();
 				return;
 			}
 		}
