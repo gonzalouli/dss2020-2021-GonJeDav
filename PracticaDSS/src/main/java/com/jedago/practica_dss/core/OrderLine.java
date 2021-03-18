@@ -1,6 +1,6 @@
 package com.jedago.practica_dss.core;
 
-class OrderLine{
+public class OrderLine{
 	
 	Product product_;
 	int amount;

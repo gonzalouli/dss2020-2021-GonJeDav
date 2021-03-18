@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Order implements Iterable<OrderLine>
 {
-	private static long currentid = 0;
+	public static long currentid = 0;
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
 
