@@ -36,4 +36,21 @@ public class Product{
 	public void  setStock(int stock_) {
 		this.stock = stock_;
 	}
+	
+	@Override
+    public boolean equals(Object obj) {
+        if (this == obj) 
+        	return true;
+        if (obj == null) 
+        	return false;
+        if (getClass() != obj.getClass()) 
+        	return false;
+        
+        final Product other = (Product)obj;
+        
+        if (id != other.id) 
+        	return false;
+        
+        return true;
+    }
 }
