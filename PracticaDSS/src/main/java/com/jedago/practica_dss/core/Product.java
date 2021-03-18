@@ -1,18 +1,20 @@
 package com.jedago.practica_dss.core;
 
+import java.math.BigDecimal;
+
 public class Product{
 	private String	name;
 	private int		id;
 	private int 	stock;
-	private double 	priceunit;
+	private BigDecimal 	priceunit;
 	private static	int i=1;
 	
 	
-	public Product(String name, int stock, double price) {
+	public Product(String name, int stock, BigDecimal d) {
 		super();
 		this.name = name;
 		this.stock = stock;
-		this.priceunit = price;
+		this.priceunit = d;
 		this.id = i;
 		i++;
 	}
@@ -22,13 +24,13 @@ public class Product{
 	public String getName() {
 		return name;
 	}
-	public double  getPriceUnit() {
+	public BigDecimal  getPriceUnit() {
 			return priceunit;
 	}
 	public int 	  getStock() {
 		return stock;
 	}
-	public void setPriceUnit(double price_) {
+	public void setPriceUnit(BigDecimal price_) {
 		this.priceunit = price_;
 	}
 	public void  setStock(int stock_) {

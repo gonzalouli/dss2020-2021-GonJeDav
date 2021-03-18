@@ -1,5 +1,7 @@
 package com.jedago.practica_dss.core;
 
+import java.math.BigDecimal;
+
 public class OrderLine{
 	
 	Product product_;
@@ -31,9 +33,13 @@ public class OrderLine{
 		
 	}
 
-	public float getTotalPrice() {
-		// return product.getPrice*amount;
-		return 0;
+	public BigDecimal getTotalPrice() {
+		BigDecimal coste = BigDecimal.ZERO;
+		BigDecimal costetotal = BigDecimal.ZERO;
+		coste = product_.getPriceUnit().multiply(new BigDecimal(amount));
+		costetotal = costetotal.add(coste);
+		return costetotal;
+				
 	}
 
 }

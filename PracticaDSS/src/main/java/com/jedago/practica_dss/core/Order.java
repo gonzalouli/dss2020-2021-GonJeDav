@@ -1,31 +1,32 @@
 package com.jedago.practica_dss.core;
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Order implements Iterable<OrderLine>
 {
-	public static long currentid = 0;
+	public static long currentid = 1;
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
 
 	//private enum payment_method {CARD,CASH};
-	private double price;
+	private BigDecimal price;
 	private Date date;
 	//private enum status {OPEN, CLOSED, IN_PROCESS};
 
 //#########################################################
 	
 	public Order(){
-		this.id_order = currentid+1;
+		this.id_order = currentid;
 		currentid++;
-		this.price = 0;
+		this.price = BigDecimal.ZERO;
 		this.date = new Date();
 	}
 	
 //#########################################################
-	public long getId_oder() {
+	public long getId_order() {
 		return this.id_order;
 	}
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return this.price;
 	}
 	
@@ -51,33 +52,29 @@ public class Order implements Iterable<OrderLine>
 	public void setProduct(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
-		price+=currentOrderLine.getAmount();
+		this.price.add(currentOrderLine.getProduct().getPriceUnit());
+		this.price.add(currentOrderLine.getProduct().getPriceUnit());
 	}
 	
 	public void setNProducts(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
-		this.price += currentOrderLine.getProduct().getPriceUnit()*currentOrderLine.getAmount();
+		BigDecimal namount = BigDecimal.ZERO;
+		namount = new BigDecimal(currentOrderLine.getAmount()) ;
+		this.price.add(currentOrderLine.getProduct().getPriceUnit().multiply(namount));
 	}
 
 //################ Operaciones �Externas?#################
 	
-//	public void showOrderProducts() {
-//		
-//		for(IOrderLine io : OrderLineProduct) {
-//			System.out.println("ID_Pedido : "+ io.get(i).getProduct().getId_product());
-//			System.out.println("Nombre : "+ io.get(i).getProduct().getName());
-//			System.out.println("PrecioU : "+ io.get(i).getProduct().getPrice());
-//			System.out.println("Stock : "+ io.getProduct().getStock());
-//		}
-//	}
-//	
+	
 	public void addProductToOrder(Product currentProduct)
 	{	
 		for(OrderLine pivot : OrderLineProduct) {
-			if(pivot.getProductName() == currentProduct.getName()) {
+			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+1);
-				price+=pivot.getAmount();
+				BigDecimal namount = BigDecimal.ZERO;
+				namount = new BigDecimal(pivot.getAmount()) ;
+				this.price.add(pivot.getProduct().getPriceUnit());				
 				return;
 			}
 		}
@@ -89,9 +86,11 @@ public class Order implements Iterable<OrderLine>
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
 		for(OrderLine pivot : OrderLineProduct) {
-			if(pivot.getProductName() == currentProduct.getName()) {
+			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+cant);
-				this.price += pivot.getProduct().getPriceUnit()*pivot.getAmount();
+				BigDecimal namount = BigDecimal.ZERO;
+				namount = new BigDecimal(pivot.getAmount()) ;
+				this.price.add(pivot.getProduct().getPriceUnit().multiply(namount));
 				return;
 			}
 		}
@@ -103,7 +102,7 @@ public class Order implements Iterable<OrderLine>
 	public void deteteProductFromOrder(Product currentProduct, int cant) {
 		
 		for(OrderLine pivot : OrderLineProduct) {
-			if(pivot.getProductName() == currentProduct.getName()) {
+			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
 					if(cant > pivot.getAmount() ) {
 						deleteOrderlineFromOrder(pivot);
@@ -111,9 +110,9 @@ public class Order implements Iterable<OrderLine>
 					}else {
 						int newamount = pivot.getAmount()-cant;
 						pivot.setAmount(newamount);
-						System.out.println("Eliminados "+cant+" productos, quedan "+newamount);
-						this.price -= pivot.getProduct().getPriceUnit()*pivot.getAmount();
-		
+						BigDecimal namount = BigDecimal.ZERO;
+						namount = new BigDecimal(pivot.getAmount()) ;
+						this.price.subtract(pivot.getProduct().getPriceUnit().multiply(namount));	
 					}
 				}
 			}
@@ -122,13 +121,10 @@ public class Order implements Iterable<OrderLine>
 	
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
-		if (OrderLineProduct.remove(currentOrderLine))
-			System.out.println("Producto eliminado");
-		else
-			System.out.println("Producto desconocido o inexistente en el pedido");
+		OrderLineProduct.remove(currentOrderLine);
 	}
-
-	@Override	public Iterator<OrderLine> iterator() {
+	@Override	
+	public Iterator<OrderLine> iterator() {
 		return OrderLineProduct.iterator();
 	}
 
