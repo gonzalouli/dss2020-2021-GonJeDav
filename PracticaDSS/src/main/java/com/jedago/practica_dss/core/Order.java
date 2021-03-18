@@ -1,4 +1,6 @@
 package com.jedago.practica_dss.core;
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -53,18 +55,17 @@ public class Order implements Iterable<OrderLine>
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
 		this.price.add(currentOrderLine.getProduct().getPriceUnit());
-		this.price.add(currentOrderLine.getProduct().getPriceUnit());
 	}
 	
 	public void setNProducts(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
 		BigDecimal namount = BigDecimal.ZERO;
-		namount = new BigDecimal(currentOrderLine.getAmount()) ;
+		namount = new BigDecimal(currentOrderLine.getAmount());
 		this.price.add(currentOrderLine.getProduct().getPriceUnit().multiply(namount));
 	}
 
-//################ Operaciones �Externas?#################
+//################ Operaciones Externas?#################
 	
 	
 	public void addProductToOrder(Product currentProduct)
@@ -105,14 +106,18 @@ public class Order implements Iterable<OrderLine>
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
 					if(cant > pivot.getAmount() ) {
+						
 						deleteOrderlineFromOrder(pivot);
 						System.out.println("Productos eliminados.");
+						
 					}else {
+						
 						int newamount = pivot.getAmount()-cant;
 						pivot.setAmount(newamount);
 						BigDecimal namount = BigDecimal.ZERO;
 						namount = new BigDecimal(pivot.getAmount()) ;
 						this.price.subtract(pivot.getProduct().getPriceUnit().multiply(namount));	
+						
 					}
 				}
 			}
@@ -123,12 +128,14 @@ public class Order implements Iterable<OrderLine>
 	{
 		OrderLineProduct.remove(currentOrderLine);
 	}
+	
 	@Override	
 	public Iterator<OrderLine> iterator() {
 		return OrderLineProduct.iterator();
 	}
 
 
+	
 	
 }
 	
