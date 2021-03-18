@@ -3,7 +3,7 @@ package com.jedago.practica_dss.core;
 import java.util.Iterator;
 import java.util.List;
 
-class Cafe implements ICafe {
+public class Cafe implements ICafe {
 
 	private List<Order> orders_;
 	private List<Product> products_;

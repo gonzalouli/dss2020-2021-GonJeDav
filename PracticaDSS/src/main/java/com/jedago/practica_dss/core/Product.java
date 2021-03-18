@@ -1,6 +1,6 @@
 package com.jedago.practica_dss.core;
 
-class Product{
+public class Product{
 	private String	name;
 	private int		id;
 	private int 	stock;
