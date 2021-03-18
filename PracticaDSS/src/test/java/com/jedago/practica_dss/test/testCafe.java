@@ -18,13 +18,14 @@ public class testCafe {
 	private Cafe C;
 	private Order o;
 
-	@Before
+	@Before //Antes de cada test
 	public void setUp() throws Exception {
 		//Crear una lista pedidos y una lista productos
 		lista_pedidos = new ArrayList<Order>();
 		lista_productos = new ArrayList<Product>();
 		p1 = new Product("Producto1", 2, 2.5);
 		lista_productos.add(p1);
+		C = new Cafe(lista_pedidos, lista_productos);
 	}
 
 	@After
@@ -38,11 +39,35 @@ public class testCafe {
 	@Test
 	public void testConstructor() {
 		//Crear el cafe
-		C = new Cafe(lista_pedidos, lista_productos);
+		
 		assert(C != null);
 	}
 	
 	@Test
+	public void testNewOrder() {
+		//Comprobar que devuelva una orden vacía
+		o = C.newOrder();
+		assert(o.isEmpty());
+	}
+	
+	@Test
+	public void testAddandDeleteProductToOrder() {
+		//Comprobar que se añade una orderline a la orden actual con el producto
+		C.addProductToOrder(o, p1);
+		List<OrderLine> lp = o.getProducts();
+		//Comprobar aumento del precio del pedido
+		
+		OrderLine ol = lp.get(0);
+		assertEquals(ol.getProduct(), p1);
+		assert(ol.getAmount() == 1);
+		
+		C.deleteProductFromOrder(o, p1);
+		ol = lp.get(0);
+		assert(ol == null);
+	}
+	
+	@Test
+	//
 	public void testShowProducts() {
 		//Comprobar que saque por pantalla los productos disponibles
 		//??
@@ -54,29 +79,5 @@ public class testCafe {
 		//??
 	}
 	
-	@Test
-	public void testNewOrder() {
-		//Comprobar que devuelva una orden vacía
-		o = C.newOrder();
-		assert(o.isEmpty());
-	}
-	
-	@Test
-	public void testAddProductToOrder() {
-		//Comprobar que se añade una orderline a la orden actual con el producto
-		C.addProductToOrder(o, p1);
-		List<OrderLine> lp = o.getProducts();
-		
-		OrderLine ol = lp.get(0);
-		assertEquals(ol.getProduct(), p1); //Necesitará el equals????
-		assert(ol.getAmount() == 1);
-	}
-	
-	@Test
-	public void testDeleteProductFromOrder() {
-		//Comprobar que se borra la orderline con el producto de la orden
-	}
-	
-	
-	
+	//Para cada test, Before, Test, After
 }

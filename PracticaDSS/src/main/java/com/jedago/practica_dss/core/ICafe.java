@@ -3,6 +3,8 @@
  */
 package com.jedago.practica_dss.core;
 
+import java.util.List;
+
 /**
  * @author jeseg
  *
@@ -10,8 +12,8 @@ package com.jedago.practica_dss.core;
 public interface ICafe {
 	//Crear nuevo pedido
 	public Order newOrder();
-	//Ver productos disponibles
-	public void showProducts();
+	//Productos disponibles
+	public List<Product> getAvailableProducts();
 	//Añadir producto al pedido en curso
 	public void addProductToOrder(Order ord, Product p);
 	//Añadir producto al pedido en curso
@@ -22,6 +24,6 @@ public interface ICafe {
 	public void deleteProductFromOrder(Order ord, Product p, int c);
 	//Finalizar pedido
 	public void FinishOrder(Order ord);
-	//Consultar caja del día
-	public void showCashBox();
+	//Consultar caja del día 
+	public CashBox getCashBox();
 }

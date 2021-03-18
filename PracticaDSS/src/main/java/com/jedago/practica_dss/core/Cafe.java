@@ -1,5 +1,6 @@
 package com.jedago.practica_dss.core;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
@@ -7,18 +8,17 @@ public class Cafe implements ICafe {
 
 	private List<Order> orders_;
 	private List<Product> products_;
-	private int nOrders;
-	private float total;
+	private CashBox cb;
 	
 	
 	public Cafe(List<Order> orders_, List<Product> products_) {
 		this.orders_ = orders_;
 		this.products_ = products_;
-		this.nOrders = orders_.size();
-		this.total=0;
+		this.cb.setnOrders(orders_.size());
+		this.cb.setTotal(BigDecimal.ZERO);
 		for(Order ord: orders_)
 		{
-			this.total+=ord.getPrice();
+			this.cb.addtoTotal(ord.getPrice());
 		}
 	}
 
@@ -29,11 +29,8 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public void showProducts() {
-		for(Product p : products_)
-		{
-			System.out.println(p.getID() +". "+p.getName()+" ("+p.getPriceUnit()+")");
-		}
+	public List<Product> getAvailableProducts() {
+		return products_;
 	}
 
 	@Override
@@ -63,7 +60,7 @@ public class Cafe implements ICafe {
 		boolean found;
 		for(OrderLine ol: ord) //Recorro los orderLine de cada order
 		{
-			//Pillar de cada orderLine el producto y las cantidadesy
+			//Pillar de cada orderLine el producto y las cantidades
 			p = ol.getProduct();
 			c = ol.getAmount();
 			Iterator<Product> i = products_.iterator();
@@ -83,15 +80,14 @@ public class Cafe implements ICafe {
 				i.next();
 			}
 		}
-		total+=ord.getPrice();
-		nOrders++;
+		this.cb.addtoTotal(ord.getPrice());
+		this.cb.incrementOrders();
 		orders_.add(ord);
 	}
 
 	@Override
-	public void showCashBox() {
-		System.out.println("Pedidos registrados: "+nOrders);
-		System.out.println("Caja: "+total);
+	public CashBox getCashBox() {
+		return(cb);
 	}
 
 
