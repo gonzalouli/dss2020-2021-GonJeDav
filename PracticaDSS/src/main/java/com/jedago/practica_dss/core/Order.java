@@ -1,5 +1,4 @@
 package com.jedago.practica_dss.core;
-import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -8,7 +7,7 @@ public class Order implements Iterable<OrderLine>
 {
 	public static long currentid = 1;
 	private long id_order;
-	private List<OrderLine> OrderLineProduct;
+	private List<OrderLine> OrderLineProduct = new ArrayList<OrderLine>();
 
 	//private enum payment_method {CARD,CASH};
 	private BigDecimal price;
@@ -33,7 +32,7 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 	
 	public boolean isEmpty() {
@@ -51,17 +50,10 @@ public class Order implements Iterable<OrderLine>
 		return this.OrderLineProduct;
 	}
 	
-	public void setProduct(OrderLine currentOrderLine ) 
+	public void setProducts(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
-		this.price.add(currentOrderLine.getProduct().getPriceUnit());
-	}
-	
-	public void setNProducts(OrderLine currentOrderLine ) 
-	{	
-		this.OrderLineProduct.add(currentOrderLine);
-		BigDecimal namount = BigDecimal.ZERO;
-		namount = new BigDecimal(currentOrderLine.getAmount());
+		BigDecimal namount = BigDecimal.valueOf(currentOrderLine.getAmount());
 		this.price.add(currentOrderLine.getProduct().getPriceUnit().multiply(namount));
 	}
 
@@ -73,14 +65,13 @@ public class Order implements Iterable<OrderLine>
 		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+1);
-				BigDecimal namount = BigDecimal.ZERO;
-				namount = new BigDecimal(pivot.getAmount()) ;
 				this.price.add(pivot.getProduct().getPriceUnit());				
 				return;
 			}
 		}
+		
 		OrderLine ol = new OrderLine(currentProduct,1);
-		setProduct(ol);	
+		setProducts(ol);	
 		
 	}
 	
@@ -97,7 +88,7 @@ public class Order implements Iterable<OrderLine>
 		}
 
 		OrderLine ol = new OrderLine(currentProduct,cant);
-		setNProducts( ol );
+		setProducts( ol );
 	}
 	
 	public void deteteProductFromOrder(Product currentProduct, int cant) {

@@ -1,10 +1,13 @@
 package com.jedago.practica_dss.test;
+
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,17 +18,30 @@ import com.jedago.practica_dss.core.Product;
 
 public class testOrder {
 	double error = 0.001;
+	private int cant;
+	double cash = 2.5;
 	private Product p;
 	private OrderLine orderlineproduct;
 	private Order order;
+	
+	private List<OrderLine> ol;
+	
 	@Before
-	void setup() {
-		order = new Order();
-		Product p = new Product("producto",3, new BigDecimal("2,5") );
+	public void setup() {
+		
+		
+		BigDecimal precio = BigDecimal.valueOf(cash);
+		p = new Product("producto", 4, precio);
+		orderlineproduct = new OrderLine(p,cant);
+		
+		ol = new ArrayList<OrderLine>();
+		order = new Order();		
+		
+		ol.add(orderlineproduct);
 	}
 	
-	
-	void teardown() {
+	@After
+	public void teardown() {
 		order = null;
 		orderlineproduct = null ;
 		p = null;
@@ -33,34 +49,47 @@ public class testOrder {
 	
 	
 	@Test
-	public void testConstructor() {
-		double cero =0 ;
+	public void testConstructor() { //PASS
+		
+	
+		BigDecimal cero =  BigDecimal.ZERO ;
 		Date d = new Date();
-		assert(order!=null);
+		//assert(order!=null);
+		
 		assertEquals( order.getDate(), d);
-		assertEquals( order.getId_order()-1, Order.currentid);
+		assertEquals( order.getId_order(), Order.currentid-1);
 		assertEquals(cero ,order.getPrice());
-	}
-	
-	
+}
+
+
 	@Test
-	public void testgetId_oder() {
-		assertEquals( Order.currentid, order.getId_order()-1);
+	public void testgetId_oder() { //PASS
+		Order orden = new Order();
+		assertEquals( Order.currentid -1, orden.getId_order());
 		
 	}
-	
+//	
 
 	@Test
 	public void testgetPrice() {
+
+		order.setProducts(orderlineproduct);
+
 		BigDecimal priceinside = BigDecimal.ZERO;
-		List<OrderLine> ol = order.getProducts();
 		
-		for(OrderLine pivot: ol) {
-			priceinside.add(pivot.getTotalPrice());
-			
-		}
-		assertEquals(priceinside, order.getPrice());
+		for(int i=0 ; i<order.size() ; i++)
+			ol.add(i,order.getProducts().get(i));
+		
+		
+		System.out.print(order.size());
+
+		for(int i=0 ; i<order.size() ; i++)
+			priceinside.add(ol.get(i).getTotalPrice());
+		
+		assert(priceinside.equals(order.getPrice()));
+		
 	}
+	
 	
 	@Test
 	public void testsetProduct() {
@@ -68,7 +97,7 @@ public class testOrder {
 		orderlineproduct = new OrderLine(p,1);
 		BigDecimal preprice = order.getPrice();
 		
-		order.setProduct( orderlineproduct );
+		order.setProducts( orderlineproduct );
 		
 		List<OrderLine> ol = order.getProducts();
 		
@@ -82,17 +111,23 @@ public class testOrder {
 	@Test
 	public void testsetNProduct() {
 		
-		orderlineproduct = new OrderLine(p,3);
 		BigDecimal preprice = order.getPrice();
 		
-		order.setProduct( orderlineproduct );
+		order.setProducts( orderlineproduct );
 		
 		List<OrderLine> ol = order.getProducts();
+		Boolean notin=true;
 		
-		assert(ol.contains(orderlineproduct));
+		for(int i=0 ; i<ol.size() && notin==true ; i++) {
+			if(ol.get(i).getProduct().getID() == p.getID()) {
+				notin =false;
+			}
+		}
 		
-		BigDecimal amount = BigDecimal.ZERO;
-		amount = new BigDecimal(orderlineproduct.getAmount());
+		assert(!notin);
+		
+		BigDecimal amount = BigDecimal.valueOf(orderlineproduct.getAmount());
+		
 		preprice.add(orderlineproduct.getTotalPrice().multiply(amount));
 		
 		assertEquals(order.getPrice(), preprice);
@@ -101,14 +136,14 @@ public class testOrder {
 	
 	
 	@Test 
-	void testaddProductToOrder(Product currProd) 
+	public void testaddProductToOrder() 
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
 		int precant =0;
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++)
-			if(preol.get(i).getProduct().getID() == currProd.getID()) {
+			if(preol.get(i).getProduct().getID() == p.getID()) {
 				precant = preol.get(i).getAmount();
 				exit = false;
 			}
@@ -119,7 +154,7 @@ public class testOrder {
 		exit = true;
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++)
-			if(ol.get(i).getProduct().getID() == currProd.getID()) {
+			if(ol.get(i).getProduct().getID() == p.getID()) {
 				assertEquals(precant+1, ol.get(i).getAmount());
 				assertEquals(ol.get(i).getTotalPrice(), ol.get(i).getProduct().getPriceUnit());
 				exit = false;
@@ -127,14 +162,14 @@ public class testOrder {
 	}
 		
 	@Test	
-	void testaddProductToOrder(Product currProd, int cant) 
+	public void testaddNProductToOrder() 
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
 		int precant =0;
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++)
-			if(preol.get(i).getProduct().getID() == currProd.getID()) {
+			if(preol.get(i).getProduct().getID() == p.getID()) {
 				precant = preol.get(i).getAmount();
 				exit = false;
 			}
@@ -145,7 +180,7 @@ public class testOrder {
 		exit = true;
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++)
-			if(ol.get(i).getProduct().getID() == currProd.getID()) {
+			if(ol.get(i).getProduct().getID() == p.getID()) {
 				assertEquals(precant+1, ol.get(i).getAmount());
 				BigDecimal postamount = BigDecimal.ZERO;
 				postamount = new BigDecimal(ol.get(i).getAmount());
@@ -155,54 +190,29 @@ public class testOrder {
 	}
 		
 	@Test
-	public void testdeteteProductFromOrder(Product currProd, int cant) {
-		
-		order.addProductToOrder(p);
-		List<OrderLine> preol = order.getProducts();
-		int precant =0;
-		Boolean exit = true;
-		int deletedindex = 0;
-		
-		for(int i = 0 ; i<preol.size() && exit ; i++)
-			if(preol.get(i).getProduct().getID() == currProd.getID()) {
-				precant = preol.get(i).getAmount();
-				deletedindex = i;
-				exit = false;
+	public void testdeteteProductFromOrder() {
+		order.deteteProductFromOrder(p,1);
+		List<OrderLine> delprod = order.getProducts();
+
+		for(int i= 0; i<delprod.size() ; i++) 
+			if(p == delprod.get(i).getProduct()) 
+			{
+				assertEquals(delprod.get(i).getAmount(), 3);
+				return;
 			}
 		
-		order.deteteProductFromOrder( currProd, cant);
-		
-		int postcant = 0;
-		int i;
-		exit = true;
-		
-		if( preol.get(deletedindex).getProduct().getID() == currProd.getID()) {
-			for( i = 0 ; i<preol.size() && exit ; i++)
-				if(preol.get(i).getProduct().getID() == currProd.getID()) {
-					postcant = preol.get(i).getAmount();
-					exit = false;
-				}
-		
-			assertEquals(precant-cant,postcant);
-		}else 
-		{
-			for( i = 0 ; i<preol.size() && exit ; i++)
-				if(preol.get(i).getProduct().getID() == currProd.getID()) {
-					exit = true;
-					assert(!exit);
-			}
-		}
 	}
 	
 	
+	
 	@Test
-	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) {
+	public void deleteOrderlineFromOrder() {
 		Boolean exit = true;
 		
 		List<OrderLine> preol = order.getProducts();
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++) {
-			if(	preol.get(i).getProduct().getID() == currentOrderLine.getProduct().getID() ) {
+			if(	preol.get(i).getProduct().getID() == orderlineproduct.getProduct().getID() ) {
 				exit = false;
 			}
 			assert(exit);

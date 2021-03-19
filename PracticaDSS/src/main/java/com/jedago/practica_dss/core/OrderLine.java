@@ -2,7 +2,7 @@ package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
 
-public class OrderLine{
+public class OrderLine {
 	
 	Product product_;
 	int amount;
