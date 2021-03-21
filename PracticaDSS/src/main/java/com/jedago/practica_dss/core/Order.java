@@ -103,18 +103,18 @@ public class Order implements Iterable<OrderLine>
 			ol = it.next();
 			if(ol.getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
+					BigDecimal newamount = new BigDecimal(ol.getAmount()-cant);
 					if(cant >= ol.getAmount() ) {
 						
+						this.price = this.price.subtract(ol.getProduct().getPriceUnit().multiply(new BigDecimal(cant)));
 						deleteOrderlineFromOrder(it);
 						System.out.println("Productos eliminados.");
 						
 					}else {
 						
-						int newamount = ol.getAmount()-cant;
-						ol.setAmount(newamount);
-						BigDecimal namount = BigDecimal.ZERO;
-						namount = new BigDecimal(ol.getAmount()) ;
-						this.price.subtract(ol.getProduct().getPriceUnit().multiply(namount));	
+						ol.setAmount( newamount.intValue());
+						newamount = new BigDecimal(ol.getAmount()) ;
+						this.price = this.price.subtract(ol.getProduct().getPriceUnit().multiply(new BigDecimal(cant)));
 						
 					}
 				}
@@ -125,11 +125,13 @@ public class Order implements Iterable<OrderLine>
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
 		OrderLineProduct.remove(currentOrderLine);
+		
 	}
 	
 	public void deleteOrderlineFromOrder(Iterator<OrderLine> it) 
 	{
 		it.remove();
+		
 	}
 	
 	@Override	

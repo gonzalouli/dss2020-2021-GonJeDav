@@ -33,7 +33,7 @@ public class pruebaOrder {
 		order.deleteProductFromOrder(p, 4);
 		
 		ol = order.getProducts();
-
+		System.out.println(order.getPrice());
 		System.out.println(ol.isEmpty());
 
 	}
