@@ -87,7 +87,7 @@ public class testOrder {
 		System.out.print(order.size());
 
 		for(int i=0 ; i<order.size() ; i++)
-			priceinside.add(ol.get(i).getTotalPrice());
+			priceinside = priceinside.add(ol.get(i).getTotalPrice());
 		
 		assert(priceinside.equals(order.getPrice()));
 		
@@ -107,7 +107,7 @@ public class testOrder {
 		
 		assert(ol.contains(orderlineproduct));
 		
-		preprice.add(orderlineproduct.getTotalPrice());
+		preprice = preprice.add(orderlineproduct.getTotalPrice());
 		assertEquals(order.getPrice(), preprice);
 		
 	}
@@ -133,7 +133,7 @@ public class testOrder {
 		
 		BigDecimal amount = BigDecimal.valueOf(orderlineproduct.getAmount());
 		
-		preprice.add(orderlineproduct.getTotalPrice().multiply(amount));
+		preprice = preprice.add(orderlineproduct.getTotalPrice().multiply(amount));
 		
 		assertEquals(order.getPrice(), preprice);
 		
@@ -195,9 +195,9 @@ public class testOrder {
 	}
 		
 	@Test
-	public void testdeteteProductFromOrder() //PASS
+	public void testdeleteProductFromOrder() //PASS
 	{
-		order.deteteProductFromOrder(p,1);
+		order.deleteProductFromOrder(p,1);
 		List<OrderLine> delprod = order.getProducts();
 
 		for(int i= 0; i<delprod.size() ; i++) 
@@ -225,7 +225,6 @@ public class testOrder {
 			assert(exit);
 		}
 	}
-	
 }
 	
 	

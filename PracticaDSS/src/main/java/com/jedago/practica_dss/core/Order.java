@@ -92,7 +92,7 @@ public class Order implements Iterable<OrderLine>
 		setProducts(ol);
 	}
 	
-	public void deteteProductFromOrder(Product currentProduct, int cant) {
+	public void deleteProductFromOrder(Product currentProduct, int cant) {
 		
 		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
