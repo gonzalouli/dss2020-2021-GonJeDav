@@ -54,7 +54,8 @@ public class Order implements Iterable<OrderLine>
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
 		BigDecimal namount = BigDecimal.valueOf(currentOrderLine.getAmount());
-		this.price.add(currentOrderLine.getProduct().getPriceUnit().multiply(namount));
+		BigDecimal total = currentOrderLine.getProduct().getPriceUnit().multiply(namount);
+		this.price = this.price.add(total);
 	}
 
 //################ Operaciones Externas?#################
@@ -62,16 +63,17 @@ public class Order implements Iterable<OrderLine>
 	
 	public void addProductToOrder(Product currentProduct)
 	{	
-		for(OrderLine pivot : OrderLineProduct) {
+		/*for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+1);
-				this.price.add(pivot.getProduct().getPriceUnit());				
+				this.price = this.price.add(pivot.getProduct().getPriceUnit());				
 				return;
 			}
 		}
 		
 		OrderLine ol = new OrderLine(currentProduct,1);
-		setProducts(ol);	
+		setProducts(ol);	*/
+		this.addProductToOrder(currentProduct, 1);
 		
 	}
 	
@@ -80,15 +82,14 @@ public class Order implements Iterable<OrderLine>
 		for(OrderLine pivot : OrderLineProduct) {
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+cant);
-				BigDecimal namount = BigDecimal.ZERO;
-				namount = new BigDecimal(pivot.getAmount()) ;
-				this.price.add(pivot.getProduct().getPriceUnit().multiply(namount));
+				BigDecimal namount = new BigDecimal(pivot.getAmount()) ;
+				this.price = this.price.add(pivot.getProduct().getPriceUnit().multiply(namount));
 				return;
 			}
 		}
 
 		OrderLine ol = new OrderLine(currentProduct,cant);
-		setProducts( ol );
+		setProducts(ol);
 	}
 	
 	public void deteteProductFromOrder(Product currentProduct, int cant) {

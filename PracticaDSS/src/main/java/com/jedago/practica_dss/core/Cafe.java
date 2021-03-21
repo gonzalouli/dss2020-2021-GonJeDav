@@ -14,6 +14,7 @@ public class Cafe implements ICafe {
 	public Cafe(List<Order> orders_, List<Product> products_) {
 		this.orders_ = orders_;
 		this.products_ = products_;
+		this.cb = new CashBox();
 		this.cb.setnOrders(orders_.size());
 		this.cb.setTotal(BigDecimal.ZERO);
 		for(Order ord: orders_)
@@ -63,21 +64,22 @@ public class Cafe implements ICafe {
 			//Pillar de cada orderLine el producto y las cantidades
 			p = ol.getProduct();
 			c = ol.getAmount();
-			Iterator<Product> i = products_.iterator();
+			Iterator<Product> it = products_.iterator();
+			Product ip;
 			found=false;
-			while(!found && i.hasNext())
+			while(!found && it.hasNext())
 			{
+				ip = it.next();
 				//Actualizarlos de la lista de productos disponibles
-				if(( ((Product) i).getID() == p.getID()))
+				if(( ip.getID() == p.getID()))
 				{
 					//Restarle la cantidad al stock
-					((Product) i).setStock(((Product) i).getStock() - c); 
+					ip.setStock(ip.getStock() - c); 
 					//Eliminarlo si se queda a 0
-					if(((Product) i).getStock() == 0)
-						i.remove();
+					if((ip.getStock() == 0))
+						it.remove();
 					found=true;
 				}
-				i.next();
 			}
 		}
 		this.cb.addtoTotal(ord.getPrice());

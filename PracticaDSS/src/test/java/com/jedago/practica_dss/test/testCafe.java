@@ -43,17 +43,13 @@ public class testCafe {
 	public void testNewOrder() {
 		//Comprobar que devuelva una orden vacía
 		o = C.newOrder();
-		assert(o.isEmpty());
+		assertTrue(o.isEmpty());
 	}
 	
 	@Test
 	public void testGetAvailableProducts() {
-		//Comprobar que esté el producto p1
-		assert(C.getAvailableProducts().contains(p1));
-		//Añadimos un nuevo producto y lo buscamos
-		Product p2 = new Product("Producto2", 2, price1);
-		C.addProductToOrder(o, p2);
-		assert(C.getAvailableProducts().contains(p2));
+		//Comprobar que esté el producto p1, añadido desde el constructor de la lista de productos
+		assertTrue(C.getAvailableProducts().contains(p1));
 	}
 	
 	@Test
@@ -64,7 +60,7 @@ public class testCafe {
 		C.addProductToOrder(o, p1);
 		BigDecimal newPrice = o.getPrice();
 		
-		assert(newPrice.subtract(oldPrice) == p1.getPriceUnit());
+		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit());
 	}
 	
 	@Test
@@ -75,7 +71,7 @@ public class testCafe {
 		C.addProductToOrder(o, p1, 2);
 		BigDecimal newPrice = o.getPrice();
 		
-		assert(newPrice.subtract(oldPrice) == p1.getPriceUnit().multiply(new BigDecimal(2)));
+		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit().multiply(new BigDecimal(2)));
 	}
 	
 	@Test
@@ -87,7 +83,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1);
 		BigDecimal newPrice = o.getPrice();
 		
-		assert(oldPrice.subtract(newPrice) == p1.getPriceUnit());
+		assertEquals(oldPrice.subtract(newPrice), p1.getPriceUnit());
 	}
 	
 	@Test
@@ -99,7 +95,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1, 3);
 		BigDecimal newPrice = o.getPrice();
 		
-		assert(oldPrice.subtract(newPrice) == p1.getPriceUnit().multiply(new BigDecimal(3)));
+		assertTrue(oldPrice.subtract(newPrice) == p1.getPriceUnit().multiply(new BigDecimal(3)));
 	}
 	
 	@Test
@@ -111,7 +107,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1, 2);
 		BigDecimal newPrice = o.getPrice();
 		
-		assert(oldPrice.subtract(newPrice) == p1.getPriceUnit());
+		assertTrue(oldPrice.subtract(newPrice) == p1.getPriceUnit());
 	}
 	
 	@Test
@@ -119,8 +115,8 @@ public class testCafe {
 		o = C.newOrder();
 		C.addProductToOrder(o, p1, 3);
 		C.FinishOrder(o);
-		assert(C.getCashBox().getnOrders() == 1);
-		assert(C.getCashBox().getTotal() == p1.getPriceUnit().multiply(new BigDecimal(3)));
+		assertTrue(C.getCashBox().getnOrders() == 1);
+		assertTrue(C.getCashBox().getTotal() == p1.getPriceUnit().multiply(new BigDecimal(3)));
 	}
 	
 	//Para cada test, Before, Test, After
