@@ -27,8 +27,8 @@ public class testOrder {
 	private List<OrderLine> ol;
 	
 	@Before
-	public void setup() {
-		
+	public void setup() 
+	{
 		
 		BigDecimal precio = BigDecimal.valueOf(cash);
 		p = new Product("producto", 4, precio);
@@ -41,7 +41,8 @@ public class testOrder {
 	}
 	
 	@After
-	public void teardown() {
+	public void teardown() 
+	{
 		order = null;
 		orderlineproduct = null ;
 		p = null;
@@ -49,9 +50,9 @@ public class testOrder {
 	
 	
 	@Test
-	public void testConstructor() { //PASS
+	public void testConstructor() //PASS
+	{ 
 		
-	
 		BigDecimal cero =  BigDecimal.ZERO ;
 		Date d = new Date();
 		//assert(order!=null);
@@ -63,7 +64,8 @@ public class testOrder {
 
 
 	@Test
-	public void testgetId_oder() { //PASS
+	public void testgetId_oder() //PASS
+	{ 
 		Order orden = new Order();
 		assertEquals( Order.currentid -1, orden.getId_order());
 		
@@ -71,7 +73,8 @@ public class testOrder {
 //	
 
 	@Test
-	public void testgetPrice() {
+	public void testgetPrice() //PASS
+	{
 
 		order.setProducts(orderlineproduct);
 
@@ -92,7 +95,8 @@ public class testOrder {
 	
 	
 	@Test
-	public void testsetProduct() {
+	public void testsetProduct() //PASS
+	{
 		
 		orderlineproduct = new OrderLine(p,1);
 		BigDecimal preprice = order.getPrice();
@@ -109,7 +113,8 @@ public class testOrder {
 	}
 	
 	@Test
-	public void testsetNProduct() {
+	public void testsetNProduct() //PASS
+	{
 		
 		BigDecimal preprice = order.getPrice();
 		
@@ -136,7 +141,7 @@ public class testOrder {
 	
 	
 	@Test 
-	public void testaddProductToOrder() 
+	public void testaddProductToOrder() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -162,7 +167,7 @@ public class testOrder {
 	}
 		
 	@Test	
-	public void testaddNProductToOrder() 
+	public void testaddNProductToOrder() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -190,7 +195,8 @@ public class testOrder {
 	}
 		
 	@Test
-	public void testdeteteProductFromOrder() {
+	public void testdeteteProductFromOrder() //PASS
+	{
 		order.deteteProductFromOrder(p,1);
 		List<OrderLine> delprod = order.getProducts();
 
@@ -206,7 +212,8 @@ public class testOrder {
 	
 	
 	@Test
-	public void deleteOrderlineFromOrder() {
+	public void deleteOrderlineFromOrder() //PASS
+	{
 		Boolean exit = true;
 		
 		List<OrderLine> preol = order.getProducts();

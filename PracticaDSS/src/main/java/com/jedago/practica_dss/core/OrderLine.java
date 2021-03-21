@@ -16,6 +16,11 @@ public class OrderLine {
 		return product_;
 	}
 	
+	public void setProduct(Product newproduct) {
+		product_ = newproduct;
+		
+	}
+	
 	public String getProductName() {
 		return product_.getName();
 	}
@@ -25,10 +30,10 @@ public class OrderLine {
 	}
 	
 	public void setAmount(int q){
-		if(q >0)
-			this.amount = q;
-		else
-			System.out.println("Cantidad no permitida...");
+		assert(q>0);
+		
+		this.amount = q;
+		
 		// TODO Auto-generated method stub
 		
 	}
@@ -41,5 +46,8 @@ public class OrderLine {
 		return costetotal;
 				
 	}
+
+
+	
 
 }

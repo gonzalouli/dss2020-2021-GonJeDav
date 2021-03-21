@@ -7,7 +7,7 @@ public class Product{
 	private int		id;
 	private int 	stock;
 	private BigDecimal 	priceunit;
-	private static	int i=1;
+	public static	int currentId=1;
 	
 	
 	public Product(String name, int stock, BigDecimal d) {
@@ -15,8 +15,8 @@ public class Product{
 		this.name = name;
 		this.stock = stock;
 		this.priceunit = d;
-		this.id = i;
-		i++;
+		this.id = currentId;
+		currentId++;
 	}
 	public int getID() {
 		return id;
