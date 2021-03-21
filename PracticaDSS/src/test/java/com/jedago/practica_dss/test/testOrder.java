@@ -84,8 +84,6 @@ public class testOrder {
 			ol.add(i,order.getProducts().get(i));
 		
 		
-		System.out.print(order.size());
-
 		for(int i=0 ; i<order.size() ; i++)
 			priceinside = priceinside.add(ol.get(i).getTotalPrice());
 		
@@ -194,6 +192,7 @@ public class testOrder {
 			}
 	}
 		
+	
 	@Test
 	public void testdeleteProductFromOrder() //PASS
 	{

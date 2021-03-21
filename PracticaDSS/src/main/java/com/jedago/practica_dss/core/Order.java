@@ -7,7 +7,7 @@ public class Order implements Iterable<OrderLine>
 {
 	public static long currentid = 1;
 	private long id_order;
-	private List<OrderLine> OrderLineProduct = new ArrayList<OrderLine>();
+	private List<OrderLine> OrderLineProduct;
 
 	//private enum payment_method {CARD,CASH};
 	private BigDecimal price;
@@ -21,6 +21,7 @@ public class Order implements Iterable<OrderLine>
 		currentid++;
 		this.price = BigDecimal.ZERO;
 		this.date = new Date();
+		OrderLineProduct = new ArrayList<OrderLine>();
 	}
 	
 //#########################################################
@@ -94,21 +95,23 @@ public class Order implements Iterable<OrderLine>
 	
 	public void deleteProductFromOrder(Product currentProduct, int cant) {
 		
-		for(OrderLine pivot : OrderLineProduct) {
-			if(pivot.getProduct().getID() == currentProduct.getID()) {
+		///for(OrderLine pivot : OrderLineProduct) {
+		//OrderLineProduct.get(i)
+		for(int i =0 ; i<OrderLineProduct.size() ; i++) {
+			if(OrderLineProduct.get(i).getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
-					if(cant > pivot.getAmount() ) {
+					if(cant >= OrderLineProduct.get(i).getAmount() ) {
 						
-						deleteOrderlineFromOrder(pivot);
+						deleteOrderlineFromOrder(OrderLineProduct.get(i));
 						System.out.println("Productos eliminados.");
 						
 					}else {
 						
-						int newamount = pivot.getAmount()-cant;
-						pivot.setAmount(newamount);
+						int newamount = OrderLineProduct.get(i).getAmount()-cant;
+						OrderLineProduct.get(i).setAmount(newamount);
 						BigDecimal namount = BigDecimal.ZERO;
-						namount = new BigDecimal(pivot.getAmount()) ;
-						this.price.subtract(pivot.getProduct().getPriceUnit().multiply(namount));	
+						namount = new BigDecimal(OrderLineProduct.get(i).getAmount()) ;
+						this.price.subtract(OrderLineProduct.get(i).getProduct().getPriceUnit().multiply(namount));	
 						
 					}
 				}
@@ -125,8 +128,6 @@ public class Order implements Iterable<OrderLine>
 	public Iterator<OrderLine> iterator() {
 		return OrderLineProduct.iterator();
 	}
-
-
 	
 	
 }
