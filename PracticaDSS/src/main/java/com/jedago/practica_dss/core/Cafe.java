@@ -46,12 +46,12 @@ public class Cafe implements ICafe {
 
 	@Override
 	public void deleteProductFromOrder(Order ord, Product p) {
-		ord.deteteProductFromOrder(p, 1);
+		ord.deleteProductFromOrder(p, 1);
 	}
 	
 	@Override
 	public void deleteProductFromOrder(Order ord, Product p, int c) {
-		ord.deteteProductFromOrder(p, c);
+		ord.deleteProductFromOrder(p, c);
 	}
 
 	@Override
