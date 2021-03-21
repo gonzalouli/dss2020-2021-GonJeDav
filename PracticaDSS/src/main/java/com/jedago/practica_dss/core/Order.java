@@ -97,21 +97,24 @@ public class Order implements Iterable<OrderLine>
 		
 		///for(OrderLine pivot : OrderLineProduct) {
 		//OrderLineProduct.get(i)
-		for(int i =0 ; i<OrderLineProduct.size() ; i++) {
-			if(OrderLineProduct.get(i).getProduct().getID() == currentProduct.getID()) {
+		OrderLine ol;
+		Iterator<OrderLine> it = OrderLineProduct.iterator();
+		while(it.hasNext()) { 
+			ol = it.next();
+			if(ol.getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
-					if(cant >= OrderLineProduct.get(i).getAmount() ) {
+					if(cant >= ol.getAmount() ) {
 						
-						deleteOrderlineFromOrder(OrderLineProduct.get(i));
+						deleteOrderlineFromOrder(it);
 						System.out.println("Productos eliminados.");
 						
 					}else {
 						
-						int newamount = OrderLineProduct.get(i).getAmount()-cant;
-						OrderLineProduct.get(i).setAmount(newamount);
+						int newamount = ol.getAmount()-cant;
+						ol.setAmount(newamount);
 						BigDecimal namount = BigDecimal.ZERO;
-						namount = new BigDecimal(OrderLineProduct.get(i).getAmount()) ;
-						this.price.subtract(OrderLineProduct.get(i).getProduct().getPriceUnit().multiply(namount));	
+						namount = new BigDecimal(ol.getAmount()) ;
+						this.price.subtract(ol.getProduct().getPriceUnit().multiply(namount));	
 						
 					}
 				}
@@ -122,6 +125,11 @@ public class Order implements Iterable<OrderLine>
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
 		OrderLineProduct.remove(currentOrderLine);
+	}
+	
+	public void deleteOrderlineFromOrder(Iterator<OrderLine> it) 
+	{
+		it.remove();
 	}
 	
 	@Override	
