@@ -108,7 +108,6 @@ public class Order implements Iterable<OrderLine>
 						
 						this.price = this.price.subtract(ol.getProduct().getPriceUnit().multiply(new BigDecimal(cant)));
 						deleteOrderlineFromOrder(it);
-						System.out.println("Productos eliminados.");
 						
 					}else {
 						
