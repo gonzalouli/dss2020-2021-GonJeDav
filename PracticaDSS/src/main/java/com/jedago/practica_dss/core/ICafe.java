@@ -10,7 +10,7 @@ import java.util.List;
  *
  */
 public interface ICafe {
-	//Crear nuevo pedido
+	
 	public Order newOrder();
 	//Productos disponibles
 	public List<Product> getAvailableProducts();
