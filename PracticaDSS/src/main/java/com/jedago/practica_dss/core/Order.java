@@ -1,14 +1,14 @@
 package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
-
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Una clase para representar un pedido realizado en
- * la clase cafe. El pedido esta determinado por una 
- * id, una lista de OrderLine, un precio total
- * del pedido y una fecha de apertura.
+ * A class to represent an order placed in
+ * the cafe class. The order is determined by a
+ * id, a list of OrderLine, a total price
+ * of the order and an opening date.
  * @version 1.0. 21/03/2021
  * @author Gonzalo Ulibarri
  */
@@ -18,17 +18,18 @@ public class Order implements Iterable<OrderLine>
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
 	private BigDecimal price;
-	private Date date;
+	private SimpleDateFormat date;
 	
 	 /** 
-     * Crea pedido vacío con un id unico, una lista
-     * de OrderLine vacía y una fecha determinada.
+     * Create empty order with a unique id, a list
+     * of OrderLine empty and a given date.
      */
 	public Order(){
+		String dateFormat = "hh: mm a dd-mm-aaaa";
+		date = new SimpleDateFormat(dateFormat);
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
-		this.date = new Date();
 		OrderLineProduct = new ArrayList<OrderLine>();
 	}
 	
@@ -36,8 +37,9 @@ public class Order implements Iterable<OrderLine>
 	
 
 	 /** 
-     * Devuelve el id de un pedido determinado
-	 * @return El id del pedido.
+	 * Returns the id of a specific order.
+	 * @return The order id.
+
 	 */
 	public long getId_order() {
 		return this.id_order;
@@ -45,32 +47,32 @@ public class Order implements Iterable<OrderLine>
 	
 	
 	 /** 
-     * Devuelve el precio de un pedido determinado.
-	 * @return El precio del pedido.
+	 * Returns the price of a specific order.
+	 * @return Order's price.
 	 */
 	public BigDecimal getPrice() {
 		return this.price;
 	}
 	
 	 /** 
-     * Comprueba la fecha en la que se creó el pedido.
-	 * @return El id del pedido.
+	 * Check the date the order was created.
+	 * @return Order's id.
 	 */
-	public Date getDate() {
-		return this.date;
+	public String getDate() {
+		return this.date.toString();
 	}
 
  /** 
- * Indica si el pedido está vacio.
- * @return True si el pedido está vacio, false en caso contrario.
+ * Indicates if the order is empty.
+ * @return True if the order is empty, false otherwise.
  */
 	public boolean isEmpty() {
 		return OrderLineProduct.isEmpty();
 	}
 
  /** 
- * Devuelve el tamaño de un pedido determinado.
- * @return El tamaño de un pedido.
+ * Returns the size of a given order.
+ * @return The size of an order.
  */
 	public int size() {
 		return OrderLineProduct.size();
@@ -78,8 +80,8 @@ public class Order implements Iterable<OrderLine>
 	
 	
  /** 
- * Devuelve la lista de OrderLine que contiene el producto.
- * @return Lista de OrderLine del producto.
+ * Returns the list of OrderLine that contains the product.
+ * @return Product OrderLine list.
 	 */	public List<OrderLine> getProducts() 
 	{
 		return this.OrderLineProduct;
@@ -87,8 +89,8 @@ public class Order implements Iterable<OrderLine>
 	
 	 
  /** 
- * Introduce una OrderLine en el pedido.
- * @param currentOrderLine OrderLine a introducir en el pedido.
+ * Enter an OrderLine in the order.
+ * @param currentOrderLine OrderLine to be entered in the order.
  */
 	public void setProducts(OrderLine currentOrderLine ) 
 	{	
@@ -100,8 +102,8 @@ public class Order implements Iterable<OrderLine>
 
 	
 	 /** 
-     * Introduce una unidad de un producto determinado en el pedido.
-	 * @param currentProduct define el producto que queremos introducir en el pedido.
+     * Enter a unit of a specific product in the order.
+	 * @param currentProduct defines the product that we want to introduce in the order.
 	 */
 	public void addProductToOrder(Product currentProduct)
 	{	
@@ -120,9 +122,9 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	 /** 
-     * Introduce un determinado número de unidades del producto en el pedido.
-	 * @param currentProduct define el producto que queremos introducir en el pedido.
-	 * @param cant determina la cantidad de producto que queremos introducir.
+     * Enter a certain number of units of the product in the order.
+	 * @param currentProduct defines the product that we want to introduce in the order.
+	 * @param cant defines the amount of product we want to introduce.
 	 */
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
@@ -140,11 +142,11 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	 /** 
-     * Elimina una cantidad determinada de un producto dado en el pedido. Si la cantidad 
-     * es mayor o igual a la cantidad actual del producto en el OrderLine se
-     * elimina el producto de la lista de OrderLine.
-	 * @param currentProduct define el producto que queremos eliminar del pedido.
-	 * @param cant cantidad del producto a eliminar.
+     * Delete a specified quantity of a given product in the order. If the quantity
+     * is greater than or equal to the current quantity of the product in the OrderLine
+     * removes the product from the OrderLine list.
+	 * @param currentProduct defines the product that we want to remove from the order.
+	 * @param cant defines the quantity of the product to be eliminated.
 	 */
 	public void deleteProductFromOrder(Product currentProduct, int cant) {
 		
@@ -175,8 +177,8 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	 /** 
-     * Elimina una OrderLine determinada de la lista de OrderLine del pedido.
-	 * @param currentOrderLine define la OrderLine que queremos eliminar del pedido.
+	 * Removes a given OrderLine from the OrderLine list of the order.
+	 * @param currentOrderLine defines the OrderLine that we want to remove from the order.
 	 */
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
@@ -185,8 +187,8 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	/** 
-     * Elimina una OrderLine determinada de la lista de OrderLine del pedido utilizando un iterador.
-	 * @param it Iterador que establece una OrderLine determinada en la lista de
+	 * Remove a given OrderLine from the OrderLine list of the order using an iterator.	 
+	 * @param it Iterator that sets a given OrderLine in the list of
 	 * OrderLine.
 	 */
 	public void deleteOrderlineFromOrder(Iterator<OrderLine> it) 
@@ -196,8 +198,8 @@ public class Order implements Iterable<OrderLine>
 	}
 	
 	/** 
-     * Devuelve un iterador del tipo OrderLine.
-	 * @return Iterador de la lista OrderLineProduct.
+	 * Returns an iterator of type OrderLine.
+	 * @return OrderLineProduct iterator, a list of OrderLine.
 	 */
 	
 	@Override

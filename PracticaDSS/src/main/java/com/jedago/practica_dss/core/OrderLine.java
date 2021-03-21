@@ -3,9 +3,9 @@ package com.jedago.practica_dss.core;
 import java.math.BigDecimal;
 
 /**
- * Una clase para representar una linea de un producto
- * dentro del pedido. Esta clase contiene un producto y su cantidad
- * a refleja en la OrderLine.
+ * A class to represent a line of a product
+ * within the order. This class contains a product and its quantity
+ * on the OrderLine.
  * @version 1.0. 21/03/2021
  * @author Gonzalo Ulibarri
  */
@@ -16,10 +16,9 @@ public class OrderLine {
 	int amount;
 
  /** 
- * Crea pedido vacío con un id unico, una lista
- * de OrderLine vacía y una fecha determinada.
- * @param product_ producto  deseado a introducir en la OrderLine.
- * @param amount cantidad a introducir del producto product_.
+ * Create empty order with an uniquye id, a list empty of OrderLine and a given date.
+ * @param product_ desired product to be entered in the OrderLine.
+ * @param amount quantity to introduce of the product product_.
  */
 	public OrderLine(Product product_, int amount) 
 	{
@@ -28,8 +27,8 @@ public class OrderLine {
 	}
 	
  /** 
- * Devuelve el producto que pertenede a una OrderLine determinada
- * @return Producto de la OrderLine.
+ * Returns the product that belongs to a given OrderLine
+ * @return Product of the OrderLine.
  */
 	public Product getProduct() 
 	{
@@ -38,8 +37,8 @@ public class OrderLine {
 	
 
  /** 
- * Introduce un nuevo producto en una OrderLine determinada.
- * @param newproduct nuevo producto a introducir.
+ * Enter a new product in a given OrderLine.
+ * @param newproduct new product to introduce.
  */
 	public void setProduct(Product newproduct) 
 	{
@@ -48,9 +47,9 @@ public class OrderLine {
 	}
 	
  /** 
- * Devuelve un string que representa el nombre del producto
- * que pertenede a la una OrderLine determinada.
- * @return Nombre del producto.
+ * Returns a string that represents the name of the product
+ * that belongs to a given OrderLine.
+ * @return Product name.
  */	
 	public String getProductName() 
 	{
@@ -58,9 +57,9 @@ public class OrderLine {
 	}
 
  /** 
- * Devuelve la cantidad de producto product_ que tenemos
- * en una OrderLine determinada.
- * @return Cantidad de producto en la OrderLine.
+ * Returns the amount of product product_ that we have
+ * in a given OrderLine.
+ * @return Product quantity in the OrderLine.
  */
 	public int getAmount() 
 	{
@@ -68,9 +67,9 @@ public class OrderLine {
 	}
 	
  /** 
- * Introduce una nueva cantidad del producto product_ 
- * en una OrderLine determinada.
- * @param q Nueva cantidad del producto en la OrderLine.
+ * Enter a new quantity of the product product_
+ * in a given OrderLine.
+ * @param q New desired quantity of the product on the OrderLine.
  */
 	public void setAmount(int q)
 	{
@@ -81,9 +80,9 @@ public class OrderLine {
 	}
 
  /** 
- * Devuelve el coste total de la cantidad de todos del 
- * productos dentro de una OrderLine determinada.
- * @return Precio total de la OrderLine.
+ * Returns the total cost of the amount of all of the
+ * products within a given OrderLine.
+ * @return Total price of the OrderLine.
  */
 	public BigDecimal getTotalPrice() 
 	{
