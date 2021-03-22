@@ -1,56 +1,97 @@
 package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * A class to represent an order placed in
+ * the cafe class. The order is determined by a
+ * id, a list of OrderLine, a total price
+ * of the order and an opening date.
+ * @version 1.0. 21/03/2021
+ * @author Gonzalo Ulibarri
+ */
 public class Order implements Iterable<OrderLine>
 {
 	public static long currentid = 1;
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
-
-	//private enum payment_method {CARD,CASH};
 	private BigDecimal price;
-	private Date date;
-	//private enum status {OPEN, CLOSED, IN_PROCESS};
-
-//#########################################################
+	private SimpleDateFormat date;
 	
+	 /** 
+     * Create empty order with a unique id, a list
+     * of OrderLine empty and a given date.
+     */
 	public Order(){
+		String dateFormat = "hh: mm a dd-mm-aaaa";
+		date = new SimpleDateFormat(dateFormat);
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
-		this.date = new Date();
 		OrderLineProduct = new ArrayList<OrderLine>();
 	}
 	
 //#########################################################
+	
+
+	 /** 
+	 * Returns the id of a specific order.
+	 * @return The order id.
+
+	 */
 	public long getId_order() {
 		return this.id_order;
 	}
+	
+	
+	 /** 
+	 * Returns the price of a specific order.
+	 * @return Order's price.
+	 */
 	public BigDecimal getPrice() {
 		return this.price;
 	}
 	
-	public Date getDate() {
-		return this.date;
+	 /** 
+	 * Check the date the order was created.
+	 * @return Order's id.
+	 */
+	public String getDate() {
+		return this.date.toString();
 	}
-	
+
+ /** 
+ * Indicates if the order is empty.
+ * @return True if the order is empty, false otherwise.
+ */
 	public boolean isEmpty() {
 		return OrderLineProduct.isEmpty();
 	}
-	
+
+ /** 
+ * Returns the size of a given order.
+ * @return The size of an order.
+ */
 	public int size() {
 		return OrderLineProduct.size();
 	}
 	
 	
-//#########################################################
-	public List<OrderLine> getProducts() 
+ /** 
+ * Returns the list of OrderLine that contains the product.
+ * @return Product OrderLine list.
+	 */	public List<OrderLine> getProducts() 
 	{
 		return this.OrderLineProduct;
 	}
 	
+	 
+ /** 
+ * Enter an OrderLine in the order.
+ * @param currentOrderLine OrderLine to be entered in the order.
+ */
 	public void setProducts(OrderLine currentOrderLine ) 
 	{	
 		this.OrderLineProduct.add(currentOrderLine);
@@ -59,9 +100,11 @@ public class Order implements Iterable<OrderLine>
 		this.price = this.price.add(total);
 	}
 
-//################ Operaciones Externas?#################
 	
-	
+	 /** 
+     * Enter a unit of a specific product in the order.
+	 * @param currentProduct defines the product that we want to introduce in the order.
+	 */
 	public void addProductToOrder(Product currentProduct)
 	{	
 		/*for(OrderLine pivot : OrderLineProduct) {
@@ -78,6 +121,11 @@ public class Order implements Iterable<OrderLine>
 		
 	}
 	
+	 /** 
+     * Enter a certain number of units of the product in the order.
+	 * @param currentProduct defines the product that we want to introduce in the order.
+	 * @param cant defines the amount of product we want to introduce.
+	 */
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
 		for(OrderLine pivot : OrderLineProduct) {
@@ -93,6 +141,13 @@ public class Order implements Iterable<OrderLine>
 		setProducts(ol);
 	}
 	
+	 /** 
+     * Delete a specified quantity of a given product in the order. If the quantity
+     * is greater than or equal to the current quantity of the product in the OrderLine
+     * removes the product from the OrderLine list.
+	 * @param currentProduct defines the product that we want to remove from the order.
+	 * @param cant defines the quantity of the product to be eliminated.
+	 */
 	public void deleteProductFromOrder(Product currentProduct, int cant) {
 		
 		///for(OrderLine pivot : OrderLineProduct) {
@@ -121,19 +176,33 @@ public class Order implements Iterable<OrderLine>
 		}	
 	}
 	
+	 /** 
+	 * Removes a given OrderLine from the OrderLine list of the order.
+	 * @param currentOrderLine defines the OrderLine that we want to remove from the order.
+	 */
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
 		OrderLineProduct.remove(currentOrderLine);
 		
 	}
 	
+	/** 
+	 * Remove a given OrderLine from the OrderLine list of the order using an iterator.	 
+	 * @param it Iterator that sets a given OrderLine in the list of
+	 * OrderLine.
+	 */
 	public void deleteOrderlineFromOrder(Iterator<OrderLine> it) 
 	{
 		it.remove();
 		
 	}
 	
-	@Override	
+	/** 
+	 * Returns an iterator of type OrderLine.
+	 * @return OrderLineProduct iterator, a list of OrderLine.
+	 */
+	
+	@Override
 	public Iterator<OrderLine> iterator() {
 		return OrderLineProduct.iterator();
 	}
