@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.jedago.practica_dss.core"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.jedago.practica_dss.core"},{"l":"com.jedago.practica_dss.test"}]
