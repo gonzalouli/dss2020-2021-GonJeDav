@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
 
 public class testProduct 

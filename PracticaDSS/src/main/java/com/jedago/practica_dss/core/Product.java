@@ -20,19 +20,22 @@ public class Product{
 	/** 
      * Assigns a name, stock, price unit and id
      * to a certain product
+     * @param name Name of the new product.
+     * @param stock Stock of the new product, represents the quantity of product available.
+     * @param priceunit Represents the price of a single unit of the product 
      * 
      **/
-	public Product(String name, int stock, BigDecimal d) {
+	public Product(String name, int stock, BigDecimal priceunit) {
 		super();
 		this.name = name;
 		this.stock = stock;
-		this.priceunit = d;
+		this.priceunit = priceunit;
 		this.id = currentId;
 		currentId++;
 	}
 	
 	/** 
-     * @returns the ID of  a product
+     * @return The ID of  a product
      * 
      **/
 	public int getID() {
@@ -40,7 +43,7 @@ public class Product{
 	}
 	
 	/** 
-     * @returns the name of  a product
+     * @return The name of  a product
      * 
      **/
 	public String getName() {
@@ -48,7 +51,7 @@ public class Product{
 	}
 	
 	/** 
-     * @returns the price unit of a product
+     * @return The price of a product
      * 
      **/
 	public BigDecimal getPriceUnit() {
@@ -56,7 +59,7 @@ public class Product{
 	}
 	
 	/** 
-     * @returns the stock of a product
+     * @return The stock of a product
      * 
      **/
 	public int getStock() {
@@ -65,7 +68,7 @@ public class Product{
 	
 	/** 
      * Sets the price unit of a product
-     * @param price_ new price of the selectec product.
+     * @param price_ New price of the selected product.
      **/
 	public void setPriceUnit(BigDecimal price_) {
 		this.priceunit = price_;
@@ -79,14 +82,10 @@ public class Product{
 		this.stock = stock_;
 	}
 	
-	/** 
-     * Compares if two products are the same
-     * @param onj Object to compare
-     **/
 	
 	@Override
 	/** 
-     * Sets the price unit of a product
+     * Compares if two products are the same
      * @param obj_ Object to compare
      * @return If the object are the same return true, else return false.
      **/
