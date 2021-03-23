@@ -32,7 +32,7 @@ public class Product{
 	}
 	
 	/** 
-     * Returns the ID of  a product
+     * @returns the ID of  a product
      * 
      **/
 	public int getID() {
@@ -40,7 +40,7 @@ public class Product{
 	}
 	
 	/** 
-     * Returns the name of  a product
+     * @returns the name of  a product
      * 
      **/
 	public String getName() {
@@ -48,7 +48,7 @@ public class Product{
 	}
 	
 	/** 
-     * Returns the price unit of a product
+     * @returns the price unit of a product
      * 
      **/
 	public BigDecimal getPriceUnit() {
@@ -56,7 +56,7 @@ public class Product{
 	}
 	
 	/** 
-     * Returns the stock of a product
+     * @returns the stock of a product
      * 
      **/
 	public int getStock() {
@@ -65,7 +65,7 @@ public class Product{
 	
 	/** 
      * Sets the price unit of a product
-     * 
+     * @param price_ new price of the selectec product.
      **/
 	public void setPriceUnit(BigDecimal price_) {
 		this.priceunit = price_;
@@ -85,6 +85,11 @@ public class Product{
      **/
 	
 	@Override
+	/** 
+     * Sets the price unit of a product
+     * @param obj_ Object to compare
+     * @return If the object are the same return true, else return false.
+     **/
     public boolean equals(Object obj) {
         if (this == obj) 
         	return true;
