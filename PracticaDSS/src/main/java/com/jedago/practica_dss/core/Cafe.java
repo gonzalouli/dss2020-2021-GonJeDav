@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author jeseg
- *
+ * @author Jesús Serrano Gallán
+ *	@version 1.0
  */
 public class Cafe implements ICafe {
 

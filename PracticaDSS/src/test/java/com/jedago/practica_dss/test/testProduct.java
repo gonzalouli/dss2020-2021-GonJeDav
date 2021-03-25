@@ -32,7 +32,7 @@ public class testProduct
 	@Test
 	public void testgetID() 
 	{
-		assertEquals(Product.currentId -1, p.getID());
+		assertEquals(Product.getCurrentId() -1, p.getID());
 	}
 	
 	@Test

@@ -15,9 +15,8 @@ public class Product{
 	private int		id;
 	private int 	stock;
 	private BigDecimal 	priceunit;
-	public static	int currentId=1;
-	//Add categoria: string, numerado, clase de tipo de producto
-	//ProductType t; 
+	private static	int currentId=1;
+	private ProductType type; 
 	
 	/** 
      * Assigns a name, stock, price unit and id
@@ -25,15 +24,37 @@ public class Product{
      * @param name Name of the new product.
      * @param stock Stock of the new product, represents the quantity of product available.
      * @param priceunit Represents the price of a single unit of the product 
-     * 
+     * @param type ProductType of the product that we are crating 
      **/
-	public Product(String name, int stock, BigDecimal priceunit) {
+	public Product(String name, int stock, BigDecimal priceunit, ProductType type) {
 		super();
 		this.name = name;
 		this.stock = stock;
 		this.priceunit = priceunit;
 		this.id = currentId;
+		this.type = type;
 		currentId++;
+	}
+	
+	/**
+	 * @return the type
+	 */
+	public ProductType getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(ProductType type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the currentId
+	 */
+	public static int getCurrentId() {
+		return currentId;
 	}
 	
 	/** 
