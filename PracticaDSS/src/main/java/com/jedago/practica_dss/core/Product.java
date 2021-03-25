@@ -16,6 +16,8 @@ public class Product{
 	private int 	stock;
 	private BigDecimal 	priceunit;
 	public static	int currentId=1;
+	//Add categoria: string, numerado, clase de tipo de producto
+	//ProductType t; 
 	
 	/** 
      * Assigns a name, stock, price unit and id
