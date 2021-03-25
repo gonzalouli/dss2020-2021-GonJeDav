@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,12 +56,11 @@ public class testOrder {
 	{ 
 		
 		BigDecimal cero =  BigDecimal.ZERO ;
-		String dateFormat = "hh: mm a dd-mm-aaaa";
-		SimpleDateFormat date = new SimpleDateFormat(dateFormat);
+		LocalDateTime time = LocalDateTime.now();
 		assert(order!=null);
 		assert(order!=null);
 		
-		assertEquals( order.getDate(), date.toString());
+		assertEquals( order.getDate(), time);
 		assertEquals( order.getId_order(), Order.currentid-1);
 		assertEquals(cero ,order.getPrice());
 }

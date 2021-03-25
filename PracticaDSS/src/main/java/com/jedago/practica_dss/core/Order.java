@@ -26,16 +26,13 @@ public class Order implements Iterable<OrderLine>
      * of OrderLine empty and a given date.
      */
 	public Order(){
-		String dateFormat = "hh: mm a dd-mm-aaaa";
-		date = new SimpleDateForma(dateFormat);
+		
+		date = LocalDateTime.now();
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
 		OrderLineProduct = new ArrayList<OrderLine>();
-	}
-	
-//#########################################################
-	
+	}	
 
 	 /** 
 	 * Returns the id of a specific order.
@@ -59,8 +56,8 @@ public class Order implements Iterable<OrderLine>
 	 * Check the date the order was created.
 	 * @return Order's id.
 	 */
-	public String getDate() {
-		return this.date.toString();
+	public LocalDateTime getDate() {
+		return this.date;
 	}
 
  /** 
