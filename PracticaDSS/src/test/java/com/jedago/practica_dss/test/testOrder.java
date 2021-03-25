@@ -16,6 +16,7 @@ import org.junit.Test;
 import com.jedago.practica_dss.core.Order;
 import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
+import com.jedago.practica_dss.core.ProductType;
 
 
 public class testOrder {
@@ -33,7 +34,8 @@ public class testOrder {
 	{
 		
 		BigDecimal precio = BigDecimal.valueOf(cash);
-		p = new Product("producto", 4, precio);
+		ProductType t = new ProductType("cafe");
+		p = new Product("producto", 4, precio, t);
 		orderlineproduct = new OrderLine(p,cant);
 		
 		ol = new ArrayList<OrderLine>();

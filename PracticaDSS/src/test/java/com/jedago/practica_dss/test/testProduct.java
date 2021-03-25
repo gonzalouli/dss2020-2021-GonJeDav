@@ -9,17 +9,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jedago.practica_dss.core.Product;
+import com.jedago.practica_dss.core.ProductType;
 
 public class testProduct 
 {
 	
 	private Product p;
-
+	private ProductType t;
 	@Before
 	public void setup() 
 	{
-		
-		p = new Product("producto", 4, new BigDecimal("2"));
+		ProductType t = new ProductType("cafe");
+		p = new Product("producto", 4, new BigDecimal("2"), t);
 				
 	}
 	
@@ -66,15 +67,19 @@ public class testProduct
 	@Test
 	public void testequals()
 	{
-		Product sameproduct = p; 
-		Product nameotherproduct = new Product("productodistinto", 4, new BigDecimal("2"));
-		Product stockotherproduct = new Product("producto", 2, new BigDecimal("2"));
-		Product priceotherproduct = new Product("producto", 4, new BigDecimal("4"));
+		Product sameproduct = p;
+		ProductType h = new ProductType("bocadillo");
+		Product nameotherproduct = new Product("productodistinto", 4, new BigDecimal("2"), t);
+		Product stockotherproduct = new Product("producto", 2, new BigDecimal("2"), t);
+		Product priceotherproduct = new Product("producto", 4, new BigDecimal("4"), t);
+		Product typeotherproduct = new Product("producto", 4, new BigDecimal("4"), h);
 
 		assert(p.equals(sameproduct));
 		assert(!p.equals(nameotherproduct));
 		assert(!p.equals(stockotherproduct));
 		assert(!p.equals(priceotherproduct));	
+		assert(!p.equals(typeotherproduct));	
+
 
 	}
 

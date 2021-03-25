@@ -7,16 +7,17 @@ import java.util.List;
 import com.jedago.practica_dss.core.Order;
 import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
+import com.jedago.practica_dss.core.ProductType;
 
 public class pruebaOrder {
 
 	public static void main(String[] args) {
 		
 		Order order = new Order();		
-
+		ProductType t = new ProductType("cafe");
 		int cash = 3;
 		BigDecimal precio = BigDecimal.valueOf(cash);
-		Product p = new Product("producto", 4, precio);
+		Product p = new Product("producto", 4, precio, t );
 		//OrderLine orderlineproduct = new OrderLine(p,4);
 		List<OrderLine> ol = new ArrayList<OrderLine>();
 		//order.setProducts(orderlineproduct);

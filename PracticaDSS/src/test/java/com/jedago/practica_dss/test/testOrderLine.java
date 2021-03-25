@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
+import com.jedago.practica_dss.core.ProductType;
 
 public class testOrderLine {
 	
@@ -18,13 +19,13 @@ public class testOrderLine {
 	private Product p;
 	private int cash = 2;
 	private BigDecimal precio = BigDecimal.valueOf(cash);
-
+	ProductType t;
 	@Before
 	public void setup() 
 	{
-		
+		ProductType t = new ProductType("cafe");
 		amount = 3;
-		p = new Product("producto", 4, precio);
+		p = new Product("producto", 4, precio, t);
 		orderline = new OrderLine(p, amount);
 
 	}
@@ -59,7 +60,7 @@ public class testOrderLine {
 	public void testsetProduct() 
 	{
 		
-		Product newproduct = new Product("testproduct",1,precio);
+		Product newproduct = new Product("testproduct",1,precio, t);
 		
 		orderline.setProduct(newproduct);
 		

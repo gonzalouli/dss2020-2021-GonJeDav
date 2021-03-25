@@ -19,14 +19,16 @@ public class testCafe {
 	private Product p1;
 	private Cafe C;
 	private Order o;
-
+	private ProductType t;
+	
 	@Before //Antes de cada test
 	public void setUp() throws Exception {
 		//Crear una lista pedidos y una lista productos
 		lista_pedidos = new ArrayList<Order>();
 		lista_productos = new ArrayList<Product>();
 		price1 = new BigDecimal(2.5);
-		p1 = new Product("Producto1", 2, price1);
+		 t = new ProductType("cafe");
+		p1 = new Product("Producto1", 2, price1, t);
 		lista_productos.add(p1);
 		C = new Cafe(lista_pedidos, lista_productos);
 	}
