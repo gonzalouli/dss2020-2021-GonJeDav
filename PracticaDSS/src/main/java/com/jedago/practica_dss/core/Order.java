@@ -2,6 +2,7 @@ package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -18,7 +19,7 @@ public class Order implements Iterable<OrderLine>
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
 	private BigDecimal price;
-	private SimpleDateFormat date;
+	private LocalDateTime date; //Local time, local date, local datetime
 	
 	 /** 
      * Create empty order with a unique id, a list
@@ -26,7 +27,7 @@ public class Order implements Iterable<OrderLine>
      */
 	public Order(){
 		String dateFormat = "hh: mm a dd-mm-aaaa";
-		date = new SimpleDateFormat(dateFormat);
+		date = new SimpleDateForma(dateFormat);
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
