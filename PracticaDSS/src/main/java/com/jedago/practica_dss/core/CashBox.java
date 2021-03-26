@@ -6,6 +6,11 @@ public class CashBox {
 	private int nOrders;
 	private BigDecimal total;
 	
+	public CashBox() {
+		this.nOrders = 0;
+		this.total = BigDecimal.ZERO;
+	}
+
 	/**
 	 * Return the number of registered orders
 	 * @return number of registered orders
