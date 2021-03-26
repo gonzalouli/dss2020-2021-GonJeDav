@@ -123,9 +123,12 @@ public class Cafe implements ICafe {
 			//Pillar de cada orderLine el producto y las cantidades
 			p = ol.getProduct();
 			c = ol.getAmount();
+			
+			//Iteramos a través de la lista de productos disponibles
 			Iterator<Product> it = products.iterator();
 			Product ip;
 			found=false;
+			
 			while(!found && it.hasNext())
 			{
 				ip = it.next();
@@ -134,6 +137,7 @@ public class Cafe implements ICafe {
 				{
 					//Restarle la cantidad al stock
 					ip.setStock(ip.getStock() - c); 
+					
 					//Eliminarlo si se queda a 0
 					if((ip.getStock() == 0))
 						it.remove();
