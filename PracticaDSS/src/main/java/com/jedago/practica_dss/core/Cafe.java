@@ -49,7 +49,17 @@ public class Cafe implements ICafe {
 	 * @return List with the availables products
 	 */
 	public List<Product> getAvailableProducts() {
-		return products;
+		List<Product> availableProduct = new ArrayList<Product>();
+		
+		for(Product p: products)
+		{
+			if(p.getStock()>0)
+			{
+				availableProduct.add(p);
+			}
+		}
+		
+		return availableProduct;
 	}
 	
 	@Override
@@ -58,7 +68,7 @@ public class Cafe implements ICafe {
 		
 		for(Product p: products)
 		{
-			if(p.getType().equals(t))
+			if(p.getType().equals(t) && p.getStock()>0)
 			{
 				seekProducts.add(p);
 			}
@@ -138,9 +148,6 @@ public class Cafe implements ICafe {
 					//Restarle la cantidad al stock
 					ip.setStock(ip.getStock() - c); 
 					
-					//Eliminarlo si se queda a 0
-					if((ip.getStock() == 0))
-						it.remove();
 					found=true;
 				}
 			}
