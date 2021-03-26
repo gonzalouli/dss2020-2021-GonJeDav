@@ -6,7 +6,7 @@ package com.jedago.practica_dss.core;
 import java.util.List;
 
 /**
- * @author jeseg
+ * @author Jesús Serrano Gallán
  *
  */
 public interface ICafe {
@@ -22,6 +22,13 @@ public interface ICafe {
 	 * @return List with the availables products
 	 */
 	public List<Product> getAvailableProducts();
+	
+	/**
+	 * Returns a set of available products of an specified type
+	 * @param t type of the products you want to get
+	 * @return List with the availables products
+	 */
+	public List<Product> getAvailableProductsbyType(ProductType t);
 	
 	/**
 	 * To add a unit of a product to an order

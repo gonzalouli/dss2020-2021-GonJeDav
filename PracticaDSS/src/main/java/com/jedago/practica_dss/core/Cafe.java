@@ -1,6 +1,7 @@
 package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,8 +11,8 @@ import java.util.List;
  */
 public class Cafe implements ICafe {
 
-	private List<Order> orders_;
-	private List<Product> products_;
+	private List<Order> orders;
+	private List<Product> products;
 	private CashBox cb;
 	
 	
@@ -21,8 +22,8 @@ public class Cafe implements ICafe {
 	 * @param products_ List of initial available products
 	 */
 	public Cafe(List<Order> orders_, List<Product> products_) {
-		this.orders_ = orders_;
-		this.products_ = products_;
+		this.orders = orders_;
+		this.products = products_;
 		this.cb = new CashBox();
 		this.cb.setnOrders(orders_.size());
 		this.cb.setTotal(BigDecimal.ZERO);
@@ -31,7 +32,7 @@ public class Cafe implements ICafe {
 			this.cb.addtoTotal(ord.getPrice());
 		}
 	}
-
+	
 	@Override
 	/**
 	 * Create a new order
@@ -48,7 +49,22 @@ public class Cafe implements ICafe {
 	 * @return List with the availables products
 	 */
 	public List<Product> getAvailableProducts() {
-		return products_;
+		return products;
+	}
+	
+	@Override
+	public List<Product> getAvailableProductsbyType(ProductType t) {
+		List<Product> seekProducts = new ArrayList<Product>();
+		
+		for(Product p: products)
+		{
+			if(p.getType().equals(t))
+			{
+				seekProducts.add(p);
+			}
+		}
+		
+		return seekProducts;
 	}
 
 	@Override
@@ -107,7 +123,7 @@ public class Cafe implements ICafe {
 			//Pillar de cada orderLine el producto y las cantidades
 			p = ol.getProduct();
 			c = ol.getAmount();
-			Iterator<Product> it = products_.iterator();
+			Iterator<Product> it = products.iterator();
 			Product ip;
 			found=false;
 			while(!found && it.hasNext())
@@ -127,7 +143,7 @@ public class Cafe implements ICafe {
 		}
 		this.cb.addtoTotal(ord.getPrice());
 		this.cb.incrementOrders();
-		orders_.add(ord);
+		orders.add(ord);
 	}
 
 	@Override
@@ -138,6 +154,5 @@ public class Cafe implements ICafe {
 	public CashBox getCashBox() {
 		return(cb);
 	}
-
 
 }
