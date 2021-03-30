@@ -3,6 +3,7 @@
  */
 package com.jedago.practica_dss.core;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -67,8 +68,15 @@ public interface ICafe {
 	public void FinishOrder(Order ord);
 	
 	/**
-	 * Returs the amount of registered orders and the money earned
+	 * Returs the amount of registered orders and the money earned in a day
+	 * @return a CashBox with the amount of orders registered and the money earned
+	 * @param date The date of the CashBox you want to check
+	 */
+	public CashBox getCashBox(LocalDate date);
+	
+	/**
+	 * Returs the amount of registered orders and the money earned today
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 */
-	public CashBox getCashBox();
+	public CashBox getTodayCashBox();
 }

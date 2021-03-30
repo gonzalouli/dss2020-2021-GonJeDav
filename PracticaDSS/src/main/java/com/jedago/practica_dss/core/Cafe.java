@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.time.LocalDate;
 
 /**
  * @author Jesús Serrano Gallán
@@ -13,8 +14,6 @@ public class Cafe implements ICafe {
 
 	private List<Order> orders;
 	private List<Product> products;
-	private CashBox cb;
-	
 	
 	/**
 	 * Constructor
@@ -24,13 +23,6 @@ public class Cafe implements ICafe {
 	public Cafe(List<Order> orders_, List<Product> products_) {
 		this.orders = orders_;
 		this.products = products_;
-		this.cb = new CashBox();
-		this.cb.setnOrders(orders_.size());
-		this.cb.setTotal(BigDecimal.ZERO);
-		for(Order ord: orders_)
-		{
-			this.cb.addtoTotal(ord.getPrice());
-		}
 	}
 	
 	@Override
@@ -152,18 +144,39 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
-		this.cb.addtoTotal(ord.getPrice());
-		this.cb.incrementOrders();
 		orders.add(ord);
 	}
 
 	@Override
 	/**
-	 * Returs the amount of registered orders and the money earned
+	 * Returs the amount of registered orders and the money earned in a day
 	 * @return a CashBox with the amount of orders registered and the money earned
+	 * @param date The date of the CashBox you want to check
 	 */
-	public CashBox getCashBox() {
-		return(cb);
+	public CashBox getCashBox(LocalDate date)
+	{
+		CashBox cb = new CashBox();
+		
+		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
+		for(Order o:orders)
+		{
+			//Miramos si la fecha corresponde con la buscada
+			if(o.getDate().isEqual(date)) //Cambiar el tipo de fecha de la orden a LocalDate
+			{
+				//Sumamos un pedido
+				cb.incrementOrders();
+				//Añadimos el total del pedido 
+				cb.addtoTotal(o.getPrice());
+			}
+		}
+		
+		return cb;
+	}
+
+	@Override
+	public CashBox getTodayCashBox() {
+		LocalDate today = LocalDate.now();
+		return this.getCashBox(today);
 	}
 
 }
