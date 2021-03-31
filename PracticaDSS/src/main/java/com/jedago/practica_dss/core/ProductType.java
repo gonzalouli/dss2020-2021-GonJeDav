@@ -16,14 +16,14 @@ public class ProductType {
 	}
 
 	/**
-	 * @return the id_
+	 * @return Return the id_.
 	 */
 	public int getId_() {
 		return id_;
 	}
 
 	/**
-	 * @return the typeName
+	 * @return Return the typeName.
 	 */
 	public String getTypeName() {
 		return TypeName;

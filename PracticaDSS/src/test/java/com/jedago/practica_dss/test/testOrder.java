@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class testOrder {
 	private int cant;
 	double cash = 2.5;
 	private Product p;
-	private OrderLine orderlineproduct;
+	private OrderLine testOrderLineProduct;
 	private Order order;
 	
 	private List<OrderLine> ol;
@@ -36,19 +37,19 @@ public class testOrder {
 		BigDecimal precio = BigDecimal.valueOf(cash);
 		ProductType t = new ProductType("cafe");
 		p = new Product("producto", 4, precio, t);
-		orderlineproduct = new OrderLine(p,cant);
+		testOrderLineProduct = new OrderLine(p,cant);
 		
 		ol = new ArrayList<OrderLine>();
 		order = new Order();		
 		
-		ol.add(orderlineproduct);
+		ol.add(testOrderLineProduct);
 	}
 	
 	@After
 	public void teardown() 
 	{
 		order = null;
-		orderlineproduct = null ;
+		testOrderLineProduct = null ;
 		p = null;
 	}
 	
@@ -58,13 +59,14 @@ public class testOrder {
 	{ 
 		
 		BigDecimal cero =  BigDecimal.ZERO ;
-		LocalDateTime time = LocalDateTime.now();
+		LocalDate time = LocalDate.now();
 		assert(order!=null);
 		assert(order!=null);
 		
 		assertEquals( order.getDate(), time);
 		assertEquals( order.getId_order(), Order.currentid-1);
 		assertEquals(cero ,order.getPrice());
+		assertEquals(time, order.getDate());
 }
 
 
@@ -81,7 +83,7 @@ public class testOrder {
 	public void testgetPrice() //PASS
 	{
 
-		order.setProducts(orderlineproduct);
+		order.setProducts(testOrderLineProduct);
 
 		BigDecimal priceinside = BigDecimal.ZERO;
 		
@@ -101,16 +103,16 @@ public class testOrder {
 	public void testsetProduct() //PASS
 	{
 		
-		orderlineproduct = new OrderLine(p,1);
+		testOrderLineProduct = new OrderLine(p,1);
 		BigDecimal preprice = order.getPrice();
 		
-		order.setProducts( orderlineproduct );
+		order.setProducts( testOrderLineProduct );
 		
 		List<OrderLine> ol = order.getProducts();
 		
-		assert(ol.contains(orderlineproduct));
+		assert(ol.contains(testOrderLineProduct));
 		
-		preprice = preprice.add(orderlineproduct.getTotalPrice());
+		preprice = preprice.add(testOrderLineProduct.getTotalPrice());
 		assertEquals(order.getPrice(), preprice);
 		
 	}
@@ -121,7 +123,7 @@ public class testOrder {
 		
 		BigDecimal preprice = order.getPrice();
 		
-		order.setProducts( orderlineproduct );
+		order.setProducts( testOrderLineProduct );
 		
 		List<OrderLine> ol = order.getProducts();
 		Boolean notin=true;
@@ -134,9 +136,9 @@ public class testOrder {
 		
 		assert(!notin);
 		
-		BigDecimal amount = BigDecimal.valueOf(orderlineproduct.getAmount());
+		BigDecimal amount = BigDecimal.valueOf(testOrderLineProduct.getAmount());
 		
-		preprice = preprice.add(orderlineproduct.getTotalPrice().multiply(amount));
+		preprice = preprice.add(testOrderLineProduct.getTotalPrice().multiply(amount));
 		
 		assertEquals(order.getPrice(), preprice);
 		
@@ -223,7 +225,7 @@ public class testOrder {
 		List<OrderLine> preol = order.getProducts();
 		
 		for(int i = 0 ; i<preol.size() && exit ; i++) {
-			if(	preol.get(i).getProduct().getID() == orderlineproduct.getProduct().getID() ) {
+			if(	preol.get(i).getProduct().getID() == testOrderLineProduct.getProduct().getID() ) {
 				exit = false;
 			}
 			assert(exit);
