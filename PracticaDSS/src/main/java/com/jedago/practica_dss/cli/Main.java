@@ -6,7 +6,7 @@ import com.jedago.practica_dss.core.*;
 
 public class Main {
 	
-	protected Scanner sc = new Scanner(System.in);
+	private Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -30,23 +30,50 @@ public class Main {
 		
 	}
 	
+	public void mainScreen()
+	{	
+		String option; 
+		do 
+		{
+			System.out.println("Software de Cafeteria UCA");
+			System.out.println("--------------------------------------");
+			System.out.println("1. Crear pedido");
+			System.out.println("2. Consultar Caja de hoy");
+			System.out.println("Q. Salir");
+			System.out.println("--------------------------------------");
+			System.out.println("Introduzca una opción:");
+			option = sc.nextLine();
+			
+			switch(option) 
+			{
+			case "1": 
+				break;
+			case "2": 
+				break;
+			case "Q":
+				break;
+			default: System.out.println("Introduzca una opción valida");
+			}
+		}while(option!="1" && option!="2" && option!="Q" );
+	}
+	
 	
 	public void currentOrder(Order order) 
-	{
-		System.out.println("Pedido en curso ("+order.getId_order()+")");
-		System.out.println("--------------------------------------");
-		System.out.println("1. Añadir producto");
-		System.out.println("2. Eliminar producto");
-		System.out.println("3. Finalizar pedido");
-		System.out.println(".....");
-		System.out.println("R. Volver a la pantalla anterior");
-		System.out.println("--------------------------------------");
-		System.out.println("Introduzca una opción:");
-		
+	{	
 		String option; 
 		
 		do 
 		{
+			System.out.println("Pedido en curso ("+order.getId_order()+")");
+			System.out.println("--------------------------------------");
+			System.out.println("1. Añadir producto");
+			System.out.println("2. Eliminar producto");
+			System.out.println("3. Finalizar pedido");
+			System.out.println(".....");
+			System.out.println("R. Volver a la pantalla anterior");
+			System.out.println("--------------------------------------");
+			System.out.println("Introduzca una opción:");
+			
 			option = sc.nextLine();
 			
 			switch(option) 
@@ -62,20 +89,6 @@ public class Main {
 			default: System.out.println("Introduzca una opción valida");
 			}
 			
-		}while(option!="1" ||  option!="2" || option!="3" || option!="R" );
-		
-			
+		}while(option!="1" &&  option!="2" && option!="3" && option!="R" );	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
