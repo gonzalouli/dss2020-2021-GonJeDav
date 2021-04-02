@@ -137,12 +137,12 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testGetCashBox() {
+	public void testGetTodayCashBox() {
 		o = C.newOrder();
 		C.addProductToOrder(o, p1, 3);
 		C.FinishOrder(o);
-		assertEquals(C.getCashBox().getnOrders(),  1);
-		assertEquals(C.getCashBox().getTotal(), p1.getPriceUnit().multiply(new BigDecimal(3)));
+		assertEquals(C.getTodayCashBox().getnOrders(),  1);
+		assertEquals(C.getTodayCashBox().getTotal(), p1.getPriceUnit().multiply(new BigDecimal(3)));
 	}
 	
 	
