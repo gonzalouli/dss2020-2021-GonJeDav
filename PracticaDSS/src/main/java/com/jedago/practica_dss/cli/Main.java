@@ -1,11 +1,13 @@
 package com.jedago.practica_dss.cli;
 
+import java.util.Scanner;
+
+import com.jedago.practica_dss.core.*;
+
 public class Main {
-
-	public Main() {
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	protected Scanner sc = new Scanner(System.in);
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Recorrer los pedidos y guardarlos en una lista
@@ -26,10 +28,54 @@ public class Main {
 		
 		//Cada vez que se termina una orden se guarde en fichero
 		
-		
-		
-		
-
 	}
+	
+	
+	public void currentOrder(Order order) 
+	{
+		System.out.println("Pedido en curso ("+order.getId_order()+")");
+		System.out.println("--------------------------------------");
+		System.out.println("1. Añadir producto");
+		System.out.println("2. Eliminar producto");
+		System.out.println("3. Finalizar pedido");
+		System.out.println(".....");
+		System.out.println("R. Volver a la pantalla anterior");
+		System.out.println("--------------------------------------");
+		System.out.println("Introduzca una opción:");
+		
+		String option; 
+		
+		do 
+		{
+			option = sc.nextLine();
+			
+			switch(option) 
+			{
+			case "1": 
+				break;
+			case "2": 
+				break;
+			case "3":
+				break;
+			case "R":
+				break;
+			default: System.out.println("Introduzca una opción valida");
+			}
+			
+		}while(option!="1" ||  option!="2" || option!="3" || option!="R" );
+		
+			
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

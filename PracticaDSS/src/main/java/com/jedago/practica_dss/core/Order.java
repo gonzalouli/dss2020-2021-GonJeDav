@@ -16,9 +16,9 @@ public class Order implements Iterable<OrderLine>
 {
 	public static long currentid = 1;
 	private long id_order;
-	private List<OrderLine> OrderLineProduct;
+	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
-	private LocalDate date;
+	private LocalDate date; //Local time, local date, local datetime
 	
 	 /** 
      * Create empty order with a unique id, a list
@@ -30,7 +30,7 @@ public class Order implements Iterable<OrderLine>
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
-		OrderLineProduct = new ArrayList<OrderLine>();
+		orderLineProduct = new ArrayList<OrderLine>();
 	}	
 
 	 /** 
@@ -64,7 +64,7 @@ public class Order implements Iterable<OrderLine>
  * @return True if the order is empty, false otherwise.
  */
 	public boolean isEmpty() {
-		return OrderLineProduct.isEmpty();
+		return orderLineProduct.isEmpty();
 	}
 
  /** 
@@ -72,7 +72,7 @@ public class Order implements Iterable<OrderLine>
  * @return The size of an order.
  */
 	public int size() {
-		return OrderLineProduct.size();
+		return orderLineProduct.size();
 	}
 	
 	
@@ -81,7 +81,7 @@ public class Order implements Iterable<OrderLine>
  * @return Product OrderLine list.
 	 */	public List<OrderLine> getProducts() 
 	{
-		return this.OrderLineProduct;
+		return this.orderLineProduct;
 	}
 	
 	 
@@ -91,7 +91,7 @@ public class Order implements Iterable<OrderLine>
  */
 	public void setProducts(OrderLine currentOrderLine ) 
 	{	
-		this.OrderLineProduct.add(currentOrderLine);
+		this.orderLineProduct.add(currentOrderLine);
 		BigDecimal namount = BigDecimal.valueOf(currentOrderLine.getAmount());
 		BigDecimal total = currentOrderLine.getProduct().getPriceUnit().multiply(namount);
 		this.price = this.price.add(total);
@@ -125,7 +125,7 @@ public class Order implements Iterable<OrderLine>
 	 */
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
-		for(OrderLine pivot : OrderLineProduct) {
+		for(OrderLine pivot : orderLineProduct) {
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+cant);
 				BigDecimal namount = new BigDecimal(pivot.getAmount()) ;
@@ -150,7 +150,7 @@ public class Order implements Iterable<OrderLine>
 		///for(OrderLine pivot : OrderLineProduct) {
 		//OrderLineProduct.get(i)
 		OrderLine ol;
-		Iterator<OrderLine> it = OrderLineProduct.iterator();
+		Iterator<OrderLine> it = orderLineProduct.iterator();
 		while(it.hasNext()) { 
 			ol = it.next();
 			if(ol.getProduct().getID() == currentProduct.getID()) {
@@ -179,7 +179,7 @@ public class Order implements Iterable<OrderLine>
 	 */
 	public void deleteOrderlineFromOrder(OrderLine currentOrderLine) 
 	{
-		OrderLineProduct.remove(currentOrderLine);
+		orderLineProduct.remove(currentOrderLine);
 		
 	}
 	
@@ -201,7 +201,7 @@ public class Order implements Iterable<OrderLine>
 	
 	@Override
 	public Iterator<OrderLine> iterator() {
-		return OrderLineProduct.iterator();
+		return orderLineProduct.iterator();
 	}
 	
 	

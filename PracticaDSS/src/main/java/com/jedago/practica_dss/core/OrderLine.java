@@ -87,10 +87,10 @@ public class OrderLine {
 	public BigDecimal getTotalPrice() 
 	{
 		BigDecimal coste = BigDecimal.ZERO;
-		BigDecimal costetotal = BigDecimal.ZERO;
+		BigDecimal costeTotal = BigDecimal.ZERO;
 		coste = product_.getPriceUnit().multiply(new BigDecimal(amount));
-		costetotal = costetotal.add(coste);
-		return costetotal;			
+		costeTotal = costeTotal.add(coste);
+		return costeTotal;			
 	}
 
 }
