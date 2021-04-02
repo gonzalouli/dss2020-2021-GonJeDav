@@ -1,7 +1,7 @@
 package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -18,7 +18,7 @@ public class Order implements Iterable<OrderLine>
 	private long id_order;
 	private List<OrderLine> OrderLineProduct;
 	private BigDecimal price;
-	private LocalDateTime date; //Local time, local date, local datetime
+	private LocalDate date;
 	
 	 /** 
      * Create empty order with a unique id, a list
@@ -26,7 +26,7 @@ public class Order implements Iterable<OrderLine>
      */
 	public Order(){
 		
-		date = LocalDateTime.now();
+		date = LocalDate.now();
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
@@ -55,7 +55,7 @@ public class Order implements Iterable<OrderLine>
 	 * Check the date the order was created.
 	 * @return Order's id.
 	 */
-	public LocalDateTime getDate() {
+	public LocalDate getDate() {
 		return this.date;
 	}
 
