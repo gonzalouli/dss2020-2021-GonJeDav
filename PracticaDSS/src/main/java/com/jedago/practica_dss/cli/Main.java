@@ -1,14 +1,21 @@
 package com.jedago.practica_dss.cli;
 
+import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
+import com.jedago.practica_dss.cli.*;
 import com.jedago.practica_dss.core.*;
 
-public class Main {
+public class Main   {
 	
-	private Scanner sc = new Scanner(System.in);
+	private static Scanner sc = new Scanner(System.in);
+	private static IPantalla screen = new Pantalla();
 	
-	public static void main(String[] args) {
+	//public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Recorrer los pedidos y guardarlos en una lista
 		//Recorrer los productos y guardarlos en una lista
@@ -28,13 +35,16 @@ public class Main {
 		
 		//Cada vez que se termina una orden se guarde en fichero
 		
-	}
+	//}
 	
-	public void mainScreen()
-	{	
+	public static void main(String[] args) throws IOException 
+	{		
+		
 		String option; 
 		do 
 		{
+	
+			
 			System.out.println("Software de Cafeteria UCA");
 			System.out.println("--------------------------------------");
 			System.out.println("1. Crear pedido");
@@ -43,22 +53,26 @@ public class Main {
 			System.out.println("--------------------------------------");
 			System.out.println("Introduzca una opción:");
 			option = sc.nextLine();
+
 			
 			switch(option) 
 			{
-			case "1": 
-				break;
-			case "2": 
-				break;
-			case "Q":
-				break;
-			default: System.out.println("Introduzca una opción valida");
+				case "1": 
+					break;
+				case "2": 
+					break;
+				case "Q":
+					break;
+				default: System.out.println("Introduzca una opción valida... ");
 			}
+			
 		}while(option!="1" && option!="2" && option!="Q" );
 	}
 	
 	
-	public void currentOrder(Order order) 
+	
+	
+	public void currentOrder(Order order) throws IOException 
 	{	
 		String option; 
 		
@@ -78,7 +92,7 @@ public class Main {
 			
 			switch(option) 
 			{
-			case "1": 
+			case "1": addProduct();
 				break;
 			case "2": 
 				break;
@@ -89,6 +103,103 @@ public class Main {
 			default: System.out.println("Introduzca una opción valida");
 			}
 			
-		}while(option!="1" &&  option!="2" && option!="3" && option!="R" );	
+		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	
 	}
+	
+	
+	
+	
+	public void addProductType() throws IOException, ClassNotFoundException {
+	
+		try {
+			
+			ObjectInputStream getProductTypes = new ObjectInputStream(new FileInputStream("productType.txt"));
+			
+			List<ProductType> ListProductTypes = new ArrayList<ProductType>();
+			
+			ListProductTypes = ((List<ProductType>) getProductTypes.readObject());
+			
+			getProductTypes.close();
+			
+			for(ProductType pt: ListProductTypes) 
+			{
+				System.out.println(pt);
+			}
+			
+		}catch(Exception e) {}
+		
+		
+		
+		
+		
+		
+		
+	}
+
+	
+	
+	
+	public void addProduct() throws IOException {
+		
+		try { //visualizacion de productos
+		
+			ObjectInputStream getProduct = new ObjectInputStream(new FileInputStream("product.txt"));
+			
+			List<Product> ListProduct =  new ArrayList<Product>();
+			ListProduct = (List<Product>) getProduct.readObject();
+			
+			getProduct.close();
+			
+			for(Product p: ListProduct) 
+			{
+				System.out.println(p);
+			}
+			
+		}catch(Exception e) {}
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+
+	public void addOrderLine() throws IOException {
+		
+		try { //visualizacion de productos
+		
+			ObjectInputStream getOrderLine = new ObjectInputStream(new FileInputStream("orderLine.txt"));
+			
+			List<Product> ListOrderLine =  new ArrayList<Product>();
+			ListOrderLine = (List<Product>) getOrderLine.readObject();
+			
+			getOrderLine.close();
+			
+			for(Product p: ListOrderLine) 
+			{
+				System.out.println(p);
+			}
+	
+		}catch(Exception e) {}
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

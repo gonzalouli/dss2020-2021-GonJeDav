@@ -1,10 +1,12 @@
 package com.jedago.practica_dss.core;
 
+import java.io.Serializable;
+
 /**
  * @author Jesús Serrano Gallán
  *	@version 1.0
  */
-public class ProductType {
+public class ProductType implements Serializable {
 	private int id_;
 	private String TypeName;
 	private static int LastId = 0;

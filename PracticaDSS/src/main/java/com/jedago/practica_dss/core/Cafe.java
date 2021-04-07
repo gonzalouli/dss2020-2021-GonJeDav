@@ -3,6 +3,8 @@ package com.jedago.practica_dss.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.time.LocalDate;
 
 /**
@@ -40,6 +42,7 @@ public class Cafe implements ICafe {
 	 * @return List with the availables products
 	 */
 	public List<Product> getAvailableProducts() {
+		
 		List<Product> availableProduct = new ArrayList<Product>();
 		
 		for(Product p: products)

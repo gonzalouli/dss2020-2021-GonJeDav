@@ -1,5 +1,8 @@
 package com.jedago.practica_dss.core;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
@@ -12,7 +15,7 @@ import java.util.*;
  * @version 1.0. 21/03/2021
  * @author Gonzalo Ulibarri
  */
-public class Order implements Iterable<OrderLine>
+public class Order implements Iterable<OrderLine>, Serializable
 {
 	public static long currentid = 1;
 	private long id_order;
@@ -204,6 +207,21 @@ public class Order implements Iterable<OrderLine>
 		return orderLineProduct.iterator();
 	}
 	
+	
+	
+	
+	
+	
+
+	public void writeObject() 
+	{
+		try {
+			
+			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/order.txt"));
+			writeObjectOnFile.writeObject(this);
+		}catch(Exception e) {}
+		
+	}
 	
 }
 	

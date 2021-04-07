@@ -1,5 +1,9 @@
 package com.jedago.practica_dss.core;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +14,10 @@ import java.math.BigDecimal;
  */
 
 
-public class Product{
+public class Product implements Serializable{
+	
+    private static final long serialVersionUID = 1L;
+	
 	private String	name;
 	private int		id;
 	private int 	stock;
@@ -144,4 +151,19 @@ public class Product{
         
         return true;
     }
+	
+	
+	
+	public void writeObject() 
+	{
+		try {
+			
+			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/product.txt"));
+			writeObjectOnFile.writeObject(this);
+		}catch(Exception e) {}
+		
+	}
+	
 }
+
+

@@ -1,5 +1,8 @@
 package com.jedago.practica_dss.core;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -10,7 +13,7 @@ import java.math.BigDecimal;
  * @author Gonzalo Ulibarri
  */
 
-public class OrderLine {
+public class OrderLine implements Serializable {
 	
 	Product product_;
 	int amount;
@@ -91,6 +94,21 @@ public class OrderLine {
 		coste = product_.getPriceUnit().multiply(new BigDecimal(amount));
 		costeTotal = costeTotal.add(coste);
 		return costeTotal;			
+	}
+	
+	
+	
+	
+	
+
+	public void writeObject() 
+	{
+		try {
+			
+			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/orderline.txt"));
+			writeObjectOnFile.writeObject(this);
+		}catch(Exception e) {}
+		
 	}
 
 }
