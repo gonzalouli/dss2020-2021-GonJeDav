@@ -206,7 +206,7 @@ public class Main   {
 				break;
 			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
-			case "3": //$NON-NLS-1$
+			case "3":  finishCurrentOrder(currentCafe, currentOrder);
 				break;
 			case "R":
 				break;
@@ -341,6 +341,113 @@ public class Main   {
 	}
 	
 	
+	 /** 
+     * Function to delete one or more products from an order.
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 */
+	
+	public static void deleteProductFromCurrentOrder(ICafe currentCafe, Order currentOrder) 
+	{
+		int index;
+		String option;
+		int convertToInt = 0;
+		int cant =1;
+		
+		do {
+			System.out.println("\n\n"); 
+			index = 1;
+			System.out.println("Eliminar producto del pedido");
+			List<OrderLine> productsInOrder = currentOrder.getProducts();
+			
+			for(OrderLine iter : productsInOrder) 
+			{
+				if(iter.getAmount()==1)
+					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"ud x "+iter.getProduct().getPriceUnit()+" euros)");
+				else
+					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"uds x "+iter.getProduct().getPriceUnit()+" euros)");
+
+				++index;
+			}
+			
+			System.out.println("......");
+			System.out.println("R. Volver a la pantalla anterior");
+			System.out.println("--------------------------------------"); 
+			System.out.println("Introduzca una opción:"); 
+			option = sc.nextLine();
+
+			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+				
+				convertToInt = Integer.parseInt(option);
+			
+				if(convertToInt>0 && convertToInt<=index) {
+					do{ 
+						System.out.println("Introduzca la cantidad a eliminar:"); 
+						cant = scCantidad.nextInt();
+					
+					}while(cant<0);
+
+					currentCafe.deleteProductFromOrder(currentOrder, productsInOrder.get(convertToInt-1).getProduct(), cant);
+				}
+			}else
+					if( !option.equals("R"))
+						System.out.println("Eleccion invalida, pruebe otra vez...");
+				
+			
+
+			
+		}while( !option.equals("R"));
+		
+		
+	}
+	
+	
+	
+	
+	 /** 
+     * Function to decide if the client want to finish the order.
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 * @throws Exception 
+	 */
+	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) 
+	{
+		String option;
+		System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
+		System.out.println("-----------------------------------"); 		
+		System.out.println("Total a pagar: "+currentOrder.getPrice()); 		
+		System.out.println("1. Pagar y finalizar pedido");
+		System.out.println("R. Volver a la pantalla anterior");
+
+		option = sc.nextLine();
+		
+		do {
+			switch(option) 
+			{
+			case "1": try {
+					payAndFinishOrder(currentCafe,currentOrder);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				break;
+
+			default: System.out.println("Seleccione una opcion valida...");
+			
+			}
+			
+		}while(!option.equals("R"));
+		
+	}
+	
+	
+	
+	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
+	{
+		currentCafe.FinishOrder(currentOrder);
+		writeOrders(currentCafe.getRegisteredOrders());
+
+		
+	}
 	
 	
 	
