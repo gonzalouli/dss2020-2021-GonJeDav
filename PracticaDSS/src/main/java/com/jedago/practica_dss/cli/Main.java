@@ -41,19 +41,24 @@ public class Main   {
 	{		
 		//Leer los productos del fichero y devolverlos como lista
 		List<Product> ProductList =  new ArrayList<Product>();
-		//ProductList = readProducts();
-		Product p = new Product("patata", 2, new BigDecimal(3), new ProductType("Rico"));
-		ProductList.add(p);
+		ProductList = readProducts();
+		if(ProductList.isEmpty())
+		{
+			ProductList = FirstProducts.getFirstProducts();
+			writeProducts(ProductList);
+		}
 		//Leer los pedidos
-		//List<Order> OrderList =  new ArrayList<Order>();
-		//OrderList = readOrders();
-		//Creamos el Cafe
-		//ICafe cafe = new Cafe(OrderList, ProductList);
+		List<Order> OrderList =  new ArrayList<Order>();
+		OrderList = readOrders();
 		
+		//Creamos el Cafe
+		ICafe cafe = new Cafe(OrderList, ProductList);
+		
+		//Generar un loop que cuando se termine un pedido escriba los cambios
 		
 		//Guardar los productos y los pedidos del cafe
 		writeProducts(ProductList);
-		//writeOrders(cafe.getRegisteredOrders());
+		writeOrders(cafe.getRegisteredOrders());
 	}
 	
 	public static List<Product> readProducts() throws Exception
