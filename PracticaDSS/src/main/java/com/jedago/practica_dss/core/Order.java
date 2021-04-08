@@ -1,7 +1,5 @@
 package com.jedago.practica_dss.core;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,9 +15,7 @@ import java.util.*;
  */
 public class Order implements Iterable<OrderLine>, Serializable
 {
-
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -7323804151378580352L;
 	public static long currentid = 1;
 	private long id_order;
 	private List<OrderLine> orderLineProduct;

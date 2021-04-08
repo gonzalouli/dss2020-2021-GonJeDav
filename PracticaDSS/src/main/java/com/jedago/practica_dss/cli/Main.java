@@ -61,7 +61,7 @@ public class Main   {
 		ObjectInputStream readProducts;
 		List<Product> ProductList =  new ArrayList<Product>();
 		try {
-			readProducts = new ObjectInputStream(new FileInputStream("serializable/products.txt"));
+			readProducts = new ObjectInputStream(new FileInputStream(Messages.getString("Main.1")));
 			ProductList = (List<Product>) readProducts.readObject();
 			readProducts.close();
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class Main   {
 	{
 		ObjectOutputStream writeProducts;
 		try {
-			writeProducts = new ObjectOutputStream(new FileOutputStream("serializable/products.txt"));
+			writeProducts = new ObjectOutputStream(new FileOutputStream(Messages.getString("Main.1")));
 			writeProducts.writeObject(ProductList);
 			writeProducts.flush();
 			writeProducts.close();
@@ -90,7 +90,7 @@ public class Main   {
 		ObjectInputStream readOrders;
 		List<Order> OrderList =  new ArrayList<Order>();
 		try {
-			readOrders = new ObjectInputStream(new FileInputStream("orders.txt"));
+			readOrders = new ObjectInputStream(new FileInputStream("orders.txt")); //$NON-NLS-1$
 			OrderList = (List<Order>) readOrders.readObject();
 			readOrders.close();
 		} catch (Exception e) {
@@ -104,7 +104,7 @@ public class Main   {
 	{
 		ObjectOutputStream writeOrders;
 		try {
-			writeOrders = new ObjectOutputStream(new FileOutputStream("orders.txt"));
+			writeOrders = new ObjectOutputStream(new FileOutputStream("orders.txt")); //$NON-NLS-1$
 			writeOrders.writeObject(OrderList);
 			writeOrders.flush();
 			writeOrders.close();
@@ -120,28 +120,28 @@ public class Main   {
 		do 
 		{
 			
-			System.out.println("Software de Cafeteria UCA");
-			System.out.println("--------------------------------------");
-			System.out.println("1. Crear pedido");
-			System.out.println("2. Consultar Caja de hoy");
-			System.out.println("Q. Salir");
-			System.out.println("--------------------------------------");
-			System.out.println("Introduzca una opción:");
+			System.out.println("Software de Cafeteria UCA"); //$NON-NLS-1$
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("1. Crear pedido"); //$NON-NLS-1$
+			System.out.println("2. Consultar Caja de hoy"); //$NON-NLS-1$
+			System.out.println("Q. Salir"); //$NON-NLS-1$
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
 			option = sc.nextLine();
 
 			
 			switch(option) 
 			{
-				case "1": 
+				case "1":  //$NON-NLS-1$
 					break;
-				case "2": 
+				case "2":  //$NON-NLS-1$
 					break;
-				case "Q":
+				case "Q": //$NON-NLS-1$
 					break;
-				default: System.out.println("Introduzca una opción valida... ");
+				default: System.out.println("Introduzca una opción valida... "); //$NON-NLS-1$
 			}
 			
-		}while(option!="1" && option!="2" && option!="Q" );
+		}while(option!="1" && option!="2" && option!="Q" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 	
 	
@@ -151,32 +151,32 @@ public class Main   {
 
 		do 
 		{
-			System.out.println("Pedido en curso ("+order.getId_order()+")");
-			System.out.println("--------------------------------------");
-			System.out.println("1. Añadir producto");
-			System.out.println("2. Eliminar producto");
-			System.out.println("3. Finalizar pedido");
-			System.out.println(".....");
-			System.out.println("R. Volver a la pantalla anterior");
-			System.out.println("--------------------------------------");
-			System.out.println("Introduzca una opción:");
+			System.out.println("Pedido en curso ("+order.getId_order()+")"); //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("1. Añadir producto"); //$NON-NLS-1$
+			System.out.println("2. Eliminar producto"); //$NON-NLS-1$
+			System.out.println("3. Finalizar pedido"); //$NON-NLS-1$
+			System.out.println("....."); //$NON-NLS-1$
+			System.out.println("R. Volver a la pantalla anterior"); //$NON-NLS-1$
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
 			
 			option = sc.nextLine();
 			
 			switch(option) 
 			{
-			case "1": 
+			case "1":  //$NON-NLS-1$
 				break;
-			case "2": 
+			case "2":  //$NON-NLS-1$
 				break;
-			case "3":
+			case "3": //$NON-NLS-1$
 				break;
-			case "R":
+			case "R": //$NON-NLS-1$
 				break;
-			default: System.out.println("Introduzca una opción valida");
+			default: System.out.println("Introduzca una opción valida"); //$NON-NLS-1$
 			}
 			
-		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	
+		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 }
