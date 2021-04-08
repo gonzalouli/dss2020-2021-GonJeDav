@@ -78,11 +78,7 @@ public class Cafe implements ICafe {
 	 * @param p the product which you want to be added
 	 */
 	public void addProductToOrder(Order ord, Product p) {
-		
-		if(p.getStock()>1)
-			ord.addProductToOrder(p);
-		else
-			//Levantar excepción
+		ord.addProductToOrder(p);
 	}
 	
 	@Override
@@ -93,10 +89,7 @@ public class Cafe implements ICafe {
 	 * @param c the quantity of the product
 	 */
 	public void addProductToOrder(Order ord, Product p, int c) {
-		if(p.getStock() < c)
-			ord.addProductToOrder(p, c);
-		else
-			//Levantar excepción
+		ord.addProductToOrder(p, c);
 	}
 
 	@Override
