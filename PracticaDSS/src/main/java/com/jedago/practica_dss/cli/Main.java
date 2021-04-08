@@ -56,6 +56,11 @@ public class Main   {
 		
 		//Generar un loop que cuando se termine un pedido escriba los cambios
 		
+		do
+		{
+			
+		}while();
+		
 		//Guardar los productos y los pedidos del cafe
 		writeProducts(ProductList);
 		writeOrders(cafe.getRegisteredOrders());
