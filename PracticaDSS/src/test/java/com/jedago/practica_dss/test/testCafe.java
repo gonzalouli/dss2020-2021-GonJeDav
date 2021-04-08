@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jedago.practica_dss.core.*;
+import com.jedago.practica_dss.core.exceptions.NoStockException;
 
 public class testCafe {
 	private List<Order> lista_pedidos;
@@ -59,10 +60,22 @@ public class testCafe {
 		o = C.newOrder();
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar aumento del precio del pedido cuando se añade un producto
-		C.addProductToOrder(o, p1);
+		try {
+			C.addProductToOrder(o, p1);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BigDecimal newPrice = o.getPrice();
 		
 		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit());
+	}
+	
+	@Test(expected=NoStockException.class)
+	public void testAddProductToOrderException() throws NoStockException {
+		o = C.newOrder();
+		//Comprobar lanzamiento de excepción
+		C.addProductToOrder(o, p1, 4);
 	}
 	
 	@Test
@@ -70,7 +83,12 @@ public class testCafe {
 		o = C.newOrder();
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar aumento del precio del pedido cuando se añade un producto
-		C.addProductToOrder(o, p1, 2);
+		try {
+			C.addProductToOrder(o, p1, 2);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BigDecimal newPrice = o.getPrice();
 		
 		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit().multiply(new BigDecimal(2)));
@@ -79,7 +97,12 @@ public class testCafe {
 	@Test
 	public void testDeleteProductFromOrder() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1);
+		try {
+			C.addProductToOrder(o, p1);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar descenso del precio del pedido cuando se elimina un producto
 		C.deleteProductFromOrder(o, p1);
@@ -91,7 +114,12 @@ public class testCafe {
 	@Test
 	public void testDeleteSeveralProductsFromOrder() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1, 3);
+		try {
+			C.addProductToOrder(o, p1, 3);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar descenso del precio del pedido cuando se eliminan producto
 		C.deleteProductFromOrder(o, p1, 3);
@@ -103,7 +131,12 @@ public class testCafe {
 	@Test
 	public void testDeleteNotAllSameProductsFromOrder() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1, 3);
+		try {
+			C.addProductToOrder(o, p1, 3);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar descenso del precio del pedido cuando se elimina un producto
 		C.deleteProductFromOrder(o, p1, 2);
@@ -115,18 +148,38 @@ public class testCafe {
 	@Test
 	public void testFinishOrderRemovingProduct() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1, 3);
-		C.FinishOrder(o);
-		
+		try {
+			C.addProductToOrder(o, p1, 3);
+			C.FinishOrder(o);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//Debería de eliminarse el p1 de la lista de productos disponibles
 		assertTrue(!C.getAvailableProducts().contains(p1));
+	}
+	
+	@Test(expected=NoStockException.class)
+	public void testFinishOrderException() throws NoStockException{
+		o = C.newOrder();
+		C.addProductToOrder(o, p1, 2);
+		//Como no está registrado el pedido, no se ha actualizado el stock
+		C.addProductToOrder(o, p1, 2);
+		//Debería saltar excepción cuando quiero terminar el pedido
+		C.FinishOrder(o);
 	}
 	
 	@Test
 	public void testFinishOrderNotRemovingProduct() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1, 2);
-		C.FinishOrder(o);
+		
+		try {
+			C.addProductToOrder(o, p1, 2);
+			C.FinishOrder(o);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//Debería estar p1 en la lista de productos disponibles
 		assertTrue(C.getAvailableProducts().contains(p1));
@@ -139,8 +192,13 @@ public class testCafe {
 	@Test
 	public void testGetTodayCashBox() {
 		o = C.newOrder();
-		C.addProductToOrder(o, p1, 3);
-		C.FinishOrder(o);
+		try {
+			C.addProductToOrder(o, p1, 3);
+			C.FinishOrder(o);
+		} catch (NoStockException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals(C.getTodayCashBox().getnOrders(),  1);
 		assertEquals(C.getTodayCashBox().getTotal(), p1.getPriceUnit().multiply(new BigDecimal(3)));
 	}
