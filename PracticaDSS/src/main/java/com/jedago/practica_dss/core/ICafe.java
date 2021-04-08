@@ -32,6 +32,12 @@ public interface ICafe {
 	public List<Product> getAvailableProductsbyType(ProductType t);
 	
 	/**
+	 * Returns a set of registered orders
+	 * @return List with the registered orders
+	 */
+	public List<Order> getRegisteredOrders();
+	
+	/**
 	 * To add a unit of a product to an order
 	 * @param ord the order in which you want to add the product
 	 * @param p the product which you want to be added

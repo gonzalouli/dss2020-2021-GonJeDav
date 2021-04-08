@@ -38,6 +38,15 @@ public class Cafe implements ICafe {
 
 	@Override
 	/**
+	 * Returns a set of registered orders
+	 * @return List with the registered orders
+	 */
+	public List<Order> getRegisteredOrders() {
+		return orders;
+	}
+	
+	@Override
+	/**
 	 * Returns a set of available products
 	 * @return List with the availables products
 	 */

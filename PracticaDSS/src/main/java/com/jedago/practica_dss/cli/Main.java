@@ -37,10 +37,81 @@ public class Main   {
 		
 	//}
 	
-	public static void main(String[] args) throws IOException 
+	public static void main(String[] args) throws Exception 
 	{		
+		//Leer los productos del fichero y devolverlos como lista
+		List<Product> ProductList =  new ArrayList<Product>();
+		//ProductList = readProducts();
+		Product p = new Product("patata", 2, new BigDecimal(3), new ProductType("Rico"));
+		ProductList.add(p);
+		//Leer los pedidos
+		//List<Order> OrderList =  new ArrayList<Order>();
+		//OrderList = readOrders();
+		//Creamos el Cafe
+		//ICafe cafe = new Cafe(OrderList, ProductList);
 		
 		
+		//Guardar los productos y los pedidos del cafe
+		writeProducts(ProductList);
+		//writeOrders(cafe.getRegisteredOrders());
+	}
+	
+	public static List<Product> readProducts() throws Exception
+	{
+		ObjectInputStream readProducts;
+		List<Product> ProductList =  new ArrayList<Product>();
+		try {
+			readProducts = new ObjectInputStream(new FileInputStream("serializable/products.txt"));
+			ProductList = (List<Product>) readProducts.readObject();
+			readProducts.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ProductList;
+	}
+	
+	public static void writeProducts(List<Product> ProductList) throws Exception
+	{
+		ObjectOutputStream writeProducts;
+		try {
+			writeProducts = new ObjectOutputStream(new FileOutputStream("serializable/products.txt"));
+			writeProducts.writeObject(ProductList);
+			writeProducts.flush();
+			writeProducts.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static List<Order> readOrders() throws Exception
+	{
+		ObjectInputStream readOrders;
+		List<Order> OrderList =  new ArrayList<Order>();
+		try {
+			readOrders = new ObjectInputStream(new FileInputStream("orders.txt"));
+			OrderList = (List<Order>) readOrders.readObject();
+			readOrders.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return OrderList;
+	}
+	
+	public static void writeOrders(List<Order> OrderList) throws Exception
+	{
+		ObjectOutputStream writeOrders;
+		try {
+			writeOrders = new ObjectOutputStream(new FileOutputStream("orders.txt"));
+			writeOrders.writeObject(OrderList);
+			writeOrders.flush();
+			writeOrders.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void mainScreen() throws IOException 
@@ -94,7 +165,7 @@ public class Main   {
 			
 			switch(option) 
 			{
-			case "1": addProduct();
+			case "1": 
 				break;
 			case "2": 
 				break;
@@ -107,12 +178,5 @@ public class Main   {
 			
 		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }
