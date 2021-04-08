@@ -3,6 +3,9 @@ package com.jedago.practica_dss.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.jedago.practica_dss.core.exceptions.NoStockException;
+
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.time.LocalDate;
@@ -86,10 +89,9 @@ public class Cafe implements ICafe {
 	 * @param ord the order in which you want to add the product
 	 * @param p the product which you want to be added
 	 */
-	public void addProductToOrder(Order ord, Product p) {
-		ord.addProductToOrder(p);
-		//
-	}
+	public void addProductToOrder(Order ord, Product p) throws NoStockException{
+		addProductToOrder(ord, p, 1);
+	}	
 	
 	@Override
 	/**
@@ -98,8 +100,11 @@ public class Cafe implements ICafe {
 	 * @param p the product which you want to be added
 	 * @param c the quantity of the product
 	 */
-	public void addProductToOrder(Order ord, Product p, int c) {
-		ord.addProductToOrder(p, c);
+	public void addProductToOrder(Order ord, Product p, int c) throws NoStockException{
+		if(p.getStock() >= c)
+			ord.addProductToOrder(p, c);
+		else
+			throw new NoStockException("No hay suficiente stock del producto " + p.getID());
 	}
 
 	@Override
@@ -128,7 +133,7 @@ public class Cafe implements ICafe {
 	 * Register the order to finish it
 	 * @param ord the order you want to register
 	 */
-	public void FinishOrder(Order ord) {
+	public void FinishOrder(Order ord) throws NoStockException{
 		Product p;
 		int c;
 		boolean found;
@@ -149,8 +154,11 @@ public class Cafe implements ICafe {
 				//Actualizarlos de la lista de productos disponibles
 				if(( ip.getID() == p.getID()))
 				{
-					//Restarle la cantidad al stock
-					ip.setStock(ip.getStock() - c); 
+					if(p.getStock() >= c)
+						//Restarle la cantidad al stock
+						ip.setStock(ip.getStock() - c); 
+					else
+						throw new NoStockException("No hay suficiente stock del producto " + p.getID());
 					
 					found=true;
 				}

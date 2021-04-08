@@ -6,6 +6,8 @@ package com.jedago.practica_dss.core;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.jedago.practica_dss.core.exceptions.NoStockException;
+
 /**
  * @author Jesús Serrano Gallán
  *
@@ -42,7 +44,7 @@ public interface ICafe {
 	 * @param ord the order in which you want to add the product
 	 * @param p the product which you want to be added
 	 */
-	public void addProductToOrder(Order ord, Product p);
+	public void addProductToOrder(Order ord, Product p) throws NoStockException;
 	
 	/**
 	 * To add several units of a product to an order
@@ -50,7 +52,7 @@ public interface ICafe {
 	 * @param p the product which you want to be added
 	 * @param c the quantity of the product
 	 */
-	public void addProductToOrder(Order ord, Product p, int c);
+	public void addProductToOrder(Order ord, Product p, int c) throws NoStockException;
 	
 	/**
 	 * To delete a unit of a product from an order
@@ -71,7 +73,7 @@ public interface ICafe {
 	 * Register the order to finish it
 	 * @param ord the order you want to register
 	 */
-	public void FinishOrder(Order ord);
+	public void FinishOrder(Order ord) throws NoStockException;
 	
 	/**
 	 * Returs the amount of registered orders and the money earned in a day
