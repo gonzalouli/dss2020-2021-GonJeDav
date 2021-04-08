@@ -59,7 +59,7 @@ public class Cafe implements ICafe {
 	@Override
 	public List<Product> getAvailableProductsbyType(ProductType t) {
 		List<Product> seekProducts = new ArrayList<Product>();
-		
+		  
 		for(Product p: products)
 		{
 			if(p.getType().equals(t) && p.getStock()>0)
@@ -163,7 +163,7 @@ public class Cafe implements ICafe {
 		for(Order o:orders)
 		{
 			//Miramos si la fecha corresponde con la buscada
-			if(o.getDate().isEqual(date)) //Cambiar el tipo de fecha de la orden a LocalDate
+			if(o.getDate().isEqual(date))
 			{
 				//Sumamos un pedido
 				cb.incrementOrders();
