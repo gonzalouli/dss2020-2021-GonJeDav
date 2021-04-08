@@ -43,7 +43,6 @@ public class Main   {
 		String option; 
 		do 
 		{
-	
 			
 			System.out.println("Software de Cafeteria UCA");
 			System.out.println("--------------------------------------");
@@ -75,7 +74,7 @@ public class Main   {
 	public void currentOrder(Order order) throws IOException 
 	{	
 		String option; 
-		
+
 		do 
 		{
 			System.out.println("Pedido en curso ("+order.getId_order()+")");
@@ -138,12 +137,11 @@ public class Main   {
 
 	
 	
-	
 	public void addProduct() throws IOException {
 		
 		try { //visualizacion de productos
 		
-			ObjectInputStream getProduct = new ObjectInputStream(new FileInputStream("product.txt"));
+			ObjectInputStream getProduct = new ObjectInputStream(new FileInputStream("productqwer.txt"));
 			
 			List<Product> ListProduct =  new ArrayList<Product>();
 			ListProduct = (List<Product>) getProduct.readObject();
@@ -157,16 +155,10 @@ public class Main   {
 			
 		}catch(Exception e) {}
 		
-		
-		
-		
-		
+			
 		
 	}
-	
-	
-	
-	
+
 	
 	
 

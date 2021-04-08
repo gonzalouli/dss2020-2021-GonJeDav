@@ -101,14 +101,4 @@ public class OrderLine implements Serializable {
 	
 	
 
-	public void writeObject() 
-	{
-		try {
-			
-			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/orderline.txt"));
-			writeObjectOnFile.writeObject(this);
-		}catch(Exception e) {}
-		
-	}
-
 }

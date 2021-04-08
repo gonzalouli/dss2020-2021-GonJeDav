@@ -207,21 +207,8 @@ public class Order implements Iterable<OrderLine>, Serializable
 		return orderLineProduct.iterator();
 	}
 	
-	
-	
-	
-	
-	
 
-	public void writeObject() 
-	{
-		try {
-			
-			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/order.txt"));
-			writeObjectOnFile.writeObject(this);
-		}catch(Exception e) {}
-		
-	}
-	
 }
 	
+
+

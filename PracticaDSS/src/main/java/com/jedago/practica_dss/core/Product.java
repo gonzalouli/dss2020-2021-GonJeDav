@@ -152,18 +152,6 @@ public class Product implements Serializable{
         return true;
     }
 	
-	
-	
-	public void writeObject() 
-	{
-		try {
-			
-			ObjectOutputStream writeObjectOnFile = new ObjectOutputStream(new FileOutputStream("../serialization/product.txt"));
-			writeObjectOnFile.writeObject(this);
-		}catch(Exception e) {}
-		
-	}
-	
 }
 
 
