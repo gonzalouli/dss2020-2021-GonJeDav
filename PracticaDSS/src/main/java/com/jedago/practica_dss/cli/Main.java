@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import com.jedago.practica_dss.cli.*;
 import com.jedago.practica_dss.core.*;
+import com.jedago.practica_dss.core.exceptions.NoStockException;
 
 public class Main   {
 	
@@ -42,15 +43,19 @@ public class Main   {
 		//Leer los productos del fichero y devolverlos como lista
 		List<Product> ProductList =  new ArrayList<Product>();
 		ProductList = readProducts();
+		
 		if(ProductList.isEmpty())
 		{
 			ProductList = FirstProducts.getFirstProducts();
 			writeProducts(ProductList);
 		}
 		//Leer los pedidos
+		
 		List<Order> OrderList =  new ArrayList<Order>();
-		OrderList = readOrders();
+		//OrderList = readOrders();
+		
 		//Creamos el Cafe
+		
 		ICafe cafe = new Cafe(OrderList, ProductList);
 		
 		mainScreen(cafe);
@@ -121,7 +126,6 @@ public class Main   {
 			writeOrders.flush();
 			writeOrders.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -132,10 +136,12 @@ public class Main   {
 	public static void mainScreen(ICafe currentCafe) throws IOException 
 
 	{	
-		String option; 
+
+		String option;
 		do 
 		{
-			
+			System.out.println("\n\n"); 
+
 			System.out.println("Software de Cafeteria UCA"); //$NON-NLS-1$
 			System.out.println("--------------------------------------"); //$NON-NLS-1$
 			System.out.println("1. Crear pedido"); //$NON-NLS-1$
@@ -144,32 +150,33 @@ public class Main   {
 			System.out.println("--------------------------------------"); //$NON-NLS-1$
 			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
 			option = sc.nextLine();
-
 			
 			switch(option) 
 			{
 
 				case "1":	Order newOrder = currentCafe.newOrder();
-						 	currentOrder(newOrder);
+						 	currentOrder(currentCafe, newOrder);
 					break;
 				case "2": 	viewCashBox(currentCafe.getTodayCashBox());
 					break;
-				case "Q": //$NON-NLS-1$
+				case "Q": 
 					break;
 				default: System.out.println("Introduzca una opción valida... "); //$NON-NLS-1$
 			}
 			
-		}while(option!="1" && option!="2" && option!="Q" ); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}while(!option.equals("Q"));
+		
 	}
 	
 //Pantalla de una nueva orden
-	public static void currentOrder(Order order) throws IOException 
+	public static void currentOrder(ICafe currentCafe, Order order) throws IOException 
 	{	
-		
 		
 		String option; 
 		do 
 		{
+			System.out.println("\n\n"); 
+
 			System.out.println("Pedido en curso ("+order.getId_order()+")"); //$NON-NLS-1$ //$NON-NLS-2$
 			System.out.println("--------------------------------------"); //$NON-NLS-1$
 			System.out.println("1. Añadir producto"); //$NON-NLS-1$
@@ -181,24 +188,132 @@ public class Main   {
 			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
 			
 			option = sc.nextLine();
-			
+
 			switch(option) 
 			{
-			case "1":  //$NON-NLS-1$
+			case "1":  selectProductType(currentCafe, order);
 				break;
 			case "2":  //$NON-NLS-1$
 				break;
 			case "3": //$NON-NLS-1$
 				break;
-			case "R": //$NON-NLS-1$
+			case "R":
 				break;
 			default: System.out.println("Introduzca una opción valida"); //$NON-NLS-1$
 			}
 			
-		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		}while(!option.equals("R") );	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		
 	}
 
 
+//########Seleccionar el tipo del producto a mostrar
+		
+	public static void selectProductType(ICafe currentCafe, Order currentOrder) {
+		
+		String option;
+
+		do {
+			System.out.println("\n\n"); 
+
+			System.out.println("Tipo de productos");
+			System.out.println("----------------------------------");
+			System.out.println("1. Bebidas");
+			System.out.println("2. Desayunos");
+			System.out.println("3. Bocadillos");
+			System.out.println("......");
+			System.out.println("R. Volver a la pantalla anterior");
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
+			
+			option = sc.nextLine();
+
+			switch(option) 
+			{
+			case "1":	 giveProduct(currentCafe,currentOrder, "Bebidas");
+				break;
+			case "2": 	 giveProduct(currentCafe,currentOrder, "Desayunos");
+				break;
+			case "3": 	 giveProduct(currentCafe,currentOrder, "Bocadillos");
+				break;
+			case "R": ;
+				break;
+			default: System.out.println("Introduzca una opción valida");
+			}
+
+		}while( !option.equals("R") );
+		
+	}
+		
+	
+///#########Mostrar productos dependiendo del tipo
+	
+	public static void giveProduct(ICafe currentCafe, Order currentOrder, String tipo) 
+	{
+		boolean validIndex = false;
+
+		String option;
+		int convertToInt = 0;
+		int index;
+		int cant=1;
+		
+		List<Product> bebidas = new ArrayList<Product>();
+		ProductType typeDrinks = new ProductType(tipo);
+		bebidas = currentCafe.getAvailableProductsbyType(typeDrinks);
+		
+		do {
+			System.out.println("\n\n"); 
+			index = 1;
+			System.out.println("Tipo de productos");
+			
+			for(Product iter : bebidas) 
+			{
+				System.out.println(index+". "+iter.getName()+" ("+iter.getPriceUnit()+" euros)");
+				++index;
+			}
+			
+			System.out.println("......");
+			System.out.println("R. Volver a la pantalla anterior");
+			System.out.println("--------------------------------------"); //$NON-NLS-1$
+			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
+			option = sc.nextLine();
+
+			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+				
+				convertToInt = Integer.parseInt(option);
+			
+				if(convertToInt>0 && convertToInt<=index) {
+					validIndex=true;
+					try {
+						/*	do{ System.out.println("Introduzca la cantidad:"); //$NON-NLS-1$
+						* 		
+						* cant = sc.nextInt();
+						* 	
+						* 	while(cant>0);
+						*/
+						currentCafe.addProductToOrder(currentOrder, bebidas.get(index), cant);
+					} catch (NoStockException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else
+					if( !option.equals("R"))
+						System.out.println("Eleccion invalida, pruebe otra vez...");
+				
+			}
+
+			
+		}while( !option.equals("R"));
+		
+
+			
+	}
+	
+	
+	
+	
+	
 
 	/* 
 	 * Visualizacion de cashbox.
@@ -207,25 +322,24 @@ public class Main   {
 	 public static void viewCashBox(CashBox cb) 
 	 {
 		String option;
-
-		System.out.println("Consulta de la caja de hoy");
-		System.out.println("-------------------------------");
-		System.out.println("Pedidos registrados: "+cb.getnOrders());
-		System.out.println("Caja: "+cb.getTotal()+" euros\n");
-		System.out.println("R. Volver a la pantalla anterior");
-		System.out.println("--------------------------------------");
-		System.out.println("Introduzca una opción:");
-		
 		do 
 		{
-		 option = sc.nextLine();
+			System.out.println("\n\n"); 
+
+			System.out.println("Consulta de la caja de hoy");
+			System.out.println("-------------------------------");
+			System.out.println("Pedidos registrados: "+cb.getnOrders());
+			System.out.println("Caja: "+cb.getTotal()+" euros\n");
+			System.out.println("R. Volver a la pantalla anterior");
+			System.out.println("--------------------------------------");
+			System.out.println("Introduzca una opción:");
 		
-		}while(option != "R");
+			option = sc.nextLine();
+			
+
+		}while(!option.equals("R"));
 		
 	 }
-
-
-
 
 
 
