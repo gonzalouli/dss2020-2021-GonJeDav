@@ -46,6 +46,8 @@ public class Main   {
 		List<Product> ProductList =  new ArrayList<Product>();
 		ProductList = readProducts();
 		
+		
+		
 		if(ProductList.isEmpty())
 		{
 			ProductList = FirstProducts.getFirstProducts();
@@ -415,7 +417,7 @@ public class Main   {
 		String option;
 		System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
 		System.out.println("-----------------------------------"); 		
-		System.out.println("Total a pagar: "+currentOrder.getPrice()); 		
+		System.out.println("Total a pagar: "+currentOrder.getPrice()+" €"); 		
 		System.out.println("1. Pagar y finalizar pedido");
 		System.out.println("R. Volver a la pantalla anterior");
 
@@ -444,7 +446,7 @@ public class Main   {
 	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{
 		currentCafe.FinishOrder(currentOrder);
-		writeOrders(currentCafe.getRegisteredOrders());
+		//writeOrders(currentCafe.getRegisteredOrders());
 
 		
 	}
