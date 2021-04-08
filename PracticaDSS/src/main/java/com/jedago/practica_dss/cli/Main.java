@@ -14,6 +14,8 @@ import com.jedago.practica_dss.core.exceptions.NoStockException;
 public class Main   {
 	
 	private static Scanner sc = new Scanner(System.in);
+	private static Scanner scCantidad = new Scanner(System.in);
+
 	private static IPantalla screen = new Pantalla();
 
 	//public static void main(String[] args) {
@@ -64,9 +66,11 @@ public class Main   {
 
 		
 		//Guardar los productos y los pedidos del cafe
-		writeProducts(ProductList);
+		writeProducts(cafe.getAvailableProducts());
 		writeOrders(cafe.getRegisteredOrders());
 	}
+	
+	
 	
 //Operaciones de Serializacion con los productos	
 	public static List<Product> readProducts() throws Exception
@@ -132,7 +136,10 @@ public class Main   {
 	
 	
 	
-//Pantalla principal
+	 /** 
+     * Show main screen with a CLI interface.
+	 * @param currentCafe Defines the interface ICafe to operate with,
+	 */
 	public static void mainScreen(ICafe currentCafe) throws IOException 
 
 	{	
@@ -168,8 +175,12 @@ public class Main   {
 		
 	}
 	
-//Pantalla de una nueva orden
-	public static void currentOrder(ICafe currentCafe, Order order) throws IOException 
+	 /** 
+     * Operations that can place an order 
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 */
+	public static void currentOrder(ICafe currentCafe, Order currentOrder) throws IOException 
 	{	
 		
 		String option; 
@@ -177,7 +188,7 @@ public class Main   {
 		{
 			System.out.println("\n\n"); 
 
-			System.out.println("Pedido en curso ("+order.getId_order()+")"); //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); //$NON-NLS-1$ //$NON-NLS-2$
 			System.out.println("--------------------------------------"); //$NON-NLS-1$
 			System.out.println("1. Añadir producto"); //$NON-NLS-1$
 			System.out.println("2. Eliminar producto"); //$NON-NLS-1$
@@ -191,9 +202,9 @@ public class Main   {
 
 			switch(option) 
 			{
-			case "1":  selectProductType(currentCafe, order);
+			case "1":  selectProductType(currentCafe, currentOrder);
 				break;
-			case "2":  //$NON-NLS-1$
+			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
 			case "3": //$NON-NLS-1$
 				break;
@@ -207,66 +218,86 @@ public class Main   {
 	}
 
 
-//########Seleccionar el tipo del producto a mostrar
+	 /** 
+     * Select the type of the product to show. 
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 */
+
 		
 	public static void selectProductType(ICafe currentCafe, Order currentOrder) {
 		
+		int convertToInt = 0;
 		String option;
-
+		int index;
+		List<ProductType> productTypeList = currentCafe.getAvailableProductTypes();
+		
 		do {
+			index=1;
 			System.out.println("\n\n"); 
 
 			System.out.println("Tipo de productos");
 			System.out.println("----------------------------------");
-			System.out.println("1. Bebidas");
-			System.out.println("2. Desayunos");
-			System.out.println("3. Bocadillos");
+			
+			for(ProductType iter: productTypeList) {
+				System.out.println(index+". "+iter.getTypeName());
+				++index;
+			}
 			System.out.println("......");
 			System.out.println("R. Volver a la pantalla anterior");
 			System.out.println("--------------------------------------"); //$NON-NLS-1$
 			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
+		
 			
 			option = sc.nextLine();
+		
 
-			switch(option) 
-			{
-			case "1":	 giveProduct(currentCafe,currentOrder, "Bebidas");
-				break;
-			case "2": 	 giveProduct(currentCafe,currentOrder, "Desayunos");
-				break;
-			case "3": 	 giveProduct(currentCafe,currentOrder, "Bocadillos");
-				break;
-			case "R": ;
-				break;
-			default: System.out.println("Introduzca una opción valida");
+			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+				
+				convertToInt = Integer.parseInt(option);
+			
+				if(convertToInt>0 && convertToInt<=index) {
+					giveProduct( currentCafe,  currentOrder, productTypeList.get(convertToInt-1));
+				
+				}
+			else
+				if( !option.equals("R"))
+					System.out.println("Eleccion invalida, pruebe otra vez...");
+				
 			}
+			
+			
 
 		}while( !option.equals("R") );
 		
 	}
 		
 	
-///#########Mostrar productos dependiendo del tipo
+	 /** 
+     * Operations that is used to select a product. 
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 * @param productType Defines the type of the product showed.
+	 */
 	
-	public static void giveProduct(ICafe currentCafe, Order currentOrder, String tipo) 
+	public static void giveProduct(ICafe currentCafe, Order currentOrder, ProductType productType) 
 	{
-		boolean validIndex = false;
 
 		String option;
 		int convertToInt = 0;
 		int index;
 		int cant=1;
 		
-		List<Product> bebidas = new ArrayList<Product>();
-		ProductType typeDrinks = new ProductType(tipo);
-		bebidas = currentCafe.getAvailableProductsbyType(typeDrinks);
+		List<Product> productGiven = new ArrayList<Product>();
+		
+		productGiven = currentCafe.getAvailableProductsbyType(productType);
 		
 		do {
 			System.out.println("\n\n"); 
 			index = 1;
 			System.out.println("Tipo de productos");
 			
-			for(Product iter : bebidas) 
+			for(Product iter : productGiven) 
 			{
 				System.out.println(index+". "+iter.getName()+" ("+iter.getPriceUnit()+" euros)");
 				++index;
@@ -274,8 +305,8 @@ public class Main   {
 			
 			System.out.println("......");
 			System.out.println("R. Volver a la pantalla anterior");
-			System.out.println("--------------------------------------"); //$NON-NLS-1$
-			System.out.println("Introduzca una opción:"); //$NON-NLS-1$
+			System.out.println("--------------------------------------"); 
+			System.out.println("Introduzca una opción:"); 
 			option = sc.nextLine();
 
 			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
@@ -283,25 +314,24 @@ public class Main   {
 				convertToInt = Integer.parseInt(option);
 			
 				if(convertToInt>0 && convertToInt<=index) {
-					validIndex=true;
 					try {
-						/*	do{ System.out.println("Introduzca la cantidad:"); //$NON-NLS-1$
-						* 		
-						* cant = sc.nextInt();
-						* 	
-						* 	while(cant>0);
-						*/
-						currentCafe.addProductToOrder(currentOrder, bebidas.get(index), cant);
+							do{ 
+								System.out.println("Introduzca la cantidad:"); 
+								cant = scCantidad.nextInt();
+						 	
+							}while(cant<0);
+						
+						currentCafe.addProductToOrder(currentOrder, productGiven.get(convertToInt-1), cant);
 					} catch (NoStockException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
-				else
+			}else
 					if( !option.equals("R"))
 						System.out.println("Eleccion invalida, pruebe otra vez...");
 				
-			}
+			
 
 			
 		}while( !option.equals("R"));
@@ -315,9 +345,12 @@ public class Main   {
 	
 	
 
-	/* 
-	 * Visualizacion de cashbox.
-	 * */
+	 /** 
+     * Function to show the daily cash box.
+	 * @param currentCafe Defines the interface ICafe to operate with.
+	 * @param currentOrder Defines the current order opened
+	 * @param productType Defines the type of the product showed.
+	 */
 	
 	 public static void viewCashBox(CashBox cb) 
 	 {
