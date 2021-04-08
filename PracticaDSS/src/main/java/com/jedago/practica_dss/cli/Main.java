@@ -56,10 +56,7 @@ public class Main   {
 		
 		//Generar un loop que cuando se termine un pedido escriba los cambios
 		
-		do
-		{
-			
-		}while();
+		mainScreen();
 		
 		//Guardar los productos y los pedidos del cafe
 		writeProducts(ProductList);
@@ -71,7 +68,7 @@ public class Main   {
 		ObjectInputStream readProducts;
 		List<Product> ProductList =  new ArrayList<Product>();
 		try {
-			readProducts = new ObjectInputStream(new FileInputStream(Messages.getString("Main.1")));
+			readProducts = new ObjectInputStream(new FileInputStream(Messages.getString("ProductsFile")));
 			ProductList = (List<Product>) readProducts.readObject();
 			readProducts.close();
 		} catch (Exception e) {
@@ -85,7 +82,7 @@ public class Main   {
 	{
 		ObjectOutputStream writeProducts;
 		try {
-			writeProducts = new ObjectOutputStream(new FileOutputStream(Messages.getString("Main.1")));
+			writeProducts = new ObjectOutputStream(new FileOutputStream(Messages.getString("ProductsFile")));
 			writeProducts.writeObject(ProductList);
 			writeProducts.flush();
 			writeProducts.close();
@@ -100,7 +97,7 @@ public class Main   {
 		ObjectInputStream readOrders;
 		List<Order> OrderList =  new ArrayList<Order>();
 		try {
-			readOrders = new ObjectInputStream(new FileInputStream("orders.txt")); //$NON-NLS-1$
+			readOrders = new ObjectInputStream(new FileInputStream(Messages.getString("OrdersFile")));
 			OrderList = (List<Order>) readOrders.readObject();
 			readOrders.close();
 		} catch (Exception e) {
@@ -114,7 +111,7 @@ public class Main   {
 	{
 		ObjectOutputStream writeOrders;
 		try {
-			writeOrders = new ObjectOutputStream(new FileOutputStream("orders.txt")); //$NON-NLS-1$
+			writeOrders = new ObjectOutputStream(new FileOutputStream(Messages.getString("OrdersFile")));
 			writeOrders.writeObject(OrderList);
 			writeOrders.flush();
 			writeOrders.close();
@@ -124,7 +121,7 @@ public class Main   {
 		}
 	}
 	
-	public void mainScreen() throws IOException 
+	public static void mainScreen() throws IOException 
 	{	
 		String option; 
 		do 
