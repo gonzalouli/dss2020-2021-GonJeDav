@@ -40,6 +40,11 @@ public class Main   {
 	public static void main(String[] args) throws IOException 
 	{		
 		
+		
+	}
+	
+	public void mainScreen() throws IOException 
+	{	
 		String option; 
 		do 
 		{
@@ -68,8 +73,6 @@ public class Main   {
 			
 		}while(option!="1" && option!="2" && option!="Q" );
 	}
-	
-	
 	
 	
 	public void currentOrder(Order order) throws IOException 
