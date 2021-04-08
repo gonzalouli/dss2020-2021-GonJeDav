@@ -69,6 +69,19 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
+	public List<ProductType> getAvailableProductTypes() {
+		List<ProductType> productTypeList = new ArrayList<ProductType>();
+		
+		for(Product p: products)
+		{
+			if(!productTypeList.contains(p.getType()))
+				productTypeList.add(p.getType());
+		}
+		
+		return productTypeList;
+	}
+	
+	@Override
 	public List<Product> getAvailableProductsbyType(ProductType t) {
 		List<Product> seekProducts = new ArrayList<Product>();
 		  

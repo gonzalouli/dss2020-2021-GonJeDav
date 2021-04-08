@@ -27,6 +27,13 @@ public interface ICafe {
 	public List<Product> getAvailableProducts();
 	
 	/**
+	 * Returns a set of available product types
+	 * @return List with the availables product types
+	 */
+	public List<ProductType> getAvailableProductTypes();
+	
+	
+	/**
 	 * Returns a set of available products of an specified type
 	 * @param t type of the products you want to get
 	 * @return List with the availables products
