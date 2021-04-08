@@ -14,7 +14,7 @@ public class Main   {
 	
 	private static Scanner sc = new Scanner(System.in);
 	private static IPantalla screen = new Pantalla();
-	
+
 	//public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Recorrer los pedidos y guardarlos en una lista
@@ -45,17 +45,21 @@ public class Main   {
 		Product p = new Product("patata", 2, new BigDecimal(3), new ProductType("Rico"));
 		ProductList.add(p);
 		//Leer los pedidos
-		//List<Order> OrderList =  new ArrayList<Order>();
-		//OrderList = readOrders();
+		List<Order> OrderList =  new ArrayList<Order>();
+		OrderList = readOrders();
 		//Creamos el Cafe
-		//ICafe cafe = new Cafe(OrderList, ProductList);
+		ICafe cafe = new Cafe(OrderList, ProductList);
+		
+		mainScreen(cafe);
+		
 		
 		
 		//Guardar los productos y los pedidos del cafe
 		writeProducts(ProductList);
-		//writeOrders(cafe.getRegisteredOrders());
+		writeOrders(cafe.getRegisteredOrders());
 	}
 	
+//Operaciones de Serializacion con los productos	
 	public static List<Product> readProducts() throws Exception
 	{
 		ObjectInputStream readProducts;
@@ -71,6 +75,7 @@ public class Main   {
 		return ProductList;
 	}
 	
+
 	public static void writeProducts(List<Product> ProductList) throws Exception
 	{
 		ObjectOutputStream writeProducts;
@@ -85,6 +90,9 @@ public class Main   {
 		}
 	}
 
+	
+//Operaciones de Serializacion con los pedidos
+	
 	public static List<Order> readOrders() throws Exception
 	{
 		ObjectInputStream readOrders;
@@ -114,7 +122,10 @@ public class Main   {
 		}
 	}
 	
-	public void mainScreen() throws IOException 
+	
+	
+//Pantalla principal
+	public static void mainScreen(ICafe currentCafe) throws IOException 
 	{	
 		String option; 
 		do 
@@ -132,9 +143,10 @@ public class Main   {
 			
 			switch(option) 
 			{
-				case "1": 
+				case "1":	Order newOrder = currentCafe.newOrder();
+						 	currentOrder(newOrder);
 					break;
-				case "2": 
+				case "2": 	viewCashBox(currentCafe.getTodayCashBox());
 					break;
 				case "Q":
 					break;
@@ -144,11 +156,12 @@ public class Main   {
 		}while(option!="1" && option!="2" && option!="Q" );
 	}
 	
-	
-	public void currentOrder(Order order) throws IOException 
+//Pantalla de una nueva orden
+	public static void currentOrder(Order order) throws IOException 
 	{	
+		
+		
 		String option; 
-
 		do 
 		{
 			System.out.println("Pedido en curso ("+order.getId_order()+")");
@@ -179,4 +192,58 @@ public class Main   {
 		}while( option!="1" &&  option!="2" && option!="3" && option!="R" );	
 	}
 
-}
+
+
+	/* 
+	 * Visualizacion de cashbox.
+	 * */
+	
+	 public static void viewCashBox(CashBox cb) 
+	 {
+		String option;
+
+		System.out.println("Consulta de la caja de hoy");
+		System.out.println("-------------------------------");
+		System.out.println("Pedidos registrados: "+cb.getnOrders());
+		System.out.println("Caja: "+cb.getTotal()+" euros\n");
+		System.out.println("R. Volver a la pantalla anterior");
+		System.out.println("--------------------------------------");
+		System.out.println("Introduzca una opción:");
+		
+		do 
+		{
+		 option = sc.nextLine();
+		
+		}while(option != "R");
+		
+	 }
+
+
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,7 @@ import java.util.*;
  * @version 1.0. 21/03/2021
  * @author Gonzalo Ulibarri
  */
+
 public class Order implements Iterable<OrderLine>, Serializable
 {
 
@@ -26,10 +27,10 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private BigDecimal price;
 	private LocalDate date; //Local time, local date, local datetime
 	
-	 /** 
-     * Create empty order with a unique id, a list
-     * of OrderLine empty and a given date.
-     */
+	 /*
+	 * Create empty order with a unique id, a list
+	 * of OrderLine empty and a given date.
+	 */
 	public Order(){
 		
 		date = LocalDate.now();
@@ -42,7 +43,6 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 /** 
 	 * Returns the id of a specific order.
 	 * @return The order id.
-
 	 */
 	public long getId_order() {
 		return this.id_order;
