@@ -413,17 +413,16 @@ public class Main   {
 	 * @throws Exception 
 	 */
 	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) 
-	{
+	{	
 		String option;
-		System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
-		System.out.println("-----------------------------------"); 		
-		System.out.println("Total a pagar: "+currentOrder.getPrice()+" €"); 		
-		System.out.println("1. Pagar y finalizar pedido");
-		System.out.println("R. Volver a la pantalla anterior");
-
-		option = sc.nextLine();
-		
 		do {
+			System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
+			System.out.println("-----------------------------------"); 		
+			System.out.println("Total a pagar: "+currentOrder.getPrice()+" €"); 		
+			System.out.println("1. Pagar y finalizar pedido");
+			System.out.println("R. Volver a la pantalla anterior");
+	
+			option = sc.nextLine();
 			switch(option) 
 			{
 			case "1": try {
