@@ -16,9 +16,6 @@ public class Main   {
 	private static Scanner sc = new Scanner(System.in);
 	private static Scanner scCantidad = new Scanner(System.in);
 
-	//Esto habría que quitarlo
-	private static IPantalla screen = new Pantalla();
-
 	//public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//Recorrer los pedidos y guardarlos en una lista
