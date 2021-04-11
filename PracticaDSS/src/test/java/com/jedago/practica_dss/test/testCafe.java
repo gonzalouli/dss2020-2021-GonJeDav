@@ -29,7 +29,7 @@ public class testCafe {
 		lista_productos = new ArrayList<Product>();
 		price1 = new BigDecimal(2.5);
 		 t = new ProductType("Bocadillo");
-		p1 = new Product("Producto1", 3, price1, t);
+		p1 = new SingleProduct(1, "Producto1", 3, price1, t);
 		lista_productos.add(p1);
 		C = new Cafe(lista_pedidos, lista_productos);
 	}
@@ -68,7 +68,7 @@ public class testCafe {
 		}
 		BigDecimal newPrice = o.getPrice();
 		
-		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit());
+		assertEquals(newPrice.subtract(oldPrice), p1.getPrice());
 	}
 	
 	@Test(expected=NoStockException.class)
@@ -91,7 +91,7 @@ public class testCafe {
 		}
 		BigDecimal newPrice = o.getPrice();
 		
-		assertEquals(newPrice.subtract(oldPrice), p1.getPriceUnit().multiply(new BigDecimal(2)));
+		assertEquals(newPrice.subtract(oldPrice), p1.getPrice().multiply(new BigDecimal(2)));
 	}
 	
 	@Test
@@ -108,7 +108,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1);
 		BigDecimal newPrice = o.getPrice();
 		
-		assertEquals(oldPrice.subtract(newPrice), p1.getPriceUnit());
+		assertEquals(oldPrice.subtract(newPrice), p1.getPrice());
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1, 3);
 		BigDecimal newPrice = o.getPrice();
 		
-		assertEquals(oldPrice.subtract(newPrice), p1.getPriceUnit().multiply(new BigDecimal(3)));
+		assertEquals(oldPrice.subtract(newPrice), p1.getPrice().multiply(new BigDecimal(3)));
 	}
 	
 	@Test
@@ -142,7 +142,7 @@ public class testCafe {
 		C.deleteProductFromOrder(o, p1, 2);
 		BigDecimal newPrice = o.getPrice();
 		
-		assertEquals(oldPrice.subtract(newPrice), p1.getPriceUnit().multiply(new BigDecimal(2)));
+		assertEquals(oldPrice.subtract(newPrice), p1.getPrice().multiply(new BigDecimal(2)));
 	}
 	
 	@Test
@@ -200,7 +200,7 @@ public class testCafe {
 			e.printStackTrace();
 		}
 		assertEquals(C.getTodayCashBox().getnOrders(),  1);
-		assertEquals(C.getTodayCashBox().getTotal(), p1.getPriceUnit().multiply(new BigDecimal(3)));
+		assertEquals(C.getTodayCashBox().getTotal(), p1.getPrice().multiply(new BigDecimal(3)));
 	}
 	
 	

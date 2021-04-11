@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
+import com.jedago.practica_dss.core.SingleProduct;
 
 public class testProduct 
 {
@@ -20,7 +21,7 @@ public class testProduct
 	public void setup() 
 	{
 		ProductType t = new ProductType("cafe");
-		p = new Product("producto", 4, new BigDecimal("2"), t);
+		p = new SingleProduct(1, "producto", 4, new BigDecimal("2"), t);
 				
 	}
 	
@@ -33,7 +34,8 @@ public class testProduct
 	@Test
 	public void testgetID() 
 	{
-		assertEquals(Product.getCurrentId() -1, p.getID());
+		SingleProduct p2 = new SingleProduct(1, "producto2", 4, new BigDecimal("2"), t);
+		assertEquals(p2.getID(), p.getID());
 	}
 	
 	@Test
@@ -49,12 +51,9 @@ public class testProduct
 	}
 	
 	@Test
-	public void testsetPriceUnit() 
+	public void testsetPrice() 
 	{
-		BigDecimal newprice = new BigDecimal("1");
-		p.setPriceUnit(newprice);
-		System.out.println(p.getPriceUnit());
-		assertEquals( new BigDecimal("1"), p.getPriceUnit());
+		assertEquals( new BigDecimal(2), p.getPrice());
 	}
 	
 	@Test
@@ -69,10 +68,10 @@ public class testProduct
 	{
 		Product sameproduct = p;
 		ProductType h = new ProductType("bocadillo");
-		Product nameotherproduct = new Product("productodistinto", 4, new BigDecimal("2"), t);
-		Product stockotherproduct = new Product("producto", 2, new BigDecimal("2"), t);
-		Product priceotherproduct = new Product("producto", 4, new BigDecimal("4"), t);
-		Product typeotherproduct = new Product("producto", 4, new BigDecimal("4"), h);
+		Product nameotherproduct = new SingleProduct(3, "productodistinto", 4, new BigDecimal("2"), t);
+		Product stockotherproduct = new SingleProduct(4, "producto", 2, new BigDecimal("2"), t);
+		Product priceotherproduct = new SingleProduct(5, "producto", 4, new BigDecimal("4"), t);
+		Product typeotherproduct = new SingleProduct(6, "producto", 4, new BigDecimal("4"), h);
 
 		assert(p.equals(sameproduct));
 		assert(!p.equals(nameotherproduct));
