@@ -95,7 +95,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	{	
 		this.orderLineProduct.add(currentOrderLine);
 		BigDecimal namount = BigDecimal.valueOf(currentOrderLine.getAmount());
-		BigDecimal total = currentOrderLine.getProduct().getPriceUnit().multiply(namount);
+		BigDecimal total = currentOrderLine.getProduct().getPrice().multiply(namount);
 		this.price = this.price.add(total);
 	}
 
@@ -131,7 +131,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 			if(pivot.getProduct().getID() == currentProduct.getID()) {
 				pivot.setAmount(pivot.getAmount()+cant);
 				BigDecimal namount = new BigDecimal(pivot.getAmount()) ;
-				this.price = this.price.add(pivot.getProduct().getPriceUnit().multiply(namount));
+				this.price = this.price.add(pivot.getProduct().getPrice().multiply(namount));
 				return;
 			}
 		}
@@ -160,14 +160,14 @@ public class Order implements Iterable<OrderLine>, Serializable
 					BigDecimal newamount = new BigDecimal(ol.getAmount()-cant);
 					if(cant >= ol.getAmount() ) {
 						
-						this.price = this.price.subtract(ol.getProduct().getPriceUnit().multiply(new BigDecimal(cant)));
+						this.price = this.price.subtract(ol.getProduct().getPrice().multiply(new BigDecimal(cant)));
 						deleteOrderlineFromOrder(it);
 						
 					}else {
 						
 						ol.setAmount( newamount.intValue());
 						newamount = new BigDecimal(ol.getAmount()) ;
-						this.price = this.price.subtract(ol.getProduct().getPriceUnit().multiply(new BigDecimal(cant)));
+						this.price = this.price.subtract(ol.getProduct().getPrice().multiply(new BigDecimal(cant)));
 						
 					}
 				}

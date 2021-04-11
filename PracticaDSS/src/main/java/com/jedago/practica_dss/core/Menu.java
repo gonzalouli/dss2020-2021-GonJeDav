@@ -17,7 +17,7 @@ public class Menu implements Product {
 	private int		id;
 	private String	name;
 	private ProductType type; 
-	private List<SingleProduct> components;
+	private List<Product> components;
 	
 	/**
 	 * Constructor for a void menu
@@ -29,7 +29,7 @@ public class Menu implements Product {
 		this.id = id;
 		this.name = name;
 		this.type = type;
-		components = new ArrayList<SingleProduct>();
+		components = new ArrayList<Product>();
 	}
 	
 	/**
@@ -39,7 +39,7 @@ public class Menu implements Product {
 	 * @param type
 	 * @param lp
 	 */
-	public Menu(int id, String name, ProductType type, List<SingleProduct> lp) {
+	public Menu(int id, String name, ProductType type, List<Product> lp) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
@@ -47,19 +47,19 @@ public class Menu implements Product {
 	}
 	
 	/**
-	 * To add a SingleProduct to the menu
+	 * To add a Product to the menu
 	 * @param p The product to add
 	 */
-	public void add(SingleProduct p)
+	public void add(Product p)
 	{
 		components.add(p);
 	}
 	
 	/**
-	 * To remove a SingleProduct from the menu
+	 * To remove a Product from the menu
 	 * @param p Thre product to remove
 	 */
-	public void remove(SingleProduct p)
+	public void remove(Product p)
 	{
 		components.remove(p);
 	}
@@ -67,7 +67,7 @@ public class Menu implements Product {
 	/**
 	 * To get the SingleProduct list that makes the menu
 	 */
-	public List<SingleProduct> getComponents()
+	public List<Product> getComponents()
 	{
 		return(components);
 	}

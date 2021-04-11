@@ -313,7 +313,7 @@ public class Main   {
 			
 			for(Product iter : productGiven) 
 			{
-				System.out.println(index+". "+iter.getName()+" ("+iter.getPriceUnit()+" euros)");
+				System.out.println(index+". "+iter.getName()+" ("+iter.getPrice()+" euros)");
 				++index;
 			}
 			
@@ -380,9 +380,9 @@ public class Main   {
 			for(OrderLine iter : productsInOrder) 
 			{
 				if(iter.getAmount()==1)
-					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"ud x "+iter.getProduct().getPriceUnit()+" euros)");
+					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"ud x "+iter.getProduct().getPrice()+" euros)");
 				else
-					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"uds x "+iter.getProduct().getPriceUnit()+" euros)");
+					System.out.println(index+". "+iter.getProductName()+" ("+iter.getAmount()+"uds x "+iter.getProduct().getPrice()+" euros)");
 
 				++index;
 			}

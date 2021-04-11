@@ -91,7 +91,7 @@ public class OrderLine implements Serializable {
 	{
 		BigDecimal coste = BigDecimal.ZERO;
 		BigDecimal costeTotal = BigDecimal.ZERO;
-		coste = product_.getPriceUnit().multiply(new BigDecimal(amount));
+		coste = product_.getPrice().multiply(new BigDecimal(amount));
 		costeTotal = costeTotal.add(coste);
 		return costeTotal;			
 	}
