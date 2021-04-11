@@ -45,9 +45,14 @@ public class Main   {
 	{		
 		//Leer los productos del fichero y devolverlos como lista
 		List<Product> ProductList =  new ArrayList<Product>();
-		//TODO: Cuando el fichero no está creado, salta excepción
-		ProductList = readProducts();
 		
+		//TODO: Cuando el fichero no está creado, salta excepción
+		File isProductList = new File(Messages.getString("ProductsFile"));
+		File isOrdersList = new File(Messages.getString("OrdersFile"));
+		
+		if(isProductList.exists())
+			ProductList = readProducts();
+			
 		if(ProductList.isEmpty())
 		{
 			ProductList = FirstProducts.getFirstProducts();
@@ -57,8 +62,12 @@ public class Main   {
 		//Leer los pedidos
 		List<Order> OrderList =  new ArrayList<Order>();
 		//TODO: Cuando el fichero no está creado, salta excepción
-		OrderList = readOrders();
-		
+		if(isOrdersList.exists())
+			OrderList = readOrders();
+		else
+			writeOrders(OrderList);
+			
+			
 		//Creamos el Cafe
 		
 		ICafe cafe = new Cafe(OrderList, ProductList);
@@ -170,12 +179,13 @@ public class Main   {
 					break;
 				case "2": 	viewCashBox(currentCafe.getTodayCashBox());
 					break;
-				case "Q": 
-					break;
+				case "q":
+				case "Q": return;
+					
 				default: System.out.println("Introduzca una opción valida... "); //$NON-NLS-1$
 			}
 			
-		}while(!option.equals("Q"));
+		}while(!option.equalsIgnoreCase("Q"));
 		
 	}
 	
@@ -211,13 +221,13 @@ public class Main   {
 			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
 			case "3":  finishCurrentOrder(currentCafe, currentOrder);
-				break;
+					   return;
 			case "R":
 				break;
 			default: System.out.println("Introduzca una opción valida"); //$NON-NLS-1$
 			}
 			
-		}while(!option.equals("R") );	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		}while(!option.equalsIgnoreCase("R") );	 //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		
 	}
 
@@ -226,8 +236,9 @@ public class Main   {
      * Select the type of the product to show. 
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
+	 * @throws IOException 
 	 */
-	public static void selectProductType(ICafe currentCafe, Order currentOrder) {
+	public static void selectProductType(ICafe currentCafe, Order currentOrder) throws IOException {
 		
 		int convertToInt = 0;
 		String option;
@@ -260,17 +271,17 @@ public class Main   {
 			
 				if(convertToInt>0 && convertToInt<=index) {
 					giveProduct( currentCafe,  currentOrder, productTypeList.get(convertToInt-1));
-				
+					return;
 				}
 			else
-				if( !option.equals("R"))
+				if( !option.equalsIgnoreCase("R"))
 					System.out.println("Eleccion invalida, pruebe otra vez...");
 				
 			}
 			
 			
 
-		}while( !option.equals("R") );
+		}while( !option.equalsIgnoreCase("R") );
 		
 	}
 		
@@ -280,9 +291,10 @@ public class Main   {
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
 	 * @param productType Defines the type of the product showed.
+	 * @throws IOException 
 	 */
 	
-	public static void giveProduct(ICafe currentCafe, Order currentOrder, ProductType productType) 
+	public static void giveProduct(ICafe currentCafe, Order currentOrder, ProductType productType) throws IOException 
 	{
 
 		String option;
@@ -311,11 +323,11 @@ public class Main   {
 			System.out.println("Introduzca una opción:"); 
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']")  ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
-				if(convertToInt>0 && convertToInt<=index) {
+				if(convertToInt>0 && convertToInt<index) {
 					try {
 							do{ 
 								System.out.println("Introduzca la cantidad:"); 
@@ -324,19 +336,22 @@ public class Main   {
 							}while(cant<0);
 						
 						currentCafe.addProductToOrder(currentOrder, productGiven.get(convertToInt-1), cant);
+						return;
+						
 					} catch (NoStockException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
+				}else
+					System.out.println("El producto elegido no existe, pruebe otra vez"); 
 			}else
-					if( !option.equals("R"))
+					if( !option.equalsIgnoreCase("R"))
 						System.out.println("Eleccion invalida, pruebe otra vez...");
 				
 			
 
 			
-		}while( !option.equals("R"));
+		}while( !option.equalsIgnoreCase("R")  );
 		
 
 			
@@ -376,6 +391,7 @@ public class Main   {
 			System.out.println("R. Volver a la pantalla anterior");
 			System.out.println("--------------------------------------"); 
 			System.out.println("Introduzca una opción:"); 
+			
 			option = sc.nextLine();
 
 			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
@@ -392,13 +408,10 @@ public class Main   {
 					currentCafe.deleteProductFromOrder(currentOrder, productsInOrder.get(convertToInt-1).getProduct(), cant);
 				}
 			}else
-					if( !option.equals("R"))
+					if( !option.equalsIgnoreCase("R"))
 						System.out.println("Eleccion invalida, pruebe otra vez...");
-				
 			
-
-			
-		}while( !option.equals("R"));
+		}while( !option.equalsIgnoreCase("R"));
 		
 		
 	}
@@ -410,11 +423,13 @@ public class Main   {
      * Function to decide if the client want to finish the order.
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
+	 * @throws IOException 
 	 * @throws Exception 
 	 */
-	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) 
+	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) throws IOException 
 	{	
 		String option;
+		
 		do {
 			System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
 			System.out.println("-----------------------------------"); 		
@@ -427,6 +442,7 @@ public class Main   {
 			{
 			case "1": try {
 					payAndFinishOrder(currentCafe,currentOrder);
+					return;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -436,8 +452,9 @@ public class Main   {
 			
 			}
 			
-		}while(!option.equals("R"));
+		}while(!option.equalsIgnoreCase("R"));
 		
+		return;
 	}
 	
 	
@@ -445,8 +462,9 @@ public class Main   {
 	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{
 		currentCafe.FinishOrder(currentOrder);
-		//writeOrders(currentCafe.getRegisteredOrders());
 
+		return;
+		//writeOrders(currentCafe.getRegisteredOrders());
 		
 	}
 	
@@ -478,7 +496,7 @@ public class Main   {
 			option = sc.nextLine();
 			
 
-		}while(!option.equals("R"));
+		}while(!option.equalsIgnoreCase("R"));
 		
 	 }
 
