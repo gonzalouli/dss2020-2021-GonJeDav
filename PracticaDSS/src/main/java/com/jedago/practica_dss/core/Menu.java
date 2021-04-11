@@ -113,6 +113,23 @@ public class Menu implements Product {
 		
 		return min;
 	}
+	
+	@Override
+	public void setStock(int newStock) {
+		
+		int currentStock = this.getStock();
+		int exceso;
+		for(Product p : components)
+		{
+			if(p.getStock()<=newStock)
+				p.setStock(newStock);
+			else
+			{
+				exceso = p.getStock() - currentStock;
+				p.setStock(newStock + exceso);
+			}
+		}
+	}
 
 	@Override
 	public BigDecimal getPrice() {

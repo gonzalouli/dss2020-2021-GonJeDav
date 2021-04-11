@@ -72,6 +72,11 @@ public class SingleProduct implements Product{
 		return stock;
 	}
 	
+	@Override
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
 	/** 
      * @return The price of a product.
      * 
