@@ -66,7 +66,6 @@ public class Main   {
 			
 			
 		//Creamos el Cafe
-		
 		ICafe cafe = new Cafe(OrderList, ProductList);
 		
 		mainScreen(cafe);
@@ -220,6 +219,7 @@ public class Main   {
 			case "3":  finishCurrentOrder(currentCafe, currentOrder);
 					   return;
 			case "R":
+			case "r":
 				break;
 			default: System.out.println("Introduzca una opción valida"); //$NON-NLS-1$
 			}
