@@ -227,8 +227,6 @@ public class Main   {
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
 	 */
-
-		
 	public static void selectProductType(ICafe currentCafe, Order currentOrder) {
 		
 		int convertToInt = 0;
