@@ -16,6 +16,7 @@ public class Main   {
 	private static Scanner sc = new Scanner(System.in);
 	private static Scanner scCantidad = new Scanner(System.in);
 
+	//Esto habría que quitarlo
 	private static IPantalla screen = new Pantalla();
 
 	//public static void main(String[] args) {
@@ -44,19 +45,19 @@ public class Main   {
 	{		
 		//Leer los productos del fichero y devolverlos como lista
 		List<Product> ProductList =  new ArrayList<Product>();
+		//TODO: Cuando el fichero no está creado, salta excepción
 		ProductList = readProducts();
-		
-		
 		
 		if(ProductList.isEmpty())
 		{
 			ProductList = FirstProducts.getFirstProducts();
 			writeProducts(ProductList);
 		}
-		//Leer los pedidos
 		
+		//Leer los pedidos
 		List<Order> OrderList =  new ArrayList<Order>();
-		//OrderList = readOrders();
+		//TODO: Cuando el fichero no está creado, salta excepción
+		OrderList = readOrders();
 		
 		//Creamos el Cafe
 		
@@ -65,9 +66,10 @@ public class Main   {
 		mainScreen(cafe);
 		
 		//Generar un loop que cuando se termine un pedido escriba los cambios
-
+		//TODO: cuando añades un producto deberías volver a la pantalla en la que se da la opción de finalizar el pedido
 		
 		//Guardar los productos y los pedidos del cafe
+		//TODO: No se generan los archivos
 		writeProducts(cafe.getAvailableProducts());
 		writeOrders(cafe.getRegisteredOrders());
 	}
