@@ -38,14 +38,14 @@ public class testOrderLine {
 		
 		p = new SingleProduct(++idProduct,"producto", 4, precio, t);
 		Product p2 = new SingleProduct(++idProduct, "producto2", 5, precio, t);
-
+		amount = 1;
 		men = new Menu(++idProduct,"Menu1", m);
 		
 		men.add(p);
 		men.add(p2);
 		
-		testOrderLineProductSimple = new OrderLine(p,1);
-		testOrderLineProductMenu = new OrderLine(men,1);
+		testOrderLineProductSimple = new OrderLine(p,amount);
+		testOrderLineProductMenu = new OrderLine(men,amount);
 
 
 	}
@@ -63,7 +63,7 @@ public class testOrderLine {
 	public void testConstructorSingle() 
 	{
 		assertNotNull(p);
-		assertEquals(amount, 3);
+		assertEquals(amount, 1);
 		assertEquals(testOrderLineProductSimple.getProduct(), p);
 		
 	}
@@ -150,14 +150,15 @@ public void testgetProductMenu()
 @Test
 public void testsetProductMenu() 
 {
-	Product m2 = new Menu(++idProduct,"productoMenu", m);
-	OrderLine nol = new OrderLine(men,1);
+	Menu m2 = new Menu(++idProduct,"productomenuprueba", m);
 	
-	nol.setProduct(m2);
+	
+	testOrderLineProductMenu.setProduct(m2);
 	
 	assertEquals(testOrderLineProductMenu.getProduct(), m2);
 	
 	
+
 }
 
 @Test
