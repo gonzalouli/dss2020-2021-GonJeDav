@@ -93,10 +93,10 @@ public class Menu implements Product {
 		
 		for(Product p : components)
 		{
-			menu += p.getName() + " +";
+			menu += p.getName() + " + ";
 		}
 		
-		menu = menu.substring(0,menu.length()-1);
+		menu = menu.substring(0,menu.length()-3);
 		
 		return menu;
 	}

@@ -50,4 +50,6 @@ public interface Product extends Serializable{
 	 * @param stock
 	 */
 	public void setStock(int stock);
+
+
 }
