@@ -117,12 +117,13 @@ public class testProduct
 		Menu Des1 = new Menu(++id, "Desayuno", menu);
 		Des1.add(cafe);
 		Des1.add(sandwich);
+		assertEquals(Des1.getStock(), cafe.getStock());
 		
 		int oldCafeStock = cafe.getStock();
 		int oldSandwichStock = sandwich.getStock();
 		Des1.setStock(Des1.getStock()+1);
-		assertTrue(cafe.getStock() == oldCafeStock +1);
-		assertTrue(sandwich.getStock() == oldSandwichStock +1);
+		assertEquals(cafe.getStock(), oldCafeStock +1);
+		assertEquals(sandwich.getStock(), oldSandwichStock +1);
 	}
 
 }

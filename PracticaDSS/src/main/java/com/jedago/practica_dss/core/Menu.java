@@ -121,7 +121,7 @@ public class Menu implements Product {
 		int exceso;
 		for(Product p : components)
 		{
-			if(p.getStock()<=newStock)
+			if(p.getStock()<=currentStock)
 				p.setStock(newStock);
 			else
 			{
@@ -137,7 +137,7 @@ public class Menu implements Product {
 		
 		for(Product p : components)
 		{
-			price.add(p.getPrice());
+			price = price.add(p.getPrice());
 		}
 		
 		return price;
