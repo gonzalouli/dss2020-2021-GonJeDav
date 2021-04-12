@@ -7,10 +7,12 @@ import java.io.Serializable;
  *	@version 1.0
  */
 public class ProductType implements Serializable {
+
+	private static final long serialVersionUID = -3544695254552823682L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3544695254552823682L;
+
 	private int id;
 	private String TypeName;
 	private static int LastId = 0;

@@ -9,6 +9,11 @@ import java.util.Scanner;
 import com.jedago.practica_dss.core.*;
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 
+/**@author Gonzalo Ulibarri Garcia
+ * @author Jesús Serrano Gallán
+ *@version 1.0
+ */
+
 public class Main   {
 	
 	private static Scanner sc = new Scanner(System.in);
@@ -110,6 +115,8 @@ public class Main   {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	 /** 
      * Show main screen with a CLI interface.
