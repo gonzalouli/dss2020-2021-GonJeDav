@@ -1,7 +1,5 @@
 package com.jedago.practica_dss.core;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -15,6 +13,10 @@ import java.math.BigDecimal;
 
 public class OrderLine implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4358074819046808171L;
 	Product product;
 	int amount;
 

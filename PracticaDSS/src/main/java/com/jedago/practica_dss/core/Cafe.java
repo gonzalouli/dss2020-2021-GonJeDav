@@ -6,8 +6,6 @@ import java.util.List;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.time.LocalDate;
 
 /**
