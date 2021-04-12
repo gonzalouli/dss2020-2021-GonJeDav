@@ -58,7 +58,7 @@ public class Main   {
 	
 //Operaciones de Serializacion con los productos	
 	
-	public static List<Product> readProducts() throws Exception
+	private static List<Product> readProducts() throws Exception
 	{
 		ObjectInputStream readProducts;
 		List<Product> ProductList =  new ArrayList<Product>();
@@ -73,7 +73,7 @@ public class Main   {
 	}
 	
 
-	public static void writeProducts(List<Product> ProductList) throws Exception
+	private static void writeProducts(List<Product> ProductList) throws Exception
 	{
 		ObjectOutputStream writeProducts;
 		try {
@@ -89,7 +89,7 @@ public class Main   {
 	
 //Operaciones de Serializacion con los pedidos
 	
-	public static List<Order> readOrders() throws Exception
+	private static List<Order> readOrders() throws Exception
 	{
 		ObjectInputStream readOrders;
 		List<Order> OrderList =  new ArrayList<Order>();
@@ -103,7 +103,7 @@ public class Main   {
 		return OrderList;
 	}
 	
-	public static void writeOrders(List<Order> OrderList) throws Exception
+	private static void writeOrders(List<Order> OrderList) throws Exception
 	{
 		ObjectOutputStream writeOrders;
 		try {
