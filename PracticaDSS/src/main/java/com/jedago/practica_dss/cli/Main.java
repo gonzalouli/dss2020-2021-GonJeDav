@@ -392,10 +392,9 @@ public class Main   {
 	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{
 		currentCafe.FinishOrder(currentOrder);
-
+		
+		writeOrders(currentCafe.getRegisteredOrders());	
 		return;
-		//writeOrders(currentCafe.getRegisteredOrders());	
-		//Esto que?
 	}
 	
 	 /** 
