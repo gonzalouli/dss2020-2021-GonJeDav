@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 
 public class OrderLine implements Serializable {
 	
-	Product product_;
+	Product product;
 	int amount;
 
  /** 
