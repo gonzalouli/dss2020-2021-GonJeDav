@@ -7,21 +7,21 @@ import java.io.Serializable;
  *	@version 1.0
  */
 public class ProductType implements Serializable {
-	private int id_;
+	private int id;
 	private String TypeName;
 	private static int LastId = 0;
 
 	public ProductType(String TypeName) {
 		LastId++;
-		this.id_ = LastId;
+		this.id = LastId;
 		this.TypeName = TypeName;
 	}
 
 	/**
 	 * @return Return the id_.
 	 */
-	public int getId_() {
-		return id_;
+	public int getId() {
+		return id;
 	}
 
 	/**

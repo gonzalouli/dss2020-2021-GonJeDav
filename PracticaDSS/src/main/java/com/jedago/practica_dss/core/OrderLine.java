@@ -20,12 +20,12 @@ public class OrderLine implements Serializable {
 
  /** 
  * Create empty order with an uniquye id, a list empty of OrderLine and a given date.
- * @param product_ desired product to be entered in the OrderLine.
- * @param amount quantity to introduce of the product product_.
+ * @param product desired product to be entered in the OrderLine.
+ * @param amount quantity to introduce of the product product.
  */
-	public OrderLine(Product product_, int amount) 
+	public OrderLine(Product product, int amount) 
 	{
-		this.product_ = product_;
+		this.product = product;
 		this.amount = amount;
 	}
 	
@@ -35,7 +35,7 @@ public class OrderLine implements Serializable {
  */
 	public Product getProduct() 
 	{
-		return product_;
+		return product;
 	}
 	
 
@@ -45,7 +45,7 @@ public class OrderLine implements Serializable {
  */
 	public void setProduct(Product newproduct) 
 	{
-		product_ = newproduct;
+		product = newproduct;
 		
 	}
 	
@@ -56,11 +56,11 @@ public class OrderLine implements Serializable {
  */	
 	public String getProductName() 
 	{
-		return product_.getName();
+		return product.getName();
 	}
 
  /** 
- * Returns the amount of product product_ that we have
+ * Returns the amount of product product that we have
  * in a given OrderLine.
  * @return Product quantity in the OrderLine.
  */
@@ -70,7 +70,7 @@ public class OrderLine implements Serializable {
 	}
 	
  /** 
- * Enter a new quantity of the product product_
+ * Enter a new quantity of the product product
  * in a given OrderLine.
  * @param q New desired quantity of the product on the OrderLine.
  */
@@ -91,7 +91,7 @@ public class OrderLine implements Serializable {
 	{
 		BigDecimal coste = BigDecimal.ZERO;
 		BigDecimal costeTotal = BigDecimal.ZERO;
-		coste = product_.getPrice().multiply(new BigDecimal(amount));
+		coste = product.getPrice().multiply(new BigDecimal(amount));
 		costeTotal = costeTotal.add(coste);
 		return costeTotal;			
 	}
