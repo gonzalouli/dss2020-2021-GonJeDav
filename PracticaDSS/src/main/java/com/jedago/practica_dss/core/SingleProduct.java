@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 /**
  * A class to represent the details of the product.
  * Each product has a name, id, stock, price unit and type
- * @version 1.0. 23/03/2021
- * @author Javier David García-Pardo Montero
+ * @version 2.0. 11/04/2021
+ * @author Jesús Serrano Gallán
  */
 public class SingleProduct implements Product{
 	

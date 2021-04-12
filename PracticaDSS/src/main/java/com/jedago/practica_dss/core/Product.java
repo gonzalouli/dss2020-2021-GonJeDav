@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * Interface to provide the methods which can be applied from any type of Product
  * @author Jesús Serrano Gallán
  *
  */

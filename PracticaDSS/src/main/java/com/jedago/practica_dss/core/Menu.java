@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @version 1.0 12/4/21
+ * A class to represent the details of a menu compound by several products
  * @author Jesús Serrano Gallán
  *
  */
