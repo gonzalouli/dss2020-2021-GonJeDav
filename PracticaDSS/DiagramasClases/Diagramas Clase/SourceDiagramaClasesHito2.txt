@@ -1,0 +1,195 @@
+@startuml
+class VoidOrderException [[java:com.jedago.practica_dss.core.exceptions.VoidOrderException]] {
+	-{static}long serialVersionUID
+	+VoidOrderException(String message)
+	+VoidOrderException(Throwable cause)
+	+VoidOrderException(String message, Throwable cause)
+}
+class Exception [[java:com.sun.tools.jdi.JDWP$Event$Composite$Events$Exception]] {
+}
+Exception <|-- VoidOrderException
+class Order [[java:com.jedago.practica_dss.core.Order]] {
+	-{static}long serialVersionUID
+	+{static}long currentid
+	-long id_order
+	-BigDecimal price
+	-LocalDate date
+	+Order()
+	+long getId_order()
+	+BigDecimal getPrice()
+	+LocalDate getDate()
+	+boolean isEmpty()
+	+int size()
+	+List<OrderLine> getProducts()
+	+void setProducts(OrderLine currentOrderLine)
+	+void addProductToOrder(Product currentProduct)
+	+void addProductToOrder(Product currentProduct, int cant)
+	+void deleteProductFromOrder(Product currentProduct, int cant)
+	+void deleteOrderlineFromOrder(OrderLine currentOrderLine)
+	+void deleteOrderlineFromOrder(Iterator<OrderLine> it)
+	+Iterator<OrderLine> iterator()
+}
+class OrderLine [[java:com.jedago.practica_dss.core.OrderLine]] {
+}
+Order --> "*" OrderLine : orderLineProduct
+interface "Iterable<OrderLine>" as Iterable_OrderLine_ {
+}
+Iterable_OrderLine_ <|.. Order
+interface Serializable [[java:java.io.Serializable]] {
+}
+Serializable <|.. Order
+class ProductType [[java:com.jedago.practica_dss.core.ProductType]] {
+	-{static}long serialVersionUID
+	-int id
+	-String TypeName
+	-{static}int LastId
+	+ProductType(String TypeName)
+	+int getId()
+	+String getTypeName()
+}
+interface Serializable [[java:java.io.Serializable]] {
+}
+Serializable <|.. ProductType
+interface Product [[java:com.jedago.practica_dss.core.Product]] {
+	ProductType getType()
+	void setType(ProductType type)
+	int getID()
+	String getName()
+	BigDecimal getPrice()
+	int getStock()
+	void setStock(int stock)
+}
+interface Serializable [[java:java.io.Serializable]] {
+}
+Serializable <|-- Product
+class FirstProducts [[java:com.jedago.practica_dss.core.FirstProducts]] {
+	+{static}List<Product> getFirstProducts()
+}
+class CashBox [[java:com.jedago.practica_dss.core.CashBox]] {
+	-int nOrders
+	-BigDecimal total
+	+CashBox()
+	+int getnOrders()
+	+void setnOrders(int nOrders)
+	+void incrementOrders()
+	+BigDecimal getTotal()
+	+void setTotal(BigDecimal total)
+	+void addtoTotal(BigDecimal inc)
+}
+class Menu [[java:com.jedago.practica_dss.core.Menu]] {
+	-{static}long serialVersionUID
+	-int id
+	-String name
+	+Menu(int id, String name, ProductType type)
+	+Menu(int id, String name, ProductType type, List<Product> lp)
+	+void add(Product p)
+	+void remove(Product p)
+	+List<Product> getComponents()
+	+ProductType getType()
+	+void setType(ProductType type)
+	+int getID()
+	+String getName()
+	+int getStock()
+	+void setStock(int newStock)
+	+BigDecimal getPrice()
+}
+class ProductType [[java:com.jedago.practica_dss.core.ProductType]] {
+}
+Menu --> "1" ProductType : type
+class Product [[java:com.jedago.practica_dss.core.Product]] {
+}
+Menu --> "*" Product : components
+interface Product [[java:com.jedago.practica_dss.core.Product]] {
+}
+Product <|.. Menu
+interface ICafe [[java:com.jedago.practica_dss.core.ICafe]] {
+	Order newOrder()
+	List<Product> getAvailableProducts()
+	List<ProductType> getAvailableProductTypes()
+	List<Product> getAvailableProductsbyType(ProductType t)
+	List<Order> getRegisteredOrders()
+	void addProductToOrder(Order ord, Product p)
+	void addProductToOrder(Order ord, Product p, int c)
+	void deleteProductFromOrder(Order ord, Product p)
+	void deleteProductFromOrder(Order ord, Product p, int c)
+	void FinishOrder(Order ord)
+	CashBox getCashBox(LocalDate date)
+	CashBox getTodayCashBox()
+}
+class Cafe [[java:com.jedago.practica_dss.core.Cafe]] {
+	+Cafe(List<Order> orders_, List<Product> products_)
+	+Order newOrder()
+	+List<Order> getRegisteredOrders()
+	+List<Product> getAvailableProducts()
+	+List<ProductType> getAvailableProductTypes()
+	+List<Product> getAvailableProductsbyType(ProductType t)
+	+void addProductToOrder(Order ord, Product p)
+	+void addProductToOrder(Order ord, Product p, int c)
+	+void deleteProductFromOrder(Order ord, Product p)
+	+void deleteProductFromOrder(Order ord, Product p, int c)
+	+void FinishOrder(Order ord)
+	+CashBox getCashBox(LocalDate date)
+	+CashBox getTodayCashBox()
+}
+class Order [[java:com.jedago.practica_dss.core.Order]] {
+}
+Cafe --> "*" Order : orders
+class Product [[java:com.jedago.practica_dss.core.Product]] {
+}
+Cafe --> "*" Product : products
+interface ICafe [[java:com.jedago.practica_dss.core.ICafe]] {
+}
+ICafe <|.. Cafe
+class SingleProduct [[java:com.jedago.practica_dss.core.SingleProduct]] {
+	-{static}long serialVersionUID
+	-String name
+	-int id
+	-int stock
+	-BigDecimal priceUnit
+	+SingleProduct(int id, String name, int stock, BigDecimal priceunit, ProductType type)
+	+ProductType getType()
+	+void setType(ProductType type)
+	+int getID()
+	+String getName()
+	+int getStock()
+	+void setStock(int stock)
+	+BigDecimal getPrice()
+	+void setPrice(BigDecimal price)
+	+void setTypeProduct(ProductType newType)
+	+ProductType getTypeProduct()
+	+boolean equals(Object obj)
+}
+class ProductType [[java:com.jedago.practica_dss.core.ProductType]] {
+}
+SingleProduct --> "1" ProductType : type
+interface Product [[java:com.jedago.practica_dss.core.Product]] {
+}
+Product <|.. SingleProduct
+class NoStockException [[java:com.jedago.practica_dss.core.exceptions.NoStockException]] {
+	-{static}long serialVersionUID
+	+NoStockException(String message)
+	+NoStockException(Throwable cause)
+	+NoStockException(String message, Throwable cause)
+}
+class Exception [[java:com.sun.tools.jdi.JDWP$Event$Composite$Events$Exception]] {
+}
+Exception <|-- NoStockException
+class OrderLine [[java:com.jedago.practica_dss.core.OrderLine]] {
+	-{static}long serialVersionUID
+	~int amount
+	+OrderLine(Product product, int amount)
+	+Product getProduct()
+	+void setProduct(Product newproduct)
+	+String getProductName()
+	+int getAmount()
+	+void setAmount(int q)
+	+BigDecimal getTotalPrice()
+}
+class Product [[java:com.jedago.practica_dss.core.Product]] {
+}
+OrderLine --> "1" Product : product
+interface Serializable [[java:java.io.Serializable]] {
+}
+Serializable <|.. OrderLine
+
+@enduml
