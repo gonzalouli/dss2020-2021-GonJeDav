@@ -21,5 +21,4 @@ public class VoidOrderException extends Exception {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
-
 }
