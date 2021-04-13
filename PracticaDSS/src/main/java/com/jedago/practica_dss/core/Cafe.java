@@ -112,7 +112,7 @@ public class Cafe implements ICafe {
 	 * @param c the quantity of the product
 	 */
 	public void addProductToOrder(Order ord, Product p, int c) throws NoStockException{
-		if(p.getStock() >= c)
+		if(p.getStock() >= c || c < 1)
 			ord.addProductToOrder(p, c);
 		else
 			throw new NoStockException("No hay suficiente stock del producto " + p.getID());
