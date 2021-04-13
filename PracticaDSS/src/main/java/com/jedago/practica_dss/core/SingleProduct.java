@@ -87,7 +87,7 @@ public class SingleProduct implements Product{
 	
 	/** 
      * Sets the price unit of a product.
-     * @param price_ New price of the selected product.
+     * @param price New price of the selected product.
      **/
 	public void setPrice(BigDecimal price) {
 		this.priceUnit = price;

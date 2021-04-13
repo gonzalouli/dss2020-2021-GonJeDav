@@ -21,6 +21,7 @@ public class testProduct
 	private Product cafe, sandwich;
 	private ProductType bebida, bocadillo, menu;
 	private int id;
+	
 	@Before
 	public void setup() 
 	{

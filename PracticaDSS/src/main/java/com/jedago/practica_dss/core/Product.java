@@ -48,7 +48,7 @@ public interface Product extends Serializable{
 	
 	/**
 	 * To set the stock of a product
-	 * @param stock
+	 * @param stock Set the stock of the product.
 	 */
 	public void setStock(int stock);
 

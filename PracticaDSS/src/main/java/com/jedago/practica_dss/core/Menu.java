@@ -22,10 +22,10 @@ public class Menu implements Product {
 	private List<Product> components;
 	
 	/**
-	 * Constructor for a void menu
-	 * @param id
-	 * @param name
-	 * @param type
+	 * Constructor for a void menu.
+	 * @param id id of the menu.
+	 * @param name name of the menu.
+	 * @param type type of the product menu.
 	 */
 	public Menu(int id, String name, ProductType type) {
 		this.id = id;
@@ -35,11 +35,11 @@ public class Menu implements Product {
 	}
 	
 	/**
-	 * Constructor for a menu with some products
-	 * @param id
-	 * @param name
-	 * @param type
-	 * @param lp
+	 * Constructor for a menu with some products.
+	 * @param id id of the menu.
+	 * @param name name of the menu.
+	 * @param type type of the product menu.
+	 * @param lp list of products inside the menu.
 	 */
 	public Menu(int id, String name, ProductType type, List<Product> lp) {
 		this.id = id;
@@ -68,7 +68,8 @@ public class Menu implements Product {
 	
 	/**
 	 * To get the SingleProduct list that makes the menu
-	 */
+	 * @return Return the list of products in a menu
+	 */	
 	public List<Product> getComponents()
 	{
 		return(components);
