@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 import com.jedago.practica_dss.core.*;
 import com.jedago.practica_dss.core.exceptions.NoStockException;
-
+import com.jedago.practica_dss.core.exceptions.VoidOrderException;
+import java.lang.*;
 /**@author Gonzalo Ulibarri Garcia
  * @author Jesús Serrano Gallán
  *@version 1.0
@@ -121,8 +122,9 @@ public class Main   {
 	 /** 
      * Show main screen with a CLI interface.
 	 * @param currentCafe Defines the interface ICafe to operate with,
+	 * @throws Exception 
 	 */
-	public static void mainScreen(ICafe currentCafe) throws IOException 
+	public static void mainScreen(ICafe currentCafe) throws Exception 
 	{	
 
 		String option;
@@ -160,8 +162,9 @@ public class Main   {
      * Operations that can place an order 
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
+	 * @throws Exception 
 	 */
-	public static void currentOrder(ICafe currentCafe, Order currentOrder) throws IOException 
+	public static void currentOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{	
 		
 		String option; 
@@ -301,7 +304,6 @@ public class Main   {
 						return;
 						
 					} catch (NoStockException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else
@@ -369,9 +371,9 @@ public class Main   {
      * Function to decide if the client want to finish the order.
 	 * @param currentCafe Defines the interface ICafe to operate with.
 	 * @param currentOrder Defines the current order opened
-	 * @throws IOException  
+	 * @throws Exception 
 	 */
-	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) throws IOException 
+	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{	System.out.println("\n\n");
 		String option;
 		int index=0;
@@ -400,11 +402,14 @@ public class Main   {
 			switch(option) 
 			{
 			case "1": try {
-					payAndFinishOrder(currentCafe,currentOrder);
-					return;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+						if( !currentOrder.isEmpty() ) {
+								payAndFinishOrder(currentCafe,currentOrder);
+								return;
+						}else
+							System.out.println("No se puede cobrar un pedido vacio. Complételo...");
+					} catch (VoidOrderException e) {
+						e.printStackTrace();
+					}
 				break;
 
 			default: System.out.println("Seleccione una opcion valida...");
