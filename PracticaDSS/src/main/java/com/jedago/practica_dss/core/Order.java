@@ -158,15 +158,15 @@ public class Order implements Iterable<OrderLine>, Serializable
 			if(ol.getProduct().getID() == currentProduct.getID()) {
 				if(cant>0) {
 					BigDecimal newamount = new BigDecimal(ol.getAmount()-cant);
+
 					if(cant >= ol.getAmount() ) {
-						
-						this.price = this.price.subtract(ol.getProduct().getPrice().multiply(new BigDecimal(cant)));
+
+						this.price = this.price.subtract(ol.getProduct().getPrice().multiply(new BigDecimal(ol.getAmount())));
 						deleteOrderlineFromOrder(it);
 						
 					}else {
 						
 						ol.setAmount( newamount.intValue());
-						newamount = new BigDecimal(ol.getAmount()) ;
 						this.price = this.price.subtract(ol.getProduct().getPrice().multiply(new BigDecimal(cant)));
 						
 					}

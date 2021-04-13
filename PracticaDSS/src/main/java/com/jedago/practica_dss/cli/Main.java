@@ -188,13 +188,14 @@ public class Main   {
 			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
 			case "3":  finishCurrentOrder(currentCafe, currentOrder);
-					   return;
+					   
 			case "R":
 			case "r":
 				break;
 			default: System.out.println("Introduzca una opción valida");  
 			}		
 		}while(!option.equalsIgnoreCase("R") );	
+
 	}
 
 
@@ -229,7 +230,7 @@ public class Main   {
 		
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+			if( !option.matches("[a-zA-Z]") ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -272,7 +273,7 @@ public class Main   {
 			
 			for(Product iter : productGiven) 
 			{
-				System.out.println(index+". "+iter.getName()+" ("+iter.getPrice()+" euros)");
+				System.out.println(index+". "+iter.getName()+" ("+iter.getPrice()+" euros) Stock: "+iter.getStock()+" uds.");
 				++index;
 			}
 			
@@ -282,7 +283,7 @@ public class Main   {
 			System.out.println("Introduzca una opción:"); 
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']")  ) {
+			if( !option.matches("[a-zA-Z]")  ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -291,8 +292,10 @@ public class Main   {
 							do{ 
 								System.out.println("Introduzca la cantidad:"); 
 								cant = scCantidad.nextInt();
-						 	
-							}while(cant<0);
+								if(cant<1 || cant>productGiven.get(convertToInt-1).getStock())
+									System.out.println("Cantidad invalida, pruebe con otra...");
+								
+							}while(cant<1 || cant>productGiven.get(convertToInt-1).getStock() );
 						
 						currentCafe.addProductToOrder(currentOrder, productGiven.get(convertToInt-1), cant);
 						return;
@@ -345,7 +348,7 @@ public class Main   {
 			
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-ZñÑáéíóúÁÉÍÓÚ!@#$%^&*()_+}{<>;`~']") ) {
+			if( !option.matches("[a-zA-Z]") ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -369,11 +372,25 @@ public class Main   {
 	 * @throws IOException  
 	 */
 	public static void finishCurrentOrder(ICafe currentCafe, Order currentOrder) throws IOException 
-	{	
+	{	System.out.println("\n\n");
 		String option;
+		int index=0;
+		
+		List<OrderLine> productsInOrder = currentOrder.getProducts();
+		System.out.println("Productos del pedido");
+		System.out.println("-------------------------------");
+
+		for(OrderLine iter : productsInOrder) 
+		{
+			if(iter.getAmount()==1)
+				System.out.println(++index+". "+iter.getProductName()+" ("+iter.getAmount()+"ud x "+iter.getProduct().getPrice()+" euros)");
+			else
+				System.out.println(++index+". "+iter.getProductName()+" ("+iter.getAmount()+"uds x "+iter.getProduct().getPrice()+" euros)");
+		}
+		
 		
 		do {
-			System.out.println("Pedido en curso ("+currentOrder.getId_order()+")"); 		
+			System.out.println("\nPedido en curso ("+currentOrder.getId_order()+")"); 		
 			System.out.println("-----------------------------------"); 		
 			System.out.println("Total a pagar: "+currentOrder.getPrice()+" €"); 		
 			System.out.println("1. Pagar y finalizar pedido");
@@ -406,9 +423,9 @@ public class Main   {
 	
 	 /** 
      * Function to show the daily cash box.
-	 * @param currentCafe Defines the interface ICafe to operate with.
-	 * @param currentOrder Defines the current order opened
-	 * @param productType Defines the type of the product showed.
+	 * @param cb Defines the cashbox to show.
+	 * 
+	 * 
 	 */
 	 public static void viewCashBox(CashBox cb) 
 	 {
