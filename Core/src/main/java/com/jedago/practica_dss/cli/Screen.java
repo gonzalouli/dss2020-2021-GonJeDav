@@ -101,7 +101,7 @@ public class Screen   {
 			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
 			case "3":  finishCurrentOrder(currentCafe, currentOrder);
-					   
+					   return;
 			case "R":
 			case "r":
 				break;
