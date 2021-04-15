@@ -15,12 +15,18 @@ import java.lang.*;
  *@version 1.0
  */
 
-public class Main   {
+public class Screen   {
 	
 	private static Scanner sc = new Scanner(System.in);
 	private static Scanner scCantidad = new Scanner(System.in);
+	private ICafe cafe;
 	
-	public static void main(String[] args) throws Exception 
+	public Screen(ICafe cafe)
+	{
+		this.cafe = cafe;
+	}
+	
+	public void run() throws Exception 
 	{		
 		//Leer los productos del fichero y devolverlos como lista
 		List<Product> ProductList =  new ArrayList<Product>();
