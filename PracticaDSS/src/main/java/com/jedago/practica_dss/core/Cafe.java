@@ -22,7 +22,7 @@ public class Cafe implements ICafe {
 	 * @param orders_ List of initial orders (regularly a void one)
 	 * @param products_ List of initial available products
 	 */
-	public Cafe(List<Order> orders_, List<Product> products_) {
+	public Cafe(List<Order> orders_, List<Product> products_) { //Inyectar repositorios mejor
 		this.orders = orders_;
 		this.products = products_;
 	}
