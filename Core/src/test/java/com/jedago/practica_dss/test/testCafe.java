@@ -31,7 +31,7 @@ public class testCafe {
 		 t = new ProductType("Bocadillo");
 		p1 = new SingleProduct(1, "Producto1", 3, price1, t);
 		lista_productos.add(p1);
-		C = new Cafe(lista_pedidos, lista_productos);
+		C = new Cafe(lista_pedidos, lista_productos);	//Cómo hago esto ahora? :(
 	}
 
 	@After
