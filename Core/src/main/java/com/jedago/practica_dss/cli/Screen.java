@@ -49,10 +49,6 @@ public class Screen   {
 			OrderList = readOrders();
 		else
 			writeOrders(OrderList);
-			
-			
-		//Creamos el Cafe
-		ICafe cafe = new Cafe(OrderList, ProductList);
 		
 		//Loop principal
 		mainScreen(cafe);
