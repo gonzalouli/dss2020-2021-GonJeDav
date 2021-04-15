@@ -354,15 +354,16 @@ public class Main   {
 				
 				convertToInt = Integer.parseInt(option);
 			
-				if(convertToInt>0 && convertToInt<=index) {
+				if(convertToInt>0 && convertToInt<index) {
 					do{ 
 						System.out.println("Introduzca la cantidad a eliminar:"); 
 						cant = scCantidad.nextInt();
 					}while(cant<0);
 					currentCafe.deleteProductFromOrder(currentOrder, productsInOrder.get(convertToInt-1).getProduct(), cant);
-				}
-			}else
-					if( !option.equalsIgnoreCase("R"))
+				
+				}else
+						System.out.println("No existe ese producto en el pedido, pruebe otra vez...");
+			}else if( !option.equalsIgnoreCase("R"))
 						System.out.println("Eleccion invalida, pruebe otra vez...");
 		}while( !option.equalsIgnoreCase("R"));
 	}
