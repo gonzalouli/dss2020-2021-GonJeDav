@@ -24,5 +24,5 @@ public interface OrdersRepository {
 	 * @param OrderList the OrderList we wan to save
 	 * @throws Exception
 	 */
-	public void writeOrders(List<Order> OrderList) throws Exception;
+	public void writeOrders(List<Order> orderList) throws Exception;
 }

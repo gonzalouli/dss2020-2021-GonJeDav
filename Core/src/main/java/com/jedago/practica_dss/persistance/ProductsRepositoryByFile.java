@@ -16,13 +16,13 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 	@Override
 	public List<Product> readProducts() throws Exception {
 		
-		List<Product> ProductList =  new ArrayList<Product>();
+		List<Product> productList =  new ArrayList<Product>();
 		if(isFileCreated()) //Si está creado el archivo, leemos su contenido
 		{
 			try {
 				ObjectInputStream readProducts;
 				readProducts = new ObjectInputStream(new FileInputStream(Messages.getString("ProductsFile")));
-				ProductList = (List<Product>) readProducts.readObject();
+				productList = (List<Product>) readProducts.readObject();
 				readProducts.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -30,18 +30,18 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 		}
 		else //Si no, devolvemos los FirstProducts
 		{
-			ProductList = FirstProducts.getFirstProducts();
+			productList = FirstProducts.getFirstProducts();
 		}
 		
-		return ProductList;
+		return productList;
 	}
 
 	@Override
-	public void writeProducts(List<Product> ProductList) throws Exception {
+	public void writeProducts(List<Product> productList) throws Exception {
 		ObjectOutputStream writeProducts;
 		try {
 			writeProducts = new ObjectOutputStream(new FileOutputStream(Messages.getString("ProductsFile")));
-			writeProducts.writeObject(ProductList);
+			writeProducts.writeObject(productList);
 			writeProducts.flush();
 			writeProducts.close();
 		} catch (Exception e) {

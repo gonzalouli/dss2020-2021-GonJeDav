@@ -24,5 +24,5 @@ public interface ProductsRepository {
 	 * @param ProductList 
 	 * @throws Exception
 	 */
-	public void writeProducts(List<Product> ProductList) throws Exception;
+	public void writeProducts(List<Product> productList) throws Exception;
 }
