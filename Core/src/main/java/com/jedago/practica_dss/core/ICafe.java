@@ -4,6 +4,7 @@
 package com.jedago.practica_dss.core;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
@@ -87,7 +88,7 @@ public interface ICafe {
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 * @param date The date of the CashBox you want to check
 	 */
-	public CashBox getCashBox(LocalDate date);
+	public CashBox getCashBox(LocalDateTime date);
 	
 	/**
 	 * Returs the amount of registered orders and the money earned today
