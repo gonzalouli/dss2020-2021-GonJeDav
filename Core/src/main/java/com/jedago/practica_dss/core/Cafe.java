@@ -1,5 +1,6 @@
 package com.jedago.practica_dss.core;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -194,10 +195,9 @@ public class Cafe implements ICafe {
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 * @param date The date of the CashBox you want to check
 	 */
-	public CashBox getCashBox(LocalDateTime date)
+	public CashBox getCashBox(LocalDate date)
 	{
 		CashBox cb = new CashBox();
-		
 		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
 		for(Order o:orders)
 		{
@@ -216,7 +216,7 @@ public class Cafe implements ICafe {
 
 	@Override
 	public CashBox getTodayCashBox() {
-		LocalDateTime today = LocalDateTime.now();
+		LocalDate today = LocalDate.now();
 		return this.getCashBox(today);
 	}
 
