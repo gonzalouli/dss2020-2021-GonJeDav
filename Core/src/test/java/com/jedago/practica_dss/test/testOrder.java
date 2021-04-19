@@ -81,11 +81,11 @@ public class testOrder {
 		LocalDateTime time = LocalDateTime.now();
 		assert(order!=null);
 		
-		assertEquals( order.getDate().getYear(), time.getYear());
-		assertEquals( order.getDate().getMonth(), time.getMonth());
-		assertEquals( order.getDate().getDayOfMonth(), time.getDayOfMonth());
-		assertEquals( order.getDate().getHour(), time.getHour());
-		assertEquals( order.getDate().getMinute(), time.getMinute());
+		assertEquals( order.getDateTime().getYear(), time.getYear());
+		assertEquals( order.getDateTime().getMonth(), time.getMonth());
+		assertEquals( order.getDateTime().getDayOfMonth(), time.getDayOfMonth());
+		assertEquals( order.getDateTime().getHour(), time.getHour());
+		assertEquals( order.getDateTime().getMinute(), time.getMinute());
 
 		assertEquals( order.getId_order(), Order.currentid-1);
 		assertEquals(cero ,order.getPrice());
@@ -267,11 +267,11 @@ public void testConstructorMenu() //PASS
 	LocalDateTime time = LocalDateTime.now();
 	assert(order!=null);
 	
-	assertEquals( order.getDate().getYear(), time.getYear());
-	assertEquals( order.getDate().getMonth(), time.getMonth());
-	assertEquals( order.getDate().getDayOfMonth(), time.getDayOfMonth());
-	assertEquals( order.getDate().getHour(), time.getHour());
-	assertEquals( order.getDate().getMinute(), time.getMinute());
+	assertEquals( order.getDateTime().getYear(), time.getYear());
+	assertEquals( order.getDateTime().getMonth(), time.getMonth());
+	assertEquals( order.getDateTime().getDayOfMonth(), time.getDayOfMonth());
+	assertEquals( order.getDateTime().getHour(), time.getHour());
+	assertEquals( order.getDateTime().getMinute(), time.getMinute());
 
 	
 	assertEquals( order.getId_order(), Order.currentid-1);
@@ -449,8 +449,8 @@ public void testConstructorMenu() //PASS
 	
 		orderMinutes.setCollectedDate(7);
 
-		System.out.println(orderMinutes.getDate().getMinute());
-		System.out.println(orderMinutes.getDate().getHour());
+		System.out.println(orderMinutes.getDateTime().getMinute());
+		System.out.println(orderMinutes.getDateTime().getHour());
 
 		
 		assertEquals(orderMinutes.getCollectedDate().getMinute(), 7);

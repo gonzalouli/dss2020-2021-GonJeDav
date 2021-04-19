@@ -2,7 +2,7 @@ package com.jedago.practica_dss.core;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -105,10 +105,22 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 * Check the date the order was created.
 	 * @return Order's id.
 	 */
-	public LocalDateTime getDate() {
-		return this.date;
+	public LocalDate getDate() {
+		return this.date.toLocalDate();
 	}
 
+	
+	
+	 /** 
+	 * Check the date the order was created.
+	 * @return Order's id.
+	 */
+	public LocalDateTime getDateTime() {
+		return this.date;
+	}	
+	
+	
+	
  /** 
  * Indicates if the order is empty.
  * @return True if the order is empty, false otherwise.
