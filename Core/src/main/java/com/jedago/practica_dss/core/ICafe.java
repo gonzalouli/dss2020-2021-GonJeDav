@@ -3,6 +3,7 @@
  */
 package com.jedago.practica_dss.core;
 
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -80,7 +81,7 @@ public interface ICafe {
 	 * Register the order to finish it
 	 * @param ord the order you want to register
 	 */
-	public void FinishOrder(Order ord) throws NoStockException;
+	public void FinishOrder(Order ord) throws Exception;
 	
 	/**
 	 * Returs the amount of registered orders and the money earned in a day

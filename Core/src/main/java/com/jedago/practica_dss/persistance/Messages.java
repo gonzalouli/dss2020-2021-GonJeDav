@@ -1,10 +1,10 @@
-package com.jedago.practica_dss.cli;
+package com.jedago.practica_dss.persistance;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Messages {
-	private static final String BUNDLE_NAME = "com.jedago.practica_dss.cli.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "com.jedago.practica_dss.persistance.messages"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 

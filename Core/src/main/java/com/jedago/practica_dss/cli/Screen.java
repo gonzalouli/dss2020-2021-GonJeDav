@@ -1,123 +1,33 @@
 package com.jedago.practica_dss.cli;
 
-import java.io.*;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import com.jedago.practica_dss.core.*;
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.core.exceptions.VoidOrderException;
-import java.lang.*;
 /**@author Gonzalo Ulibarri Garcia
  * @author Jesús Serrano Gallán
  *@version 1.0
  */
 
-public class Main   {
+public class Screen   {
 	
 	private static Scanner sc = new Scanner(System.in);
 	private static Scanner scCantidad = new Scanner(System.in);
+	private ICafe cafe;
 	
-	public static void main(String[] args) throws Exception 
-	{		
-		//Leer los productos del fichero y devolverlos como lista
-		List<Product> ProductList =  new ArrayList<Product>();
-		
-		File isProductList = new File(Messages.getString("ProductsFile"));
-		File isOrdersList = new File(Messages.getString("OrdersFile"));
-		
-		if(isProductList.exists())
-			ProductList = readProducts();
-			
-		if(ProductList.isEmpty())
-		{
-			ProductList = FirstProducts.getFirstProducts();
-			writeProducts(ProductList);
-		}
-		
-		//Leer los pedidos
-		List<Order> OrderList =  new ArrayList<Order>();
-		if(isOrdersList.exists())
-			OrderList = readOrders();
-		else
-			writeOrders(OrderList);
-			
-			
-		//Creamos el Cafe
-		ICafe cafe = new Cafe(OrderList, ProductList);
-		
+	public Screen(ICafe cafe)
+	{
+		this.cafe = cafe;
+	}
+	
+	public void run() throws Exception 
+	{			
 		//Loop principal
 		mainScreen(cafe);
-		
-		writeProducts(cafe.getAvailableProducts());
-		writeOrders(cafe.getRegisteredOrders());
 	}
-	
-	
-	
-//Operaciones de Serializacion con los productos	
-	
-	private static List<Product> readProducts() throws Exception
-	{
-		ObjectInputStream readProducts;
-		List<Product> ProductList =  new ArrayList<Product>();
-		try {
-			readProducts = new ObjectInputStream(new FileInputStream(Messages.getString("ProductsFile")));
-			ProductList = (List<Product>) readProducts.readObject();
-			readProducts.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ProductList;
-	}
-	
-
-	private static void writeProducts(List<Product> ProductList) throws Exception
-	{
-		ObjectOutputStream writeProducts;
-		try {
-			writeProducts = new ObjectOutputStream(new FileOutputStream(Messages.getString("ProductsFile")));
-			writeProducts.writeObject(ProductList);
-			writeProducts.flush();
-			writeProducts.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	
-//Operaciones de Serializacion con los pedidos
-	
-	private static List<Order> readOrders() throws Exception
-	{
-		ObjectInputStream readOrders;
-		List<Order> OrderList =  new ArrayList<Order>();
-		try {
-			readOrders = new ObjectInputStream(new FileInputStream(Messages.getString("OrdersFile")));
-			OrderList = (List<Order>) readOrders.readObject();
-			readOrders.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return OrderList;
-	}
-	
-	private static void writeOrders(List<Order> OrderList) throws Exception
-	{
-		ObjectOutputStream writeOrders;
-		try {
-			writeOrders = new ObjectOutputStream(new FileOutputStream(Messages.getString("OrdersFile")));
-			writeOrders.writeObject(OrderList);
-			writeOrders.flush();
-			writeOrders.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
 	
 	 /** 
      * Show main screen with a CLI interface.
@@ -192,6 +102,7 @@ public class Main   {
 				break;
 			case "3":  finishCurrentOrder(currentCafe, currentOrder);
 				return;
+
 			case "R":
 			case "r":
 				break;
@@ -422,8 +333,6 @@ public class Main   {
 	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{
 		currentCafe.FinishOrder(currentOrder);
-		
-		writeOrders(currentCafe.getRegisteredOrders());	
 		return;
 	}
 	

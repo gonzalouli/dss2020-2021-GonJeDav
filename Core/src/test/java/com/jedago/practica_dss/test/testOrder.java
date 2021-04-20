@@ -3,9 +3,11 @@ package com.jedago.practica_dss.test;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -76,14 +78,18 @@ public class testOrder {
 	{ 
 		
 		BigDecimal cero =  BigDecimal.ZERO ;
-		LocalDate time = LocalDate.now();
-		assert(order!=null);
+		LocalDateTime time = LocalDateTime.now();
 		assert(order!=null);
 		
-		assertEquals( order.getDate(), time);
+		assertEquals( order.getDateTime().getYear(), time.getYear());
+		assertEquals( order.getDateTime().getMonth(), time.getMonth());
+		assertEquals( order.getDateTime().getDayOfMonth(), time.getDayOfMonth());
+		assertEquals( order.getDateTime().getHour(), time.getHour());
+		assertEquals( order.getDateTime().getMinute(), time.getMinute());
+
 		assertEquals( order.getId_order(), Order.currentid-1);
 		assertEquals(cero ,order.getPrice());
-		assertEquals(time, order.getDate());
+		
 }
 
 
@@ -97,7 +103,7 @@ public class testOrder {
 //	
 
 	@Test
-	public void testgetPriceSingle() //PASS
+	public void testGetPriceSingle() //PASS
 	{
 
 		order.setProducts(testOrderLineProductSimple);
@@ -117,7 +123,7 @@ public class testOrder {
 	
 	
 	@Test
-	public void testsetProductSingle() //PASS
+	public void testSetProductSingle() //PASS
 	{
 		
 		testOrderLineProductSimple = new OrderLine(p,1);
@@ -135,7 +141,7 @@ public class testOrder {
 	}
 	
 	@Test
-	public void testsetNProductSingle() //PASS
+	public void testSetNProductSingle() //PASS
 	{
 		
 		BigDecimal preprice = order.getPrice();
@@ -163,7 +169,7 @@ public class testOrder {
 	
 	
 	@Test 
-	public void testaddProductToOrderSingle() //PASS
+	public void testAddProductToOrderSingle() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -189,7 +195,7 @@ public class testOrder {
 	}
 		
 	@Test	
-	public void testaddNProductToOrderSingle() //PASS
+	public void testAddNProductToOrderSingle() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -218,7 +224,7 @@ public class testOrder {
 		
 	
 	@Test
-	public void testdeleteProductFromOrderSingle() //PASS
+	public void testDeleteProductFromOrderSingle() //PASS
 	{
 		order.deleteProductFromOrder(p,1);
 		List<OrderLine> delprod = order.getProducts();
@@ -235,7 +241,7 @@ public class testOrder {
 	
 	
 	@Test
-	public void deleteOrderlineFromOrderSingle() //PASS
+	public void testDeleteOrderlineFromOrderSingle() //PASS
 	{
 		Boolean exit = true;
 		
@@ -258,183 +264,238 @@ public void testConstructorMenu() //PASS
 { 
 	
 	BigDecimal cero =  BigDecimal.ZERO ;
-	LocalDate time = LocalDate.now();
-	assert(order!=null);
+	LocalDateTime time = LocalDateTime.now();
 	assert(order!=null);
 	
-	assertEquals( order.getDate(), time);
+	assertEquals( order.getDateTime().getYear(), time.getYear());
+	assertEquals( order.getDateTime().getMonth(), time.getMonth());
+	assertEquals( order.getDateTime().getDayOfMonth(), time.getDayOfMonth());
+	assertEquals( order.getDateTime().getHour(), time.getHour());
+	assertEquals( order.getDateTime().getMinute(), time.getMinute());
+
+	
 	assertEquals( order.getId_order(), Order.currentid-1);
 	assertEquals(cero ,order.getPrice());
-	assertEquals(time, order.getDate());
 }
 
-
-@Test
-public void testgetId_oderMenu() //PASS
-{ 
-	Order orden = new Order();
-	assertEquals( Order.currentid -1, orden.getId_order());
 	
-}
-//
-
-@Test
-public void testgetPriceMenu() //PASS
-{
-
-	order.setProducts(testOrderLineProductMenu);
-
-	BigDecimal priceinside = BigDecimal.ZERO;
+	@Test
+	public void testGetId_oderMenu() //PASS
+	{ 
+		Order orden = new Order();
+		assertEquals( Order.currentid -1, orden.getId_order());
+		
+	}
+	//
 	
-	for(int i=0 ; i<order.size() ; i++)
-		ol.add(i,order.getProducts().get(i));
+	@Test
+	public void testGetPriceMenu() //PASS
+	{
 	
+		order.setProducts(testOrderLineProductMenu);
 	
-	for(int i=0 ; i<order.size() ; i++)
-		priceinside = priceinside.add(ol.get(i).getTotalPrice());
-	
-	assert(priceinside.equals(order.getPrice()));
-	
-}
-
-
-@Test
-public void testsetProductMenu() //PASS
-{
-	
-	testOrderLineProductMenu = new OrderLine(men,1);
-	BigDecimal preprice = order.getPrice();
-	
-	order.setProducts( testOrderLineProductMenu );
-	
-	List<OrderLine> ol = order.getProducts();
-	
-	assert(ol.contains(testOrderLineProductMenu));
-	
-	preprice = preprice.add(testOrderLineProductMenu.getTotalPrice());
-	assertEquals(order.getPrice(), preprice);
-	
-}
-
-@Test
-public void testsetNProductMenu() //PASS
-{
-	
-	BigDecimal preprice = order.getPrice();
-	
-	order.setProducts( testOrderLineProductMenu );
-	
-	List<OrderLine> ol = order.getProducts();
-	Boolean notin=true;
-	
-	for(int i=0 ; i<ol.size() && notin==true ; i++) {
-		if(ol.get(i).getProduct().getID() == men.getID()) {
-			notin =false;
-		}
+		BigDecimal priceinside = BigDecimal.ZERO;
+		
+		for(int i=0 ; i<order.size() ; i++)
+			ol.add(i,order.getProducts().get(i));
+		
+		
+		for(int i=0 ; i<order.size() ; i++)
+			priceinside = priceinside.add(ol.get(i).getTotalPrice());
+		
+		assert(priceinside.equals(order.getPrice()));
+		
 	}
 	
-	assert(!notin);
 	
-	BigDecimal amount = BigDecimal.valueOf(testOrderLineProductMenu.getAmount());
+	@Test
+	public void testSetProductMenu() //PASS
+	{
+		
+		testOrderLineProductMenu = new OrderLine(men,1);
+		BigDecimal preprice = order.getPrice();
+		
+		order.setProducts( testOrderLineProductMenu );
+		
+		List<OrderLine> ol = order.getProducts();
+		
+		assert(ol.contains(testOrderLineProductMenu));
+		
+		preprice = preprice.add(testOrderLineProductMenu.getTotalPrice());
+		assertEquals(order.getPrice(), preprice);
+		
+	}
 	
-	preprice = preprice.add(testOrderLineProductMenu.getTotalPrice().multiply(amount));
-	
-	assertEquals(order.getPrice(), preprice);
-	
-}
-
-
-@Test 
-public void testaddProductToOrderMenu() //PASS
-{
-	List<OrderLine> preol = order.getProducts();
-	Boolean exit = true;
-	int precant =0;
-	
-	for(int i = 0 ; i<preol.size() && exit ; i++)
-		if(preol.get(i).getProduct().getID() == men.getID()) {
-			precant = preol.get(i).getAmount();
-			exit = false;
-		}
-			
-	order.addProductToOrder(men); 
-	
-	List<OrderLine> ol = order.getProducts();
-	exit = true;
-	
-	for(int i = 0 ; i<preol.size() && exit ; i++)
-		if(ol.get(i).getProduct().getID() == men.getID()) {
-			assertEquals(precant+1, ol.get(i).getAmount());
-			assertEquals(ol.get(i).getTotalPrice(), ol.get(i).getProduct().getPrice());
-			exit = false;
-		}
-}
-	
-@Test	
-public void testaddNProductToOrderMenu() //PASS
-{
-	List<OrderLine> preol = order.getProducts();
-	Boolean exit = true;
-	int precant =0;
-	
-	for(int i = 0 ; i<preol.size() && exit ; i++)
-		if(preol.get(i).getProduct().getID() == men.getID()) {
-			precant = preol.get(i).getAmount();
-			exit = false;
+	@Test
+	public void testSetNProductMenu() //PASS
+	{
+		
+		BigDecimal preprice = order.getPrice();
+		
+		order.setProducts( testOrderLineProductMenu );
+		
+		List<OrderLine> ol = order.getProducts();
+		Boolean notin=true;
+		
+		for(int i=0 ; i<ol.size() && notin==true ; i++) {
+			if(ol.get(i).getProduct().getID() == men.getID()) {
+				notin =false;
+			}
 		}
 		
-	order.addProductToOrder(men); 
-	
-	List<OrderLine> ol = order.getProducts();
-	exit = true;
-	
-	for(int i = 0 ; i<preol.size() && exit ; i++)
-		if(ol.get(i).getProduct().getID() == men.getID()) {
-			assertEquals(precant+1, ol.get(i).getAmount());
-			BigDecimal postamount = BigDecimal.ZERO;
-			postamount = new BigDecimal(ol.get(i).getAmount());
-			assertEquals(ol.get(i).getTotalPrice(), ol.get(i).getProduct().getPrice().multiply(postamount));
-			exit = false;
-		}
-}
-	
-
-@Test
-public void testdeleteProductFromOrderMenu() //PASS
-{
-	order.deleteProductFromOrder(men,1);
-	List<OrderLine> delprod = order.getProducts();
-
-	for(int i= 0; i<delprod.size() ; i++) 
-		if(men == delprod.get(i).getProduct()) 
-		{
-			assertEquals(delprod.get(i).getAmount(), 3);
-			return;
-		}
-	
-}
-
-
-
-@Test
-public void deleteOrderlineFromOrderMenu() //PASS
-{
-	Boolean exit = true;
-	
-	List<OrderLine> preol = order.getProducts();
-	
-	for(int i = 0 ; i<preol.size() && exit ; i++) {
-		if(	preol.get(i).getProduct().getID() == testOrderLineProductSimple.getProduct().getID() ) {
-			exit = false;
-		}
-		assert(exit);
+		assert(!notin);
+		
+		BigDecimal amount = BigDecimal.valueOf(testOrderLineProductMenu.getAmount());
+		
+		preprice = preprice.add(testOrderLineProductMenu.getTotalPrice().multiply(amount));
+		
+		assertEquals(order.getPrice(), preprice);
+		
 	}
+	
+	
+	@Test 
+	public void testAddProductToOrderMenu() //PASS
+	{
+		List<OrderLine> preol = order.getProducts();
+		Boolean exit = true;
+		int precant =0;
+		
+		for(int i = 0 ; i<preol.size() && exit ; i++)
+			if(preol.get(i).getProduct().getID() == men.getID()) {
+				precant = preol.get(i).getAmount();
+				exit = false;
+			}
+				
+		order.addProductToOrder(men); 
+		
+		List<OrderLine> ol = order.getProducts();
+		exit = true;
+		
+		for(int i = 0 ; i<preol.size() && exit ; i++)
+			if(ol.get(i).getProduct().getID() == men.getID()) {
+				assertEquals(precant+1, ol.get(i).getAmount());
+				assertEquals(ol.get(i).getTotalPrice(), ol.get(i).getProduct().getPrice());
+				exit = false;
+			}
+	}
+		
+	@Test	
+	public void testAddNProductToOrderMenu() //PASS
+	{
+		List<OrderLine> preol = order.getProducts();
+		Boolean exit = true;
+		int precant =0;
+		
+		for(int i = 0 ; i<preol.size() && exit ; i++)
+			if(preol.get(i).getProduct().getID() == men.getID()) {
+				precant = preol.get(i).getAmount();
+				exit = false;
+			}
+			
+		order.addProductToOrder(men); 
+		
+		List<OrderLine> ol = order.getProducts();
+		exit = true;
+		
+		for(int i = 0 ; i<preol.size() && exit ; i++)
+			if(ol.get(i).getProduct().getID() == men.getID()) {
+				assertEquals(precant+1, ol.get(i).getAmount());
+				BigDecimal postamount = BigDecimal.ZERO;
+				postamount = new BigDecimal(ol.get(i).getAmount());
+				assertEquals(ol.get(i).getTotalPrice(), ol.get(i).getProduct().getPrice().multiply(postamount));
+				exit = false;
+			}
+	}
+		
+	
+	@Test
+	public void testDeleteProductFromOrderMenu() //PASS
+	{
+		order.deleteProductFromOrder(men,1);
+		List<OrderLine> delprod = order.getProducts();
+	
+		for(int i= 0; i<delprod.size() ; i++) 
+			if(men == delprod.get(i).getProduct()) 
+			{
+				assertEquals(delprod.get(i).getAmount(), 3);
+				return;
+			}
+		
+	}
+	
+	
+	
+	@Test
+	public void testDeleteOrderlineFromOrderMenu() //PASS
+	{
+		Boolean exit = true;
+		
+		List<OrderLine> preol = order.getProducts();
+		
+		for(int i = 0 ; i<preol.size() && exit ; i++) {
+			if(	preol.get(i).getProduct().getID() == testOrderLineProductSimple.getProduct().getID() ) {
+				exit = false;
+			}
+			assert(exit);
+		}
+	}
+	
+	
+	@Test
+	public void testConstructorMinutes() throws DataFormatException 
+	{
+		Order orderMinutes = new Order();
+	
+		orderMinutes.setCollectedDate(7);
+
+		System.out.println(orderMinutes.getDateTime().getMinute());
+		System.out.println(orderMinutes.getDateTime().getHour());
+
+		
+		assertEquals(orderMinutes.getCollectedDate().getMinute(), 7);
+	}
+	
+	@Test
+	public void testConstructorHoursMinutes() throws DataFormatException 
+	{
+		Order orderMinutes = new Order();
+		orderMinutes.setCollectedDate(15, 30);
+		LocalDateTime now =  LocalDateTime.now();
+		
+		assertEquals(orderMinutes.getCollectedDate().getMonth(), now.getMonth());
+		assertEquals(orderMinutes.getCollectedDate().getYear(), now.getYear());
+
+		assertEquals(orderMinutes.getCollectedDate().getHour(), 15);
+		assertEquals(orderMinutes.getCollectedDate().getMinute(), 30);
+	}
+	
+	@Test
+	public void testConstructorDayHoursMinutes() throws DataFormatException 
+	{
+		Order orderMinutes = new Order();
+		LocalDateTime now =  LocalDateTime.now();
+		
+		orderMinutes.setCollectedDate(2, 15, 30);
+
+		
+		assertEquals(orderMinutes.getCollectedDate().getMonth(), now.getMonth());
+		assertEquals(orderMinutes.getCollectedDate().getYear(), now.getYear());
+
+		assertEquals(orderMinutes.getCollectedDate().getHour(), 15);
+		assertEquals(orderMinutes.getCollectedDate().getMinute(), 30);
+		assertEquals(orderMinutes.getCollectedDate().getDayOfMonth(), 2);
+	}
+	
+	
 }
-}
+	
 
 
-	
-	
-	
+
+
+
+
+
 	
 

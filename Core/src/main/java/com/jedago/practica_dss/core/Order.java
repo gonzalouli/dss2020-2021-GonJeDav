@@ -3,6 +3,7 @@ package com.jedago.practica_dss.core;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -21,20 +22,67 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private long id_order;
 	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
-	private LocalDate date; //Local time, local date, local datetime
-	
+	private LocalDateTime date; //Local time, local date, localdatetime
+	private LocalDateTime collectedDate;
 	 /*
 	 * Create empty order with a unique id, a list
-	 * of OrderLine empty and a given date.
-	 */
+	 * of OrderLine empty and a given collected date.
+	 */	
+	
 	public Order(){
 		
-		date = LocalDate.now();
+		date = LocalDateTime.now();
 		this.id_order = currentid;
 		currentid++;
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
+	
 	}	
+	
+	
+	 /** 
+		 * Returns the id of a specific order.
+		 * @return The collected date of the order.
+		 */
+	public LocalDateTime getCollectedDate() {
+		return collectedDate;
+	}
+	
+	
+	/** 
+	 * @param days Order delivery day.
+	 * @param hours Order delivery hour.
+	 * @param minutes Order delivery minutes.
+
+	 */
+	public void setCollectedDate(int days, int hours, int minutes ) 
+	{
+		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),days,hours,minutes);
+		collectedDate = newdate;
+	}
+	
+	/** 
+	 * @param hours Order delivery hour.
+	 * @param minutes Order delivery minutes.
+	 */
+	public void setCollectedDate( int hours, int minutes ) 
+	{
+		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),hours,minutes);
+		collectedDate = newdate;
+
+	}
+	
+
+	/** 
+	 * @param days Order delivery minutes.
+	 */
+	public void setCollectedDate( int minutes )
+	{
+		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),date.getHour(), minutes);
+		collectedDate = newdate;
+
+	}
+
 
 	 /** 
 	 * Returns the id of a specific order.
@@ -58,9 +106,21 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 * @return Order's id.
 	 */
 	public LocalDate getDate() {
-		return this.date;
+		return this.date.toLocalDate();
 	}
 
+	
+	
+	 /** 
+	 * Check the date the order was created.
+	 * @return Order's id.
+	 */
+	public LocalDateTime getDateTime() {
+		return this.date;
+	}	
+	
+	
+	
  /** 
  * Indicates if the order is empty.
  * @return True if the order is empty, false otherwise.

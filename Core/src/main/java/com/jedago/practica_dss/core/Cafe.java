@@ -1,12 +1,14 @@
 package com.jedago.practica_dss.core;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
-
-import java.time.LocalDate;
+import com.jedago.practica_dss.persistance.OrdersRepository;
+import com.jedago.practica_dss.persistance.ProductsRepository;
 
 /**
  * @author Jesús Serrano Gallán
@@ -16,15 +18,20 @@ public class Cafe implements ICafe {
 
 	private List<Order> orders;
 	private List<Product> products;
+	private OrdersRepository ordersRepository;
+	private ProductsRepository productsRepository;
 	
 	/**
 	 * Constructor
 	 * @param orders_ List of initial orders (regularly a void one)
 	 * @param products_ List of initial available products
+	 * @throws Exception 
 	 */
-	public Cafe(List<Order> orders_, List<Product> products_) { //Inyectar repositorios mejor
-		this.orders = orders_;
-		this.products = products_;
+	public Cafe(OrdersRepository orders, ProductsRepository products) throws Exception { 
+		this.ordersRepository = orders;
+		this.orders = orders.readOrders();
+		this.productsRepository = products;
+		this.products = products.readProducts();
 	}
 	
 	@Override
@@ -144,7 +151,7 @@ public class Cafe implements ICafe {
 	 * Register the order to finish it
 	 * @param ord the order you want to register
 	 */
-	public void FinishOrder(Order ord) throws NoStockException{
+	public void FinishOrder(Order ord) throws Exception{
 		Product p;
 		int c;
 		boolean found;
@@ -176,6 +183,10 @@ public class Cafe implements ICafe {
 			}
 		}
 		orders.add(ord);
+		
+		//Controlamos serialización
+		this.ordersRepository.writeOrders(orders);
+		this.productsRepository.writeProducts(products);
 	}
 
 	@Override
@@ -187,7 +198,6 @@ public class Cafe implements ICafe {
 	public CashBox getCashBox(LocalDate date)
 	{
 		CashBox cb = new CashBox();
-		
 		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
 		for(Order o:orders)
 		{
