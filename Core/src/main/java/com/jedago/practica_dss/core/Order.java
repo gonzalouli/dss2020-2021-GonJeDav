@@ -23,7 +23,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
 	private LocalDateTime date; //Local time, local date, localdatetime
-	private LocalDateTime collectedDate;
+	private LocalDateTime PickUpTime;
 	 /*
 	 * Create empty order with a unique id, a list
 	 * of OrderLine empty and a given collected date.
@@ -44,44 +44,19 @@ public class Order implements Iterable<OrderLine>, Serializable
 		 * Returns the id of a specific order.
 		 * @return The collected date of the order.
 		 */
-	public LocalDateTime getCollectedDate() {
-		return collectedDate;
+	public LocalDateTime getPickUpTime() {
+		return PickUpTime;
 	}
 	
 	
-	/** 
-	 * @param days Order delivery day.
-	 * @param hours Order delivery hour.
-	 * @param minutes Order delivery minutes.
-
+	/** Set the collected date
+	 * @param ldt Date to collect the order
 	 */
-	public void setCollectedDate(int days, int hours, int minutes ) 
+	public void setPickUpTime(LocalDateTime ldt) 
 	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),days,hours,minutes);
-		collectedDate = newdate;
+		PickUpTime = ldt;
 	}
 	
-	/** 
-	 * @param hours Order delivery hour.
-	 * @param minutes Order delivery minutes.
-	 */
-	public void setCollectedDate( int hours, int minutes ) 
-	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),hours,minutes);
-		collectedDate = newdate;
-
-	}
-	
-
-	/** 
-	 * @param days Order delivery minutes.
-	 */
-	public void setCollectedDate( int minutes )
-	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),date.getHour(), minutes);
-		collectedDate = newdate;
-
-	}
 
 
 	 /** 

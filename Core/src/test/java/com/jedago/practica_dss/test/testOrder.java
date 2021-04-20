@@ -3,7 +3,7 @@ package com.jedago.practica_dss.test;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -445,47 +445,18 @@ public void testConstructorMenu() //PASS
 	@Test
 	public void testConstructorMinutes() throws DataFormatException 
 	{
-		Order orderMinutes = new Order();
-	
-		orderMinutes.setCollectedDate(7);
-
-		System.out.println(orderMinutes.getDateTime().getMinute());
-		System.out.println(orderMinutes.getDateTime().getHour());
-
+		Order order = new Order();
+		LocalDateTime ldtnow = LocalDateTime.now();
+		LocalDateTime ldt = LocalDateTime.of(ldtnow.getYear(), ldtnow.getMonthValue(), ldtnow.getDayOfMonth(), ldtnow.getHour(), ldtnow.plusMinutes(10).getMinute());
+		 
 		
-		assertEquals(orderMinutes.getCollectedDate().getMinute(), 7);
+		order.setPickUpTime(ldt);
+		
+		assertEquals(ldt,order.getPickUpTime() );
+		assertNotEquals(ldt,ldtnow);
+		
 	}
-	
-	@Test
-	public void testConstructorHoursMinutes() throws DataFormatException 
-	{
-		Order orderMinutes = new Order();
-		orderMinutes.setCollectedDate(15, 30);
-		LocalDateTime now =  LocalDateTime.now();
-		
-		assertEquals(orderMinutes.getCollectedDate().getMonth(), now.getMonth());
-		assertEquals(orderMinutes.getCollectedDate().getYear(), now.getYear());
 
-		assertEquals(orderMinutes.getCollectedDate().getHour(), 15);
-		assertEquals(orderMinutes.getCollectedDate().getMinute(), 30);
-	}
-	
-	@Test
-	public void testConstructorDayHoursMinutes() throws DataFormatException 
-	{
-		Order orderMinutes = new Order();
-		LocalDateTime now =  LocalDateTime.now();
-		
-		orderMinutes.setCollectedDate(2, 15, 30);
-
-		
-		assertEquals(orderMinutes.getCollectedDate().getMonth(), now.getMonth());
-		assertEquals(orderMinutes.getCollectedDate().getYear(), now.getYear());
-
-		assertEquals(orderMinutes.getCollectedDate().getHour(), 15);
-		assertEquals(orderMinutes.getCollectedDate().getMinute(), 30);
-		assertEquals(orderMinutes.getCollectedDate().getDayOfMonth(), 2);
-	}
 	
 	
 }
