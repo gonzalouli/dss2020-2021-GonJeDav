@@ -18,12 +18,14 @@ import java.util.*;
 public class Order implements Iterable<OrderLine>, Serializable
 {
 	private static final long serialVersionUID = -7323804151378580352L;
+	
 	public static long currentid = 1;
 	private long id_order;
 	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
 	private LocalDateTime date; //Local time, local date, localdatetime
 	private LocalDateTime PickUpTime;
+	private User user;
 	 /*
 	 * Create empty order with a unique id, a list
 	 * of OrderLine empty and a given collected date.
@@ -239,6 +241,24 @@ public class Order implements Iterable<OrderLine>, Serializable
 	@Override
 	public Iterator<OrderLine> iterator() {
 		return orderLineProduct.iterator();
+	}
+
+
+	/** 
+	 * Returns the owner to this order
+	 * @return user return the user of this order.
+	 */
+	public User getUser() {
+		return user;
+	}
+	
+	
+	/** 
+	 * Bind an user to an order.
+	 * @param user User to bing with a order
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 
