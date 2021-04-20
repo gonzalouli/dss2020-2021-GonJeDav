@@ -45,6 +45,18 @@ public class Cafe implements ICafe {
 	}
 	
 	/**
+	 * Create a new order bind to an user
+	 * @param u the user to bind the new order
+	 * @return the new order created
+	 */
+	public Order newOrder(User u)
+	{
+		Order o = new Order();
+		o.setUser(u);
+		return o;
+	}
+	
+	/**
 	 * Set the desired pickup time for the order
 	 * @param o Order to set the collection time
 	 * @param t Time to pick up the order

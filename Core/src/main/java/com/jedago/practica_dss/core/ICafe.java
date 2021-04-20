@@ -17,9 +17,16 @@ public interface ICafe {
 	
 	/**
 	 * Create a new order
-	 * @return the new ordenr created
+	 * @return the new order created
 	 */
 	public Order newOrder();
+	
+	/**
+	 * Create a new order bind to an user
+	 * @param u the user to bind the new order
+	 * @return the new order created
+	 */
+	public Order newOrder(User u);
 	
 	/**
 	 * Set the desired collection time for the order
