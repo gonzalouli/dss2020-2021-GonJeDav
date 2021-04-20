@@ -11,7 +11,7 @@ import com.jedago.practica_dss.persistance.ProductsRepository;
 
 /**
  * @author Jesús Serrano Gallán
- *	@version 1.0
+ *	@version 2.0
  */
 public class Cafe implements ICafe {
 
@@ -22,8 +22,8 @@ public class Cafe implements ICafe {
 	
 	/**
 	 * Constructor
-	 * @param orders_ List of initial orders (regularly a void one)
-	 * @param products_ List of initial available products
+	 * @param orders List of initial orders (regularly a void one)
+	 * @param products List of initial available products
 	 * @throws Exception 
 	 */
 	public Cafe(OrdersRepository orders, ProductsRepository products) throws Exception { 
