@@ -9,6 +9,7 @@ import java.util.List;
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepository;
 import com.jedago.practica_dss.persistance.ProductsRepository;
+import com.jedago.practica_dss.persistance.UsersRepository;
 
 /**
  * @author Jesús Serrano Gallán
@@ -18,20 +19,39 @@ public class Cafe implements ICafe {
 
 	private List<Order> orders;
 	private List<Product> products;
+	private List<User> users;
 	private OrdersRepository ordersRepository;
 	private ProductsRepository productsRepository;
+	private UsersRepository usersRepository;
+	
 	
 	/**
-	 * Constructor
-	 * @param orders_ List of initial orders (regularly a void one)
-	 * @param products_ List of initial available products
-	 * @throws Exception 
+	 * Constructor with orders and products repository
+	 * @param orders Repository with the orders in the system
+	 * @param products Repository with the products in the system
+	 * @throws Exception
 	 */
 	public Cafe(OrdersRepository orders, ProductsRepository products) throws Exception { 
 		this.ordersRepository = orders;
 		this.orders = orders.readOrders();
 		this.productsRepository = products;
 		this.products = products.readProducts();
+	}
+	
+	/**
+	 * Constructor with orders, products and users repository
+	 * @param orders Repository with the orders in the system
+	 * @param products Repository with the products in the system
+	 * @param users Repository with the users in the system
+	 * @throws Exception
+	 */
+	public Cafe(OrdersRepository orders, ProductsRepository products, UsersRepository users) throws Exception { 
+		this.ordersRepository = orders;
+		this.orders = orders.readOrders();
+		this.productsRepository = products;
+		this.products = products.readProducts();
+		this.usersRepository = users;
+		this.users = users.readUsers();
 	}
 	
 	@Override
@@ -240,6 +260,36 @@ public class Cafe implements ICafe {
 	public CashBox getTodayCashBox() {
 		LocalDate today = LocalDate.now();
 		return this.getCashBox(today);
+	}
+
+	@Override
+	public void registerUser(User u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserFirstName(User u, String newFirstName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserLastName(User u, String newLastName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserBirthDate(User u, String newBirthDate) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserDNI(User u, String newDNI) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

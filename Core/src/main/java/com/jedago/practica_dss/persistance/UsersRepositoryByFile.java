@@ -12,6 +12,16 @@ import com.jedago.practica_dss.core.User;
 
 public class UsersRepositoryByFile implements UsersRepository {
 	
+	/**
+	 * To check if the persistance file is created
+	 * @return true if the persistance file is created
+	 */
+	public static boolean isFileCreated()
+	{
+		File ProductsFile = new File(Messages.getString("UsersFile"));
+		return ProductsFile.exists();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> readUsers() throws Exception {
@@ -44,15 +54,12 @@ public class UsersRepositoryByFile implements UsersRepository {
 			e.printStackTrace();
 		}
 	}
-		
-	/**
-	 * To check if the persistance file is created
-	 * @return true if the persistance file is created
-	 */
-	public static boolean isFileCreated()
-	{
-		File ProductsFile = new File(Messages.getString("UsersFile"));
-		return ProductsFile.exists();
+
+	@Override
+	public void saveUser(User u) throws Exception {
+		List<User> usersList = readUsers();
+		usersList.add(u);
+		writeUsers(usersList);
 	}
 
 

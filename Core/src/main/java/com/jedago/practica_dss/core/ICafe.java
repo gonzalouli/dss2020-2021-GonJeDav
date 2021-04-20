@@ -109,4 +109,38 @@ public interface ICafe {
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 */
 	public CashBox getTodayCashBox();
+	
+	/**
+	 * To register a new user in the system
+	 * @param u The new user in the system
+	 */
+	public void registerUser(User u);
+	
+	/**
+	 * To update the first name of an existing user
+	 * @param u The existing user to update
+	 * @param newFirstName The new first name to save
+	 */
+	public void updateUserFirstName(User u, String newFirstName);
+	
+	/**
+	 * To update the last name of an existing user
+	 * @param u The existing user to update
+	 * @param newLastName The new last name to save
+	 */
+	public void updateUserLastName(User u, String newLastName);
+	
+	/**
+	 * To update the birthdate of an existing user
+	 * @param u The existing user to update
+	 * @param newBirthDate The new birth date to save
+	 */
+	public void updateUserBirthDate(User u, String newBirthDate);
+	
+	/**
+	 * To update the dni of an existing user
+	 * @param u The existing user to update
+	 * @param newDNI The new DNI to save
+	 */
+	public void updateUserDNI(User u, String newDNI);
 }

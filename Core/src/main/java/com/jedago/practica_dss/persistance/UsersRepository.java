@@ -25,4 +25,11 @@ public interface UsersRepository {
 	 * @throws Exception
 	 */
 	public void writeUsers(List<User> usersList) throws Exception;
+	
+	/**
+	 * To save a single user in the repository
+	 * @param u The user that we want to save in the system
+	 * @throws Exception
+	 */
+	public void saveUser(User u) throws Exception;
 }

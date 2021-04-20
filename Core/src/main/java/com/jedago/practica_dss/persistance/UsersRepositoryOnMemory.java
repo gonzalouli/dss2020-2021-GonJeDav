@@ -17,4 +17,9 @@ public class UsersRepositoryOnMemory implements UsersRepository {
 		this.users = usersList;
 	}
 
+	@Override
+	public void saveUser(User u) throws Exception {
+		users.add(u);
+	}
+
 }
