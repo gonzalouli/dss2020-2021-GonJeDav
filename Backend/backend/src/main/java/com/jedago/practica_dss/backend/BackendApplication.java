@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jedago.practica_dss.core.Client;
+import com.jedago.practica_dss.core.User;
 
 @SpringBootApplication
 @RestController
@@ -34,7 +34,7 @@ public class BackendApplication {
 			@RequestParam(value = "dni") String dni) throws Exception {
 		
 
-		Client client = new Client(firstname, lastname, LocalDate.parse(birthdate)  , dni);
+		User client = new User(firstname, lastname, LocalDate.parse(birthdate)  , dni);
 		
 		return client.userToJson();
 		

@@ -9,16 +9,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import com.jedago.practica_dss.core.Client;
+import com.jedago.practica_dss.core.User;
 
 
-public class testClient {
+public class testUser {
 	
-	Client user;
+	User user;
 	
 	@Before //Antes de cada test
 	public void setUp() throws Exception {
-		user= new Client("Gonzalo","Ulibarri", LocalDate.of(1995,3,17), "12345678A");
+		user= new User("Gonzalo","Ulibarri", LocalDate.of(1995,3,17), "12345678A");
 	}
 
 	@After

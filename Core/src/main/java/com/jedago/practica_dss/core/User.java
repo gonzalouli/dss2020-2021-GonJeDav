@@ -3,14 +3,14 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import com.google.gson.Gson;
-public class Client {
+public class User {
 	
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
 	private String dni;
 	
-	public Client(String firstName, String lastName, LocalDate birthDate, String dni) {
+	public User(String firstName, String lastName, LocalDate birthDate, String dni) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
