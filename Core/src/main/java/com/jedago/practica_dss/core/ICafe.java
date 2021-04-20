@@ -3,7 +3,7 @@
  */
 package com.jedago.practica_dss.core;
 
-
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +20,13 @@ public interface ICafe {
 	 * @return the new ordenr created
 	 */
 	public Order newOrder();
+	
+	/**
+	 * Set the desired collection time for the order
+	 * @param o Order to set the collection time
+	 * @param t Time to collect the order
+	 */
+	public void setCollectTime(Order o, LocalDateTime t);
 	
 	/**
 	 * Returns a set of available products

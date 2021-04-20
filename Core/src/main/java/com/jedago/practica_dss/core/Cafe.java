@@ -43,6 +43,16 @@ public class Cafe implements ICafe {
 		Order o = new Order();
 		return o;
 	}
+	
+	/**
+	 * Set the desired pickup time for the order
+	 * @param o Order to set the collection time
+	 * @param t Time to pick up the order
+	 */
+	public void setPickUpTime(Order o, LocalDateTime t)
+	{
+		o.setPickUpTime(t);
+	}
 
 	@Override
 	/**
