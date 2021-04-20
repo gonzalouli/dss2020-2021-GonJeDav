@@ -26,7 +26,7 @@ public interface ICafe {
 	 * @param o Order to set the collection time
 	 * @param t Time to collect the order
 	 */
-	public void setCollectTime(Order o, LocalDateTime t);
+	public void setPickUpTime(Order o, LocalDateTime t);
 	
 	/**
 	 * Returns a set of available products
