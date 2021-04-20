@@ -114,33 +114,33 @@ public interface ICafe {
 	 * To register a new user in the system
 	 * @param u The new user in the system
 	 */
-	public void registerUser(User u);
+	public void registerUser(User u) throws Exception;
 	
 	/**
 	 * To update the first name of an existing user
 	 * @param u The existing user to update
 	 * @param newFirstName The new first name to save
 	 */
-	public void updateUserFirstName(User u, String newFirstName);
+	public void updateUserFirstName(User u, String newFirstName) throws Exception;
 	
 	/**
 	 * To update the last name of an existing user
 	 * @param u The existing user to update
 	 * @param newLastName The new last name to save
 	 */
-	public void updateUserLastName(User u, String newLastName);
+	public void updateUserLastName(User u, String newLastName) throws Exception;
 	
 	/**
 	 * To update the birthdate of an existing user
 	 * @param u The existing user to update
 	 * @param newBirthDate The new birth date to save
 	 */
-	public void updateUserBirthDate(User u, String newBirthDate);
+	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception;
 	
 	/**
 	 * To update the dni of an existing user
 	 * @param u The existing user to update
 	 * @param newDNI The new DNI to save
 	 */
-	public void updateUserDNI(User u, String newDNI);
+	public void updateUserDNI(User u, String newDNI) throws Exception;
 }

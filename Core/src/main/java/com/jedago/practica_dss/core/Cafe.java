@@ -263,33 +263,37 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public void registerUser(User u) {
-		// TODO Auto-generated method stub
-		
+	public void registerUser(User u) throws Exception {
+		this.usersRepository.saveUser(u);
+		users = usersRepository.readUsers();
 	}
 
 	@Override
-	public void updateUserFirstName(User u, String newFirstName) {
-		// TODO Auto-generated method stub
-		
+	public void updateUserFirstName(User u, String newFirstName) throws Exception {
+		int i = users.indexOf(u);
+		users.get(i).setFirstName(newFirstName);
+		usersRepository.writeUsers(users);
 	}
 
 	@Override
-	public void updateUserLastName(User u, String newLastName) {
-		// TODO Auto-generated method stub
-		
+	public void updateUserLastName(User u, String newLastName) throws Exception{
+		int i = users.indexOf(u);
+		users.get(i).setLastName(newLastName);
+		usersRepository.writeUsers(users);
 	}
 
 	@Override
-	public void updateUserBirthDate(User u, String newBirthDate) {
-		// TODO Auto-generated method stub
-		
+	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception{
+		int i = users.indexOf(u);
+		users.get(i).setBirthDate(newBirthDate);
+		usersRepository.writeUsers(users);
 	}
 
 	@Override
-	public void updateUserDNI(User u, String newDNI) {
-		// TODO Auto-generated method stub
-		
+	public void updateUserDNI(User u, String newDNI) throws Exception{
+		int i = users.indexOf(u);
+		users.get(i).setDni(newDNI);
+		usersRepository.writeUsers(users);
 	}
 
 }
