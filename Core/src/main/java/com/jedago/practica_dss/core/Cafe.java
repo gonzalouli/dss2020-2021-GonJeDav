@@ -73,6 +73,7 @@ public class Cafe implements ICafe {
 	{
 		Order o = new Order();
 		o.setUser(u);
+		u.setPurchase(o);
 		return o;
 	}
 	

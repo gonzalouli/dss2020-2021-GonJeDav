@@ -1,6 +1,8 @@
 package com.jedago.practica_dss.core;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 /**@author Gonzalo Ulibarri Garcia
  *@version 1.0
  */
@@ -8,7 +10,7 @@ import java.time.Period;
 public class User {
 	
 	public static long currentid_user = 1;
-
+	private List<Order> orderList;
 	private long id_user;
 	private String firstName;
 	private String lastName;
@@ -29,6 +31,7 @@ public class User {
 		
 		assert(period.getYears()>=18);
 		
+		orderList = new ArrayList<Order>();
 		this.id_user = currentid_user++;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -38,8 +41,20 @@ public class User {
 	}
 	
 	/** 
-     * Return the id of an user
-     * @return the id of the user
+     * Bind a new order to an existing user.
+     * @param the new order to this user.
+	 */
+	public void setPurchase(Order o) 
+	{
+		orderList.add(o);
+	}
+	
+	
+	
+	
+	/** 
+     * Return the id of an user.
+     * @return the id of the user.
 	 */
 	public long getIdUser() 
 	{
@@ -47,16 +62,16 @@ public class User {
 	}
 	
 	/** 
-     * Return the first name of an user
-     * @return the first name of the user
+     * Return the first name of an user.
+     * @return the first name of the user.
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/** 
-     * Set the first name of an existing user
-     * @param firstName the first name of the user
+     * Set the first name of an existing user.
+     * @param firstName the first name of the user.
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -71,48 +86,48 @@ public class User {
 	}
 
 	/** 
-     * Set the last name of an existing user
-     * @param lastName the first name of the user
+     * Set the last name of an existing user.
+     * @param lastName the first name of the user.
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
 	/** 
-     * Return the birth date of an user
-     * @return the birth date of the user
+     * Return the birth date of an user.
+     * @return the birth date of the user.
 	 */
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
 	/** 
-     * Set the birth date of an existing user
-     * @param birthDate the birth date of the user
+     * Set the birth date of an existing user.
+     * @param birthDate the birth date of the user.
 	 */
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
 	/** 
-     * Return the dni of an user
-     * @return the dni of the user
+     * Return the dni of an user.
+     * @return the dni of the user.
 	 */
 	public String getDni() {
 		return dni;
 	}
 
 	/** 
-     * Set the dni of an existing user
-     * @param dni the dni date of the user
+     * Set the dni of an existing user.
+     * @param dni the dni date of the user.
 	 */
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	
 	/** 
-     * Return the age of an user
-     * @return the age of the user
+     * Return the age of an user.
+     * @return the age of the user.
 	 */
 	public int getAge() {
 		

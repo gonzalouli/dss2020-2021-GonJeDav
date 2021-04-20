@@ -38,7 +38,8 @@ public class Order implements Iterable<OrderLine>, Serializable
 		currentid++;
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
-	
+
+		
 	}	
 	
 	
