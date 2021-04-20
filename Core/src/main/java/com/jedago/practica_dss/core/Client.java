@@ -2,6 +2,7 @@ package com.jedago.practica_dss.core;
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.google.gson.Gson;
 public class Client {
 	
 	private String firstName;
@@ -53,6 +54,13 @@ public class Client {
 		LocalDate now = LocalDate.now();
 		Period period = Period.between(birthDate, now);
 		return period.getYears();
+		
+	}
+	
+	public String userToJson() {
+		Gson gson = new Gson();
+		String JSON = gson.toJson(this);
+		return JSON;
 		
 	}
 	
