@@ -23,7 +23,7 @@ import com.jedago.practica_dss.persistance.ProductsRepository;
 import com.jedago.practica_dss.persistance.ProductsRepositoryOnMemory;
 
 
-public class testCafe {
+public class TestCafe {
 	private List<Product> lista_productos;
 	private List<Order> lista_pedidos;
 	BigDecimal price1;
@@ -58,20 +58,20 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testNewOrder() {
+	public void TestNewOrder() {
 		//Comprobar que devuelva una orden vacía
 		o = C.newOrder();
 		assertTrue(o.isEmpty());
 	}
 	
 	@Test
-	public void testGetAvailableProducts() {
+	public void TestGetAvailableProducts() {
 		//Comprobar que esté el producto p1, añadido desde el constructor de la lista de productos
 		assertTrue(C.getAvailableProducts().contains(p1));
 	}
 	
 	@Test
-	public void testAddProductToOrder() {
+	public void TestAddProductToOrder() {
 		o = C.newOrder();
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar aumento del precio del pedido cuando se añade un producto
@@ -87,14 +87,14 @@ public class testCafe {
 	}
 	
 	@Test(expected=NoStockException.class)
-	public void testAddProductToOrderException() throws NoStockException {
+	public void TestAddProductToOrderException() throws NoStockException {
 		o = C.newOrder();
 		//Comprobar lanzamiento de excepción
 		C.addProductToOrder(o, p1, 4);
 	}
 	
 	@Test
-	public void testAddSeveralProductToOrder() {
+	public void TestAddSeveralProductToOrder() {
 		o = C.newOrder();
 		BigDecimal oldPrice = o.getPrice();
 		//Comprobar aumento del precio del pedido cuando se añade un producto
@@ -110,7 +110,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testDeleteProductFromOrder() {
+	public void TestDeleteProductFromOrder() {
 		o = C.newOrder();
 		try {
 			C.addProductToOrder(o, p1);
@@ -127,7 +127,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testDeleteSeveralProductsFromOrder() {
+	public void TestDeleteSeveralProductsFromOrder() {
 		o = C.newOrder();
 		try {
 			C.addProductToOrder(o, p1, 3);
@@ -144,7 +144,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testDeleteNotAllSameProductsFromOrder() {
+	public void TestDeleteNotAllSameProductsFromOrder() {
 		o = C.newOrder();
 		try {
 			C.addProductToOrder(o, p1, 3);
@@ -161,7 +161,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testFinishOrderRemovingProduct() throws Exception{
+	public void TestFinishOrderRemovingProduct() throws Exception{
 		o = C.newOrder();
 		try {
 			C.addProductToOrder(o, p1, 3);
@@ -175,7 +175,7 @@ public class testCafe {
 	}
 	
 	@Test(expected=NoStockException.class)
-	public void testFinishOrderException() throws Exception{
+	public void TestFinishOrderException() throws Exception{
 		o = C.newOrder();
 		C.addProductToOrder(o, p1, 2);
 		//Como no está registrado el pedido, no se ha actualizado el stock
@@ -185,7 +185,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testFinishOrderNotRemovingProduct() throws Exception{
+	public void TestFinishOrderNotRemovingProduct() throws Exception{
 		o = C.newOrder();
 		
 		try {
@@ -205,7 +205,7 @@ public class testCafe {
 	}
 	
 	@Test
-	public void testGetTodayCashBox() throws Exception{
+	public void TestGetTodayCashBox() throws Exception{
 		o = C.newOrder();
 		try {
 			C.addProductToOrder(o, p1, 3);

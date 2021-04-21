@@ -15,7 +15,7 @@ import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.SingleProduct;
 
-public class testProduct 
+public class TestProduct 
 {
 	
 	private Product cafe, sandwich;
@@ -45,21 +45,21 @@ public class testProduct
 	}
 	
 	@Test
-	public void testGetID() 
+	public void TestGetID() 
 	{
 		assertEquals(1, cafe.getID());
 		assertEquals(2, sandwich.getID());
 	}
 	
 	@Test
-	public void testSingleProductGetName() 
+	public void TestSingleProductGetName() 
 	{
 		assertEquals(cafe.getName(), "Cafe con leche");
 		assertEquals(sandwich.getName(), "Sandwich");
 	}
 	
 	@Test
-	public void testMenuConstructors() 
+	public void TestMenuConstructors() 
 	{
 		List<Product> SPList = new ArrayList<Product>();
 		Menu Des1 = new Menu(++id, "Desayuno", menu);
@@ -74,14 +74,14 @@ public class testProduct
 	}
 	
 	@Test
-	public void testSingleProductGetStock() 
+	public void TestSingleProductGetStock() 
 	{
 		assertEquals(sandwich.getStock(), 4);
 		assertEquals(cafe.getStock(), 3);
 	}
 	
 	@Test
-	public void testMenuGetStock() 
+	public void TestMenuGetStock() 
 	{
 		Menu Des1 = new Menu(++id, "Desayuno", menu);
 		Des1.add(cafe);
@@ -90,14 +90,14 @@ public class testProduct
 	}
 	
 	@Test
-	public void testSingleProductGetPrice() 
+	public void TestSingleProductGetPrice() 
 	{
 		assertEquals( new BigDecimal(2), cafe.getPrice());
 		assertEquals( new BigDecimal(2), sandwich.getPrice());
 	}
 	
 	@Test
-	public void testMenuGetPrice() 
+	public void TestMenuGetPrice() 
 	{
 		Menu Des1 = new Menu(++id, "Desayuno", menu);
 		Des1.add(cafe);
@@ -106,14 +106,14 @@ public class testProduct
 	}
 	
 	@Test
-	public void testSingleProductStock() 
+	public void TestSingleProductStock() 
 	{
 		cafe.setStock(2);
 		assertEquals(2, cafe.getStock());
 	}
 	
 	@Test
-	public void testMenuProductStock() 
+	public void TestMenuProductStock() 
 	{
 		Menu Des1 = new Menu(++id, "Desayuno", menu);
 		Des1.add(cafe);

@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import com.jedago.practica_dss.core.User;
 
 
-public class testUser {
+public class TestUser {
 	
 	User user;
 	
@@ -28,7 +28,7 @@ public class testUser {
 	
 	
 	@Test
-	public void testConstructor() 
+	public void TestConstructor() 
 	{
 		assertEquals(user.getFirstName(), "Gonzalo" );
 		assertEquals(user.getLastName(), "Ulibarri" );
@@ -38,46 +38,46 @@ public class testUser {
 	}
 	
 	@Test
-	public void testGetFirstName() 
+	public void TestGetFirstName() 
 	{	
 		assertEquals(user.getFirstName(),"Gonzalo");
 	}
 	
 	@Test
-	public void testSetFirstName() 
+	public void TestSetFirstName() 
 	{
 		user.setFirstName("Mario");
 		assertEquals(user.getFirstName(), "Mario");
 	}
 	
 	@Test
-	public void testGetLastName() 
+	public void TestGetLastName() 
 	{	
 		assertEquals(user.getLastName(),"Ulibarri");
 	}
 	
 	@Test
-	public void testSetLastName() 
+	public void TestSetLastName() 
 	{
 		user.setLastName("Garcia");
 		assertEquals(user.getLastName(), "Garcia");
 	}
 	
 	@Test
-	public void testGetDni() 
+	public void TestGetDni() 
 	{
 		assertEquals(user.getDni(), "12345678A");
 	}
 	
 	@Test
-	public void testSetDni() 
+	public void TestSetDni() 
 	{
 		user.setDni("87654321B");
 		assertEquals(user.getDni(), "87654321B");
 	}
 	
 	@Test
-	public void testGetAge() 
+	public void TestGetAge() 
 	{
 		assertEquals(user.getAge(), 26);
 	}

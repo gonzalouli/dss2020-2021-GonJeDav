@@ -14,7 +14,7 @@ import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.SingleProduct;
 
-public class testOrderLine {
+public class TestOrderLine {
 	
 	private static int idProduct=0;
 	private int amount;
@@ -59,7 +59,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testConstructorSingle() 
+	public void TestConstructorSingle() 
 	{
 		assertNotNull(p);
 		assertEquals(amount, 1);
@@ -68,7 +68,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testgetProductSingle() 
+	public void TestgetProductSingle() 
 	{
 		
 		assertEquals(testOrderLineProductSimple.getProduct(),p);
@@ -76,7 +76,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testsetProductSingle() 
+	public void TestsetProductSingle() 
 	{
 		Product np = new SingleProduct(++idProduct,"productoprueba", 2, precio, t);
 		
@@ -89,7 +89,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testgetProductNameSingle() 
+	public void TestgetProductNameSingle() 
 	{
 		
 		assertEquals(p.getName(), "producto");
@@ -97,7 +97,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testgetAmountSingle() 
+	public void TestgetAmountSingle() 
 	{
 		
 		assertEquals(testOrderLineProductSimple.getAmount(),amount);
@@ -105,7 +105,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testsetAmountSingle() 
+	public void TestsetAmountSingle() 
 	{
 		
 		int testamount = 2;
@@ -116,7 +116,7 @@ public class testOrderLine {
 	}
 	
 	@Test
-	public void testgetTotalPriceSingle() 
+	public void TestgetTotalPriceSingle() 
 	{
 		
 		BigDecimal testamount = BigDecimal.valueOf(amount);
@@ -130,7 +130,7 @@ public class testOrderLine {
 //###################################TestMenu####################################
 
 @Test
-public void testConstructorMenu() 
+public void TestConstructorMenu() 
 {
 	assertNotNull(men);
 	assertEquals(testOrderLineProductMenu.getAmount(), 1);
@@ -139,7 +139,7 @@ public void testConstructorMenu()
 }
 
 @Test
-public void testgetProductMenu() 
+public void TestgetProductMenu() 
 {
 	
 	assertEquals(testOrderLineProductMenu.getProduct(),men);
@@ -147,7 +147,7 @@ public void testgetProductMenu()
 }
 
 @Test
-public void testsetProductMenu() 
+public void TestsetProductMenu() 
 {
 	Menu m2 = new Menu(++idProduct,"productomenuprueba", m);
 	
@@ -161,7 +161,7 @@ public void testsetProductMenu()
 }
 
 @Test
-public void testgetProductNameMenu() 
+public void TestgetProductNameMenu() 
 {			
 			
 	assertEquals(men.getName(), "Menu1: producto + producto2");
@@ -169,7 +169,7 @@ public void testgetProductNameMenu()
 }
 
 @Test
-public void testgetAmountMenu() 
+public void TestgetAmountMenu() 
 {
 	
 	assertEquals(testOrderLineProductMenu.getAmount(),1);
@@ -177,7 +177,7 @@ public void testgetAmountMenu()
 }
 
 @Test
-public void testsetAmountMenu() 
+public void TestsetAmountMenu() 
 {
 	
 	int testamount = 2;
@@ -188,7 +188,7 @@ public void testsetAmountMenu()
 }
 
 @Test
-public void testgetTotalPriceMenu() 
+public void TestgetTotalPriceMenu() 
 {
 	
 	BigDecimal testamount = BigDecimal.valueOf(amount);

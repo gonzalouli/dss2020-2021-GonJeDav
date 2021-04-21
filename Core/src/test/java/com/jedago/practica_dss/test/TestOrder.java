@@ -20,7 +20,7 @@ import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.SingleProduct;
 
 
-public class testOrder {
+public class TestOrder {
 	double error = 0.001;
 	private int cant=1;
 	double cash = 2.5;
@@ -73,7 +73,7 @@ public class testOrder {
 	
 	
 	@Test
-	public void testConstructorSingle() //PASS
+	public void TestConstructorSingle() //PASS
 	{ 
 		
 		BigDecimal cero =  BigDecimal.ZERO ;
@@ -93,7 +93,7 @@ public class testOrder {
 
 
 	@Test
-	public void testgetId_oderSingle() //PASS
+	public void TestgetId_oderSingle() //PASS
 	{ 
 		Order orden = new Order();
 		assertEquals( Order.currentid -1, orden.getId_order());
@@ -102,7 +102,7 @@ public class testOrder {
 //	
 
 	@Test
-	public void testGetPriceSingle() //PASS
+	public void TestGetPriceSingle() //PASS
 	{
 
 		order.setProducts(testOrderLineProductSimple);
@@ -122,7 +122,7 @@ public class testOrder {
 	
 	
 	@Test
-	public void testSetProductSingle() //PASS
+	public void TestSetProductSingle() //PASS
 	{
 		
 		testOrderLineProductSimple = new OrderLine(p,1);
@@ -140,7 +140,7 @@ public class testOrder {
 	}
 	
 	@Test
-	public void testSetNProductSingle() //PASS
+	public void TestSetNProductSingle() //PASS
 	{
 		
 		BigDecimal preprice = order.getPrice();
@@ -168,7 +168,7 @@ public class testOrder {
 	
 	
 	@Test 
-	public void testAddProductToOrderSingle() //PASS
+	public void TestAddProductToOrderSingle() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -194,7 +194,7 @@ public class testOrder {
 	}
 		
 	@Test	
-	public void testAddNProductToOrderSingle() //PASS
+	public void TestAddNProductToOrderSingle() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -223,7 +223,7 @@ public class testOrder {
 		
 	
 	@Test
-	public void testDeleteProductFromOrderSingle() //PASS
+	public void TestDeleteProductFromOrderSingle() //PASS
 	{
 		order.deleteProductFromOrder(p,1);
 		List<OrderLine> delprod = order.getProducts();
@@ -240,7 +240,7 @@ public class testOrder {
 	
 	
 	@Test
-	public void testDeleteOrderlineFromOrderSingle() //PASS
+	public void TestDeleteOrderlineFromOrderSingle() //PASS
 	{
 		Boolean exit = true;
 		
@@ -259,7 +259,7 @@ public class testOrder {
 
 
 @Test
-public void testConstructorMenu() //PASS
+public void TestConstructorMenu() //PASS
 { 
 	
 	BigDecimal cero =  BigDecimal.ZERO ;
@@ -279,7 +279,7 @@ public void testConstructorMenu() //PASS
 
 	
 	@Test
-	public void testGetId_oderMenu() //PASS
+	public void TestGetId_oderMenu() //PASS
 	{ 
 		Order orden = new Order();
 		assertEquals( Order.currentid -1, orden.getId_order());
@@ -288,7 +288,7 @@ public void testConstructorMenu() //PASS
 	//
 	
 	@Test
-	public void testGetPriceMenu() //PASS
+	public void TestGetPriceMenu() //PASS
 	{
 	
 		order.setProducts(testOrderLineProductMenu);
@@ -308,7 +308,7 @@ public void testConstructorMenu() //PASS
 	
 	
 	@Test
-	public void testSetProductMenu() //PASS
+	public void TestSetProductMenu() //PASS
 	{
 		
 		testOrderLineProductMenu = new OrderLine(men,1);
@@ -326,7 +326,7 @@ public void testConstructorMenu() //PASS
 	}
 	
 	@Test
-	public void testSetNProductMenu() //PASS
+	public void TestSetNProductMenu() //PASS
 	{
 		
 		BigDecimal preprice = order.getPrice();
@@ -354,7 +354,7 @@ public void testConstructorMenu() //PASS
 	
 	
 	@Test 
-	public void testAddProductToOrderMenu() //PASS
+	public void TestAddProductToOrderMenu() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -380,7 +380,7 @@ public void testConstructorMenu() //PASS
 	}
 		
 	@Test	
-	public void testAddNProductToOrderMenu() //PASS
+	public void TestAddNProductToOrderMenu() //PASS
 	{
 		List<OrderLine> preol = order.getProducts();
 		Boolean exit = true;
@@ -409,7 +409,7 @@ public void testConstructorMenu() //PASS
 		
 	
 	@Test
-	public void testDeleteProductFromOrderMenu() //PASS
+	public void TestDeleteProductFromOrderMenu() //PASS
 	{
 		order.deleteProductFromOrder(men,1);
 		List<OrderLine> delprod = order.getProducts();
@@ -426,7 +426,7 @@ public void testConstructorMenu() //PASS
 	
 	
 	@Test
-	public void testDeleteOrderlineFromOrderMenu() //PASS
+	public void TestDeleteOrderlineFromOrderMenu() //PASS
 	{
 		Boolean exit = true;
 		
@@ -442,7 +442,7 @@ public void testConstructorMenu() //PASS
 	
 	
 	@Test
-	public void testConstructorMinutes() throws DataFormatException 
+	public void TestConstructorMinutes() throws DataFormatException 
 	{
 		Order order = new Order();
 		LocalDateTime ldtnow = LocalDateTime.now();
