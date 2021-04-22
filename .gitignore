@@ -1,3 +1,5 @@
 ./.metadata/
 /.metadata/
 ./.project
+./Core/.project
+./Backend/.project
