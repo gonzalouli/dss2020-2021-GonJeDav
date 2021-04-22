@@ -43,9 +43,9 @@ public class TestCafe {
 		p1 = new SingleProduct(1, "Producto1", 3, price1, t);
 		lista_productos.add(p1);
 		PR = new ProductsRepositoryOnMemory();
-		PR.writeProducts(lista_productos);
+		PR.save(lista_productos);
 		OR = new OrdersRepositoryOnMemory();
-		OR.writeOrders(lista_pedidos);
+		OR.save(lista_pedidos);
 		C = new Cafe(OR, PR);
 	}
 

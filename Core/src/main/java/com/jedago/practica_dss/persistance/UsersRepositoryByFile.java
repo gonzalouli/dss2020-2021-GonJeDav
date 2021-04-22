@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.jedago.practica_dss.core.User;
 
@@ -18,13 +20,13 @@ public class UsersRepositoryByFile implements UsersRepository {
 	 */
 	public static boolean isFileCreated()
 	{
-		File ProductsFile = new File(Messages.getString("UsersFile"));
-		return ProductsFile.exists();
+		File UsersFile = new File(Messages.getString("UsersFile"));
+		return UsersFile.exists();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> readUsers() throws Exception {
+	public List<User> findAll() throws Exception {
 		List<User> usersList =  new ArrayList<User>();
 		if(isFileCreated()) //Si está creado el archivo, leemos su contenido
 		{
@@ -38,12 +40,33 @@ public class UsersRepositoryByFile implements UsersRepository {
 			}
 		}
 		//Si no, devolvemos la lista vacía
-		
 		return usersList;
 	}
 
 	@Override
-	public void writeUsers(List<User> usersList) throws Exception {
+	public Optional<User> findById(int id) throws Exception {
+		boolean found = false;
+		User seekUser = null, u;
+		
+		Iterator<User> i = findAll().iterator();
+		
+		while(i.hasNext() && !found)
+		{
+			u = i.next();
+			if(u.getIdUser()==id) 
+			{
+				seekUser = u;
+				found = true;
+			}
+		}
+		if(found)
+			return Optional.of(seekUser);
+		else
+			return Optional.empty();
+	}
+
+	@Override
+	public void save(List<User> usersList) throws Exception {
 		ObjectOutputStream writeUsers;
 		try {
 			writeUsers = new ObjectOutputStream(new FileOutputStream(Messages.getString("UsersFile")));
@@ -56,26 +79,34 @@ public class UsersRepositoryByFile implements UsersRepository {
 	}
 
 	@Override
-	public void saveUser(User u) throws Exception {
-		List<User> usersList = readUsers();
+	public void add(User u) throws Exception {
+		List<User> usersList = findAll();
 		usersList.add(u);
-		writeUsers(usersList);
+		save(usersList);
 	}
 
-	
 	@Override
-	public User findUserById(int id) throws Exception {
-		List<User> usersList = readUsers();
-		
-		for(User i: usersList) {
-			if(i.getIdUser()==id) {
-				User seekUser = i;
-				return seekUser;
-			}
-		}
-		return null;
+	public void delete(List<User> usersList) throws Exception {
+		List<User> currentUsers = findAll();
+		currentUsers.removeAll(usersList);
+		save(currentUsers);
+	}
+
+	@Override
+	public void delete(User u) throws Exception {
+		List<User> currentUsers = findAll();
+		currentUsers.remove(u);
+		save(currentUsers);
 	}
 	
-	
+	@Override
+	public void update(int id, User u) throws Exception {
+		Optional<User> toUpdate = this.findById(id);
+		if(!toUpdate.isEmpty())
+		{
+			this.delete(toUpdate.get());
+			this.add(u);
+		}
+	}
 
 }
