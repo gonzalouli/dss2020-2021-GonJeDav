@@ -50,7 +50,14 @@ public class User {
 	}
 	
 	
-	
+	/** 
+     * Return a list of products bind to an user.
+     * @return the order list of the user.
+	 */
+	public List<Order> getPurchase() 
+	{
+		return orderList;
+	}
 	
 	/** 
      * Return the id of an user.
