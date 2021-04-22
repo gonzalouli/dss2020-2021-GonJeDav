@@ -155,7 +155,7 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
-	public List<Product> getAvailableProductsbyTypebyId(int id) {
+	public List<Product> getAvailableProductsbyType(int id) {
 		List<Product> productList = new ArrayList<Product>();
 		ProductType seekProductType = null;
 		boolean found = false;
