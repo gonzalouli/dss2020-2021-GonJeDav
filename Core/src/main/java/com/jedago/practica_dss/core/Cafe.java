@@ -20,6 +20,7 @@ public class Cafe implements ICafe {
 	private List<Order> orders;
 	private List<Product> products;
 	private List<User> users;
+	private List<ProductType> productTypes;
 	private OrdersRepository ordersRepository;
 	private ProductsRepository productsRepository;
 	private UsersRepository usersRepository;
@@ -36,6 +37,7 @@ public class Cafe implements ICafe {
 		this.orders = orders.readOrders();
 		this.productsRepository = products;
 		this.products = products.readProducts();
+		this.productTypes = this.getAvailableProductTypes();
 	}
 	
 	/**
@@ -50,6 +52,7 @@ public class Cafe implements ICafe {
 		this.orders = orders.readOrders();
 		this.productsRepository = products;
 		this.products = products.readProducts();
+		this.productTypes = this.getAvailableProductTypes();
 		this.usersRepository = users;
 		this.users = users.readUsers();
 	}
@@ -120,10 +123,17 @@ public class Cafe implements ICafe {
 	public List<ProductType> getAvailableProductTypes() {
 		List<ProductType> productTypeList = new ArrayList<ProductType>();
 		
-		for(Product p: products)
+		if(this.productTypes == null)
 		{
-			if(!productTypeList.contains(p.getType()))
-				productTypeList.add(p.getType());
+			for(Product p: products)
+			{
+				if(!productTypeList.contains(p.getType()))
+					productTypeList.add(p.getType());
+			}
+		}
+		else
+		{
+			productTypeList = this.productTypes;
 		}
 		
 		return productTypeList;
@@ -142,6 +152,31 @@ public class Cafe implements ICafe {
 		}
 		
 		return seekProducts;
+	}
+	
+	@Override
+	public List<Product> getAvailableProductsbyTypebyId(int id) {
+		List<Product> productList = new ArrayList<Product>();
+		ProductType seekProductType = null;
+		boolean found = false;
+		
+		//Look for the seek productType
+		Iterator<ProductType> i = this.productTypes.iterator();
+		while(i.hasNext() && !found)
+		{
+			ProductType pt = i.next();
+			if(pt.getId() == id)
+			{
+				found = true;
+				seekProductType = pt;
+			}		
+		}
+		
+		//Return products of that productType
+		if(found)
+			productList = getAvailableProductsbyType(seekProductType);
+	
+		return productList;
 	}
 
 	@Override
@@ -302,6 +337,11 @@ public class Cafe implements ICafe {
 		List<Order> orderList = new ArrayList<Order>();
 		u.getOrders();
 		return orderList;
+	}
+
+	@Override
+	public List<User> getRegisteredUsers() {
+		return users;
 	}
 
 }

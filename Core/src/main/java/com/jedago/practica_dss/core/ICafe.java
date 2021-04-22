@@ -56,6 +56,13 @@ public interface ICafe {
 	public List<Product> getAvailableProductsbyType(ProductType t);
 	
 	/**
+	 * Returns a set of available products of an specified type
+	 * @param id ID of the type of the products you want to get
+	 * @return List with the availables products
+	 */
+	public List<Product> getAvailableProductsbyTypebyId(int id);
+	
+	/**
 	 * Returns a set of registered orders
 	 * @return List with the registered orders
 	 */
@@ -144,6 +151,11 @@ public interface ICafe {
 	 */
 	public void updateUserDNI(User u, String newDNI) throws Exception;
 	
+	/**
+	 * To get the list of registered users
+	 * @return The list of registered users
+	 */
+	public List<User> getRegisteredUsers();
 	
 	/**
 	 * To get the orders of an user

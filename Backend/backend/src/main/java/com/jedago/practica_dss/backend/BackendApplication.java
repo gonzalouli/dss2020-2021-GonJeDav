@@ -1,5 +1,8 @@
 package com.jedago.practica_dss.backend;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jedago.practica_dss.core.Cafe;
+import com.jedago.practica_dss.core.Product;
+import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.User;
 import com.jedago.practica_dss.persistance.OrdersRepositoryByFile;
 import com.jedago.practica_dss.persistance.ProductsRepositoryByFile;
@@ -17,25 +22,52 @@ import com.jedago.practica_dss.persistance.UsersRepositoryByFile;
 @SpringBootApplication
 @RestController
 public class BackendApplication {
-
+	private static OrdersRepositoryByFile or;
+	private static ProductsRepositoryByFile pr;
+	private static UsersRepositoryByFile ur;
+	private static Cafe cafe;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		or = new OrdersRepositoryByFile();
+		pr = new ProductsRepositoryByFile();
+		ur = new UsersRepositoryByFile();
+		
+		cafe =new Cafe(or, pr, ur);
+		
 		SpringApplication.run(BackendApplication.class, args);
 	}
-
 	
-	@PostMapping("/users")
-	public void newUser(@RequestBody User newUser) throws Exception 
+	@GetMapping("/products")
+	public List<Product> getProducts() throws Exception 
 	{
-		OrdersRepositoryByFile or = new OrdersRepositoryByFile();
-		ProductsRepositoryByFile pr = new ProductsRepositoryByFile();
-		UsersRepositoryByFile ur = new UsersRepositoryByFile();
-		
-		Cafe cafe =new Cafe(or, pr, ur);
-		
-		cafe.registerUser(newUser);
+		return cafe.getAvailableProducts(); 
 	}
 	
+	@GetMapping("/productTypes")
+	public List<ProductType> getProductTypes() throws Exception 
+	{
+		return cafe.getAvailableProductTypes(); 
+	}
+	
+	//Esto no sé muy bien como es
+	@GetMapping("/products/type")
+	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
+	{
+		return cafe.getAvailableProductsbyTypebyId(id); 
+	}
+
+	@GetMapping("/users")
+	public List<User> getUsers() throws Exception 
+	{
+		return cafe.getRegisteredUsers(); 
+	}
+	
+	//Esto no sabemos como va
+	@PostMapping("/users/register")
+	public void newUser(@RequestBody User newUser) throws Exception 
+	{
+		cafe.registerUser(newUser);
+	}
 	
 	
 	
