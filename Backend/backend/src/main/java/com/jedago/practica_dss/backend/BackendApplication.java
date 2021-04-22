@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.google.gson.Gson;
 import com.jedago.practica_dss.core.Cafe;
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
@@ -51,7 +49,7 @@ public class BackendApplication {
 		return cafe.getAvailableProductTypes(); 
 	}
 	
-	//Esto no sé muy bien como es
+	//Esto saca dos veces el parámetro del tipo de producto
 	@GetMapping("/products/type")
 	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
 	{
@@ -64,8 +62,9 @@ public class BackendApplication {
 		return cafe.getRegisteredUsers(); 
 	}
 	
-	//Esto no sabemos como va
-	@PostMapping("/users/register")
+	//RequestParam va en la URI
+	//RequestBody va en la petición HTTP
+	@PostMapping("/users")
 	public void newUser(@RequestBody User newUser) throws Exception 
 	{
 		cafe.registerUser(newUser);
