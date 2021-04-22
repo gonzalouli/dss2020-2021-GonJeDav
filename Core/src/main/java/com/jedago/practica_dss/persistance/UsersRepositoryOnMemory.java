@@ -22,4 +22,23 @@ public class UsersRepositoryOnMemory implements UsersRepository {
 		users.add(u);
 	}
 
+	@Override
+	public User findUserById(int id) throws Exception {
+		
+		for(User i: users) {
+			if(i.getIdUser()==id) {
+				User seekUser = i;
+				return seekUser;
+			}
+		}
+		return null;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -32,4 +32,10 @@ public interface UsersRepository {
 	 * @throws Exception
 	 */
 	public void saveUser(User u) throws Exception;
+	
+	
+	
+	public User findUserById(int id) throws Exception;
+	
+	
 }

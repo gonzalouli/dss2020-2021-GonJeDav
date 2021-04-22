@@ -62,5 +62,20 @@ public class UsersRepositoryByFile implements UsersRepository {
 		writeUsers(usersList);
 	}
 
+	
+	@Override
+	public User findUserById(int id) throws Exception {
+		List<User> usersList = readUsers();
+		
+		for(User i: usersList) {
+			if(i.getIdUser()==id) {
+				User seekUser = i;
+				return seekUser;
+			}
+		}
+		return null;
+	}
+	
+	
 
 }

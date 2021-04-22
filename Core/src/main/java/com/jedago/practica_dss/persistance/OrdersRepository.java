@@ -25,4 +25,10 @@ public interface OrdersRepository {
 	 * @throws Exception
 	 */
 	public void writeOrders(List<Order> orderList) throws Exception;
+	
+	
+	public Order findById(int id) throws Exception;
+	
+	
+	
 }

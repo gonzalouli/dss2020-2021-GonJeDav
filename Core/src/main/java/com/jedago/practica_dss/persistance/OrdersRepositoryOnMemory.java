@@ -16,4 +16,21 @@ public class OrdersRepositoryOnMemory implements OrdersRepository {
 	public void writeOrders(List<Order> orderList) throws Exception {
 		this.orders = orderList;
 	}
+	
+	@Override
+	public Order findById(int id) {
+		
+		for(Order o: orders) {
+			if(o.getId_order()==id) {
+				Order seekOrder = o;
+				return seekOrder;
+			}
+			
+		}
+
+		return null;
+		
+	}
+	
+	
 }

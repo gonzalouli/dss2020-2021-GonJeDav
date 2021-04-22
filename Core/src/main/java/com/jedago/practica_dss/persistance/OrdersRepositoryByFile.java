@@ -57,4 +57,19 @@ public class OrdersRepositoryByFile implements OrdersRepository {
 		return OrdersFile.exists();
 	}
 
+	@Override
+	public Order findById(int id) throws Exception {
+		List<Order> orderList =  readOrders();
+	
+		for(Order o: orderList) {
+			if(o.getId_order()==id) {
+				Order seekOrder = o;
+				return seekOrder;
+			}
+			
+		}
+
+		return null;
+	}
+	
 }
