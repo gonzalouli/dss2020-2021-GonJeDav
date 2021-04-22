@@ -160,6 +160,7 @@ public class Cafe implements ICafe {
 		ProductType seekProductType = null;
 		boolean found = false;
 		
+		
 		//Look for the seek productType
 		Iterator<ProductType> i = this.productTypes.iterator();
 		while(i.hasNext() && !found)

@@ -29,6 +29,7 @@ public class BackendApplication {
 	private static Cafe cafe;
 	
 	public static void main(String[] args) throws Exception {
+		
 		or = new OrdersRepositoryByFile();
 		pr = new ProductsRepositoryByFile();
 		ur = new UsersRepositoryByFile();
