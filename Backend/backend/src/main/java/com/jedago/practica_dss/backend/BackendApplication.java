@@ -1,6 +1,8 @@
 package com.jedago.practica_dss.backend;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.jedago.practica_dss.core.Cafe;
+import com.jedago.practica_dss.core.Order;
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.User;
@@ -71,6 +74,11 @@ public class BackendApplication {
 	}
 	
 	
+	@PostMapping("/order/time")
+	public void setPickUpTime( @RequestBody int idorder, @RequestBody LocalDateTime ldt) throws Exception {
+			
+			or.findById(idorder).setPickUpTime(ldt);
+	}
 	
 	
 			
