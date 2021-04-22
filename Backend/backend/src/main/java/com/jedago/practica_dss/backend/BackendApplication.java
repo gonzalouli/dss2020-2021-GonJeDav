@@ -50,7 +50,7 @@ public class BackendApplication {
 		return cafe.getAvailableProductTypes(); 
 	}
 	
-	//Esto no sé muy bien como es
+	//Esto saca dos veces el parámetro del tipo de producto
 	@GetMapping("/products/type")
 	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
 	{
