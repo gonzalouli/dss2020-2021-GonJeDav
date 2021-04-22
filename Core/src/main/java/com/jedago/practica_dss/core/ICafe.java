@@ -143,4 +143,12 @@ public interface ICafe {
 	 * @param newDNI The new DNI to save
 	 */
 	public void updateUserDNI(User u, String newDNI) throws Exception;
+	
+	
+	/**
+	 * To get the orders of an user
+	 * @param u User 
+	 * @return The list of orders from the user
+	 */
+	public List<Order> getUserOrders(User u);
 }

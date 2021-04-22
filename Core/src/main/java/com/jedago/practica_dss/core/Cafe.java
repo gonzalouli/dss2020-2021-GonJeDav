@@ -73,7 +73,7 @@ public class Cafe implements ICafe {
 	{
 		Order o = new Order();
 		o.setUser(u);
-		u.setPurchase(o);
+		u.setOrder(o);
 		return o;
 	}
 	
@@ -295,6 +295,13 @@ public class Cafe implements ICafe {
 		int i = users.indexOf(u);
 		users.get(i).setDni(newDNI);
 		usersRepository.writeUsers(users);
+	}
+
+	@Override
+	public List<Order> getUserOrders(User u) {
+		List<Order> orderList = new ArrayList<Order>();
+		u.getOrders();
+		return orderList;
 	}
 
 }
