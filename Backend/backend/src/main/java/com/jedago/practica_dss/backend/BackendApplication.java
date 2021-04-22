@@ -61,8 +61,9 @@ public class BackendApplication {
 		return cafe.getRegisteredUsers(); 
 	}
 	
-	//Esto no sabemos como va
-	@PostMapping("/users/register")
+	//RequestParam va en la URI
+	//RequestBody va en la petición HTTP
+	@PostMapping("/users")
 	public void newUser(@RequestBody User newUser) throws Exception 
 	{
 		cafe.registerUser(newUser);
