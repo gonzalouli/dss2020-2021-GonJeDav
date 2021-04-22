@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.google.gson.Gson;
 import com.jedago.practica_dss.core.Cafe;
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
