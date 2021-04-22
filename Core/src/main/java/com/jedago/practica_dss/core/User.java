@@ -44,7 +44,7 @@ public class User {
      * Bind a new order to an existing user.
      * @param the new order to this user.
 	 */
-	public void setPurchase(Order o) 
+	public void setOrder(Order o) 
 	{
 		orderList.add(o);
 	}
@@ -54,7 +54,7 @@ public class User {
      * Return a list of products bind to an user.
      * @return the order list of the user.
 	 */
-	public List<Order> getPurchase() 
+	public List<Order> getOrders() 
 	{
 		return orderList;
 	}
