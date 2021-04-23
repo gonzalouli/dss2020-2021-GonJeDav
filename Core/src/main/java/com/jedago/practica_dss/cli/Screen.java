@@ -143,7 +143,7 @@ public class Screen   {
 		
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]") ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("") ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -196,7 +196,7 @@ public class Screen   {
 			System.out.println("Introduzca una opción:"); 
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]")  ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("")   ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -260,7 +260,7 @@ public class Screen   {
 			
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]") ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("") ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
