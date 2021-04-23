@@ -102,7 +102,7 @@ public class UsersRepositoryByFile implements UsersRepository {
 	@Override
 	public void update(int id, User u) throws Exception {
 		Optional<User> toUpdate = this.findById(id);
-		if(!toUpdate.isEmpty())
+		if(toUpdate.isPresent())
 		{
 			this.delete(toUpdate.get());
 			this.add(u);

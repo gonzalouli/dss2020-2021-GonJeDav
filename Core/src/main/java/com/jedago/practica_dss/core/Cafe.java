@@ -137,7 +137,7 @@ public class Cafe implements ICafe {
 			seekProductType = this.productsRepository.findTypeById(id);
 		} catch (Exception e1) {e1.printStackTrace();}
 		
-		if(!seekProductType.isEmpty())
+		if(!seekProductType.isPresent())
 			try {
 				productList = this.productsRepository.findAllStockAvailableByType(seekProductType.get());
 			} catch (Exception e) {e.printStackTrace();}

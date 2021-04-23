@@ -69,7 +69,7 @@ public class BackendApplication {
 	@GetMapping("/products/type")
 	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
 	{
-		return cafe.getAvailableProductsbyTypebyId(id); 
+		return cafe.getAvailableProductsbyType(id); 
 	}
 
 	@GetMapping("/users")
@@ -82,7 +82,7 @@ public class BackendApplication {
 	@GetMapping("/users/orders/{iduser}")
 	public List<Order> getUserOrders(@PathVariable int iduser ) throws Exception 
 	{
-		User u = ur.findUserById(iduser);
+		User u = ur.findById(iduser).get();
 		return cafe.getUserOrders(u);
 		
 	}
@@ -103,7 +103,7 @@ public class BackendApplication {
 	@PostMapping("/order/time")
 	public void setPickUpTime( @RequestBody int idorder, @RequestBody LocalDateTime ldt) throws Exception {
 			
-			or.findById(idorder).setPickUpTime(ldt);
+			or.findById(idorder).get().setPickUpTime(ldt);
 	}
 	
 	@PostMapping("/order")
@@ -140,9 +140,9 @@ public class BackendApplication {
 	public void finishOrder(@RequestBody(required=true) int idorder) throws Exception 
 	{
 		EnvioEmail mail = new EnvioEmail();
-		if( or.findById(idorder).isEmpty() ) 
+		if( or.findById(idorder).isPresent() ) 
 		{
-			Order order =  or.findById(idorder);
+			Order order =  or.findById(idorder).get();
 			mail.sendEmail(order);
 		}
 			
