@@ -15,11 +15,9 @@ public class ProductType implements Serializable {
 
 	private int id;
 	private String TypeName;
-	private static int LastId = 0;
 
-	public ProductType(String TypeName) {
-		LastId++;
-		this.id = LastId;
+	public ProductType(int id, String TypeName) {
+		this.id = id;
 		this.TypeName = TypeName;
 	}
 

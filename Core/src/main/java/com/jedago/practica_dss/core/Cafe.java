@@ -125,7 +125,6 @@ public class Cafe implements ICafe {
 		try {
 			seekProducts = this.productsRepository.findAllStockAvailableByType(t);
 		} catch (Exception e) {e.printStackTrace();}
-		
 		return seekProducts;
 	}
 	
@@ -197,32 +196,32 @@ public class Cafe implements ICafe {
 	 * @param ord the order you want to register
 	 */
 	public void FinishOrder(Order ord) throws Exception{
-		Product p;
-		int c;
+		Product orderProduct;
+		int orderQuantity;
 		boolean found;
 		List<Product> currentProducts = this.productsRepository.findAll();
 		for(OrderLine ol: ord) //Recorro los orderLine de cada order
 		{
 			//Pillar de cada orderLine el producto y las cantidades
-			p = ol.getProduct();
-			c = ol.getAmount();
+			orderProduct = ol.getProduct();
+			orderQuantity = ol.getAmount();
 			
 			//Iteramos a través de la lista de productos disponibles
 			Iterator<Product> it = currentProducts.iterator();
-			Product ip;
+			Product registeredProduct;
 			found=false;
 			
 			while(!found && it.hasNext())
 			{
-				ip = it.next();
+				registeredProduct = it.next();
 				//Actualizarlos de la lista de productos disponibles
-				if(( ip.getID() == p.getID()))
+				if(registeredProduct.getID() == orderProduct.getID())
 				{
-					if(p.getStock() >= c)
+					if(registeredProduct.getStock() >= orderQuantity)
 						//Restarle la cantidad al stock
-						ip.setStock(ip.getStock() - c); 
+						registeredProduct.setStock(registeredProduct.getStock() - orderQuantity); 
 					else
-						throw new NoStockException("No hay suficiente stock del producto " + p.getID());
+						throw new NoStockException("No hay suficiente stock del producto " + orderProduct.getID());
 					
 					found=true;
 				}

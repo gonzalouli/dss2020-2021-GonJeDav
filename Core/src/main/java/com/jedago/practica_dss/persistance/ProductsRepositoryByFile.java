@@ -123,7 +123,7 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 		List<Product> products = new ArrayList<Product>();
 		for(Product p : findAllStockAvailable())
 		{
-			if(p.getType().equals(pt))
+			if(p.getType().getId() == pt.getId())
 				products.add(p);
 		}
 		return products;
