@@ -31,8 +31,8 @@ public class TestOrderLine {
 	@Before
 	public void setup() 
 	{
-		 t = new ProductType("Bebidas");
-		 m = new ProductType("Menu");
+		 t = new ProductType(1, "Bebidas");
+		 m = new ProductType(2, "Menu");
 
 		
 		p = new SingleProduct(++idProduct,"producto", 4, precio, t);

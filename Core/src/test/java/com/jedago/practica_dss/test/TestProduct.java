@@ -26,9 +26,9 @@ public class TestProduct
 	public void setup() 
 	{
 		id = 0;
-		bebida = new ProductType("Bebidas");
-		bocadillo = new ProductType("Bocadillos");
-		menu = new ProductType("Menus");
+		bebida = new ProductType(1, "Bebidas");
+		bocadillo = new ProductType(2, "Bocadillos");
+		menu = new ProductType(3, "Menus");
 		
 		cafe = new SingleProduct(++id, "Cafe con leche", 3, new BigDecimal("2"), bebida);	
 		sandwich = new SingleProduct(++id, "Sandwich", 4, new BigDecimal("2"), bocadillo);

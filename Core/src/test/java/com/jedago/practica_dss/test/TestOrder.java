@@ -38,8 +38,8 @@ public class TestOrder {
 	{
 		
 		BigDecimal precio = BigDecimal.valueOf(cash);
-		ProductType t = new ProductType("Bebidas");
-		ProductType m = new ProductType("Menu");
+		ProductType t = new ProductType(1, "Bebidas");
+		ProductType m = new ProductType(2, "Menu");
 
 		p = new SingleProduct(++idProduct, "producto1", 4, precio, t);
 		

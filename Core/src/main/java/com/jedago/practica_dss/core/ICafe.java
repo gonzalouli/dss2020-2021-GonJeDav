@@ -60,7 +60,7 @@ public interface ICafe {
 	 * @param id ID of the type of the products you want to get
 	 * @return List with the availables products
 	 */
-	public List<Product> getAvailableProductsbyTypebyId(int id);
+	public List<Product> getAvailableProductsbyType(int id);
 	
 	/**
 	 * Returns a set of registered orders
@@ -115,7 +115,7 @@ public interface ICafe {
 	 * Returs the amount of registered orders and the money earned today
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 */
-	public CashBox getTodayCashBox();
+	public CashBox getTodayCashBox() ;
 	
 	/**
 	 * To register a new user in the system

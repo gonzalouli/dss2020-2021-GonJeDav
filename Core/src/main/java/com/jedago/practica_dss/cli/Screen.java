@@ -129,7 +129,7 @@ public class Screen   {
 			index=1;
 			System.out.println("\n\n"); 
 
-			System.out.println("Tipo de productos");
+			System.out.println("Tipos de producto");
 			System.out.println("----------------------------------");
 			
 			for(ProductType iter: productTypeList) {
@@ -177,16 +177,16 @@ public class Screen   {
 		
 		List<Product> productGiven = new ArrayList<Product>();
 		
-		productGiven = currentCafe.getAvailableProductsbyType(productType);
+		productGiven = currentCafe.getAvailableProductsbyType(productType); 
 		
 		do {
 			System.out.println("\n\n"); 
 			index = 1;
-			System.out.println("Tipo de productos");
+			System.out.println("Productos:");
 			
 			for(Product iter : productGiven) 
 			{
-				System.out.println(index+". "+iter.getName()+" ("+iter.getPrice()+" euros) Stock: "+iter.getStock()+" uds.");
+				System.out.println(index+". "+iter.getName()+" ("+iter.getPrice()+" euros) Stock: "+iter.getStock()+" uds." + "(Tipo: " + iter.getType().getTypeName() + ")");
 				++index;
 			}
 			

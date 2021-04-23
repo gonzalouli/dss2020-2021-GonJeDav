@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepository;
@@ -13,18 +14,12 @@ import com.jedago.practica_dss.persistance.UsersRepository;
 
 /**
  * @author Jesús Serrano Gallán
- *	@version 1.0
+ *	@version 2.0
  */
 public class Cafe implements ICafe {
-
-	private List<Order> orders;
-	private List<Product> products;
-	private List<User> users;
-	private List<ProductType> productTypes;
 	private OrdersRepository ordersRepository;
 	private ProductsRepository productsRepository;
 	private UsersRepository usersRepository;
-	
 	
 	/**
 	 * Constructor with orders and products repository
@@ -34,10 +29,7 @@ public class Cafe implements ICafe {
 	 */
 	public Cafe(OrdersRepository orders, ProductsRepository products) throws Exception { 
 		this.ordersRepository = orders;
-		this.orders = orders.readOrders();
 		this.productsRepository = products;
-		this.products = products.readProducts();
-		this.productTypes = this.getAvailableProductTypes();
 	}
 	
 	/**
@@ -49,12 +41,8 @@ public class Cafe implements ICafe {
 	 */
 	public Cafe(OrdersRepository orders, ProductsRepository products, UsersRepository users) throws Exception { 
 		this.ordersRepository = orders;
-		this.orders = orders.readOrders();
 		this.productsRepository = products;
-		this.products = products.readProducts();
-		this.productTypes = this.getAvailableProductTypes();
 		this.usersRepository = users;
-		this.users = users.readUsers();
 	}
 	
 	@Override
@@ -95,7 +83,11 @@ public class Cafe implements ICafe {
 	 * Returns a set of registered orders
 	 * @return List with the registered orders
 	 */
-	public List<Order> getRegisteredOrders() {
+	public List<Order> getRegisteredOrders(){
+		List<Order> orders = new ArrayList<Order>();
+		try {
+			orders = this.ordersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
 		return orders;
 	}
 	
@@ -106,35 +98,22 @@ public class Cafe implements ICafe {
 	 */
 	public List<Product> getAvailableProducts() {
 		
-		List<Product> availableProduct = new ArrayList<Product>();
+		List<Product> availableProducts = new ArrayList<Product>();
 		
-		for(Product p: products)
-		{
-			if(p.getStock()>0)
-			{
-				availableProduct.add(p);
-			}
-		}
+		try {
+			availableProducts = this.productsRepository.findAllStockAvailable();
+		} catch (Exception e) {e.printStackTrace();}
 		
-		return availableProduct;
+		return availableProducts;
 	}
 	
 	@Override
 	public List<ProductType> getAvailableProductTypes() {
 		List<ProductType> productTypeList = new ArrayList<ProductType>();
 		
-		if(this.productTypes == null)
-		{
-			for(Product p: products)
-			{
-				if(!productTypeList.contains(p.getType()))
-					productTypeList.add(p.getType());
-			}
-		}
-		else
-		{
-			productTypeList = this.productTypes;
-		}
+		try {
+			productTypeList = this.productsRepository.findAllTypes();
+		} catch (Exception e) {e.printStackTrace();}
 		
 		return productTypeList;
 	}
@@ -143,39 +122,25 @@ public class Cafe implements ICafe {
 	public List<Product> getAvailableProductsbyType(ProductType t) {
 		List<Product> seekProducts = new ArrayList<Product>();
 		  
-		for(Product p: products)
-		{
-			if(p.getType().equals(t) && p.getStock()>0)
-			{
-				seekProducts.add(p);
-			}
-		}
-		
+		try {
+			seekProducts = this.productsRepository.findAllStockAvailableByType(t);
+		} catch (Exception e) {e.printStackTrace();}
 		return seekProducts;
 	}
 	
 	@Override
-	public List<Product> getAvailableProductsbyTypebyId(int id) {
+	public List<Product> getAvailableProductsbyType(int id) {
 		List<Product> productList = new ArrayList<Product>();
-		ProductType seekProductType = null;
-		boolean found = false;
+		Optional<ProductType> seekProductType = Optional.empty();
 		
+		try {
+			seekProductType = this.productsRepository.findTypeById(id);
+		} catch (Exception e1) {e1.printStackTrace();}
 		
-		//Look for the seek productType
-		Iterator<ProductType> i = this.productTypes.iterator();
-		while(i.hasNext() && !found)
-		{
-			ProductType pt = i.next();
-			if(pt.getId() == id)
-			{
-				found = true;
-				seekProductType = pt;
-			}		
-		}
-		
-		//Return products of that productType
-		if(found)
-			productList = getAvailableProductsbyType(seekProductType);
+		if(!seekProductType.isEmpty())
+			try {
+				productList = this.productsRepository.findAllStockAvailableByType(seekProductType.get());
+			} catch (Exception e) {e.printStackTrace();}
 	
 		return productList;
 	}
@@ -231,41 +196,39 @@ public class Cafe implements ICafe {
 	 * @param ord the order you want to register
 	 */
 	public void FinishOrder(Order ord) throws Exception{
-		Product p;
-		int c;
+		Product orderProduct;
+		int orderQuantity;
 		boolean found;
+		List<Product> currentProducts = this.productsRepository.findAll();
 		for(OrderLine ol: ord) //Recorro los orderLine de cada order
 		{
 			//Pillar de cada orderLine el producto y las cantidades
-			p = ol.getProduct();
-			c = ol.getAmount();
+			orderProduct = ol.getProduct();
+			orderQuantity = ol.getAmount();
 			
 			//Iteramos a través de la lista de productos disponibles
-			Iterator<Product> it = products.iterator();
-			Product ip;
+			Iterator<Product> it = currentProducts.iterator();
+			Product registeredProduct;
 			found=false;
 			
 			while(!found && it.hasNext())
 			{
-				ip = it.next();
+				registeredProduct = it.next();
 				//Actualizarlos de la lista de productos disponibles
-				if(( ip.getID() == p.getID()))
+				if(registeredProduct.getID() == orderProduct.getID())
 				{
-					if(p.getStock() >= c)
+					if(registeredProduct.getStock() >= orderQuantity)
 						//Restarle la cantidad al stock
-						ip.setStock(ip.getStock() - c); 
+						registeredProduct.setStock(registeredProduct.getStock() - orderQuantity); 
 					else
-						throw new NoStockException("No hay suficiente stock del producto " + p.getID());
+						throw new NoStockException("No hay suficiente stock del producto " + orderProduct.getID());
 					
 					found=true;
 				}
 			}
 		}
-		orders.add(ord);
-		
-		//Controlamos serialización
-		this.ordersRepository.writeOrders(orders);
-		this.productsRepository.writeProducts(products);
+		this.ordersRepository.add(ord);
+		this.productsRepository.save(currentProducts);
 	}
 
 	@Override
@@ -277,6 +240,11 @@ public class Cafe implements ICafe {
 	public CashBox getCashBox(LocalDate date)
 	{
 		CashBox cb = new CashBox();
+		List<Order> orders = new ArrayList<Order>();
+		try {
+			orders = this.ordersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
+		
 		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
 		for(Order o:orders)
 		{
@@ -296,52 +264,59 @@ public class Cafe implements ICafe {
 	@Override
 	public CashBox getTodayCashBox() {
 		LocalDate today = LocalDate.now();
-		return this.getCashBox(today);
+		CashBox todayCashBox = new CashBox(); 
+		try {
+			todayCashBox = this.getCashBox(today);
+		} catch (Exception e) {e.printStackTrace();}
+		return todayCashBox;
 	}
 
 	@Override
 	public void registerUser(User u) throws Exception {
-		this.usersRepository.saveUser(u);
-		users = usersRepository.readUsers();
+		this.usersRepository.add(u);
 	}
 
 	@Override
 	public void updateUserFirstName(User u, String newFirstName) throws Exception {
-		int i = users.indexOf(u);
-		users.get(i).setFirstName(newFirstName);
-		usersRepository.writeUsers(users);
+		int id = (int) u.getIdUser();
+		u.setFirstName(newFirstName);
+		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserLastName(User u, String newLastName) throws Exception{
-		int i = users.indexOf(u);
-		users.get(i).setLastName(newLastName);
-		usersRepository.writeUsers(users);
+		int id = (int) u.getIdUser();
+		u.setLastName(newLastName);
+		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception{
-		int i = users.indexOf(u);
-		users.get(i).setBirthDate(newBirthDate);
-		usersRepository.writeUsers(users);
+		int id = (int) u.getIdUser();
+		u.setBirthDate(newBirthDate);
+		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserDNI(User u, String newDNI) throws Exception{
-		int i = users.indexOf(u);
-		users.get(i).setDni(newDNI);
-		usersRepository.writeUsers(users);
+		int id = (int) u.getIdUser();
+		u.setDni(newDNI);
+		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public List<Order> getUserOrders(User u) {
 		List<Order> orderList = new ArrayList<Order>();
-		u.getOrders();
+		orderList = u.getOrders();
 		return orderList;
 	}
 
 	@Override
 	public List<User> getRegisteredUsers() {
+		List<User> users = new ArrayList<User>();
+		try {
+			users = this.usersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
 		return users;
 	}
 
