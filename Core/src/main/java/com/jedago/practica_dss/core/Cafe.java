@@ -320,4 +320,42 @@ public class Cafe implements ICafe {
 		return users;
 	}
 
+	@Override
+	public Optional<User> getUserById(int id) {
+		Optional<User> u = null;
+		try {
+			u = this.usersRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return u;
+	}
+
+	@Override
+	public Optional<Product> getProductById(int id) {
+		Optional<Product> p = null;
+		try {
+			p = this.productsRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return p;
+	}
+
+	@Override
+	public Optional<ProductType> getProductTypeById(int id) {
+		Optional<ProductType> pt = null;
+		try {
+			pt = this.productsRepository.findTypeById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return pt;
+	}
+
+	@Override
+	public Optional<Order> getOrderById(int id) {
+		Optional<Order> o = null;
+		try {
+			o = this.ordersRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return o;
+	}
+
+	
+
 }

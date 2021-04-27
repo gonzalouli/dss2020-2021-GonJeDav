@@ -6,6 +6,7 @@ package com.jedago.practica_dss.core;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 
@@ -163,4 +164,29 @@ public interface ICafe {
 	 * @return The list of orders from the user
 	 */
 	public List<Order> getUserOrders(User u);
+	
+	/**
+	 * To get an specified user by id
+	 * @return The user which is looked for
+	 */
+	public Optional<User> getUserById(int id);
+	
+	/**
+	 * To get an specified product by id
+	 * @return The product which is looked for
+	 */
+	public Optional<Product> getProductById(int id);
+	
+	/**
+	 * To get an specified product type by id
+	 * @return The product type which is looked for
+	 */
+	public Optional<ProductType> getProductTypeById(int id);
+	
+	/**
+	 * To get an specified order by id
+	 * @return The order which is looked for
+	 */
+	public Optional<Order> getOrderById(int id);
+	
 }
