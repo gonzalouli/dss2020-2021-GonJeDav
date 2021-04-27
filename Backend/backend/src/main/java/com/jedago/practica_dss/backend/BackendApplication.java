@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import com.jedago.practica_dss.backend.EnvioEmail;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jedago.practica_dss.core.Cafe;
 import com.jedago.practica_dss.core.CashBox;
 import com.jedago.practica_dss.core.Order;
+import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.User;
@@ -82,9 +84,12 @@ public class BackendApplication {
 	@GetMapping("/users/orders/{iduser}")
 	public List<Order> getUserOrders(@PathVariable int iduser ) throws Exception 
 	{
-		User u = ur.findById(iduser).get();
-		return cafe.getUserOrders(u);
+		Optional<User> u = cafe.getUserById(iduser);
+		List<Order> orders = null;
+		if(u.isPresent()) 
+			orders = cafe.getUserOrders(u.get());
 		
+		return orders;  
 	}
 	
 	
@@ -101,28 +106,48 @@ public class BackendApplication {
 	
 	
 	@PostMapping("/order/time")
-	public void setPickUpTime( @RequestBody int idorder, @RequestBody LocalDateTime ldt) throws Exception {
-			
-			or.findById(idorder).get().setPickUpTime(ldt);
+	public void setPickUpTime( @RequestBody int idorder, @RequestBody LocalDateTime ldt) throws Exception 
+	{
+		if(cafe.getOrderById(idorder).isPresent())
+			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
 	}
 	
 	@PostMapping("/order")
-	public void createOrder(@RequestBody Order order) 
+	public void createOrder(@RequestBody User u) 
 	{
-		
+		cafe.newOrder(u);
+	}
+	
+	@PostMapping("/order")
+	public void createOrder() 
+	{
+		cafe.newOrder();
 	}
 	
 	@PostMapping("/order/product")
 	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestParam(required=true) int idorder ) 
 	{
-		
+		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
+			Product newProduct = cafe.getProductById(idproduct).get();
+			cafe.getOrderById(idorder).get().addProductToOrder(newProduct, cant);
+		}
 	}
 	
 	@PostMapping("/order/delete")
 	public void deleteProduct(@RequestBody(required=true) int idproduct, @RequestBody(required=true) int cant,
 			@RequestParam(required=true, name="idorder") int idorder ) 
 	{
-		
+		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) 
+		{	
+			List<OrderLine> orderLineProducts = cafe.getOrderById(idorder).get().getProducts();
+			Product oldProduct = cafe.getProductById(idproduct).get();
+			
+			for(OrderLine ol: orderLineProducts )
+				if(ol.getProduct()==oldProduct) {
+					cafe.getOrderById(idorder).get().deleteProductFromOrder( cafe.getProductById(idproduct).get(), cant);
+					return;
+				}
+		}
 	}
 	
 	
@@ -140,10 +165,11 @@ public class BackendApplication {
 	public void finishOrder(@RequestBody(required=true) int idorder) throws Exception 
 	{
 		EnvioEmail mail = new EnvioEmail();
-		if( or.findById(idorder).isPresent() ) 
+		if(  cafe.getOrderById(idorder).isPresent() ) 
 		{
-			Order order =  or.findById(idorder).get();
+			Order order =  cafe.getOrderById(idorder).get();
 			mail.sendEmail(order);
+			cafe.FinishOrder(order);
 		}
 			
 		
