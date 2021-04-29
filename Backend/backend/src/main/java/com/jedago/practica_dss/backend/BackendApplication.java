@@ -125,9 +125,9 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
-	public void createOrder(@RequestBody int idUser) 
+	public Order createOrder(@RequestBody int idUser) 
 	{
-		cafe.newOrder(idUser);
+		return cafe.newOrder(idUser);
 	}
 	
 	@PostMapping("/order/product")
