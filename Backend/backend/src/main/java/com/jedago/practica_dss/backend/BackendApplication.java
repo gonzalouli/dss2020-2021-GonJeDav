@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jedago.practica_dss.backend.EnvioEmail;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -68,6 +70,7 @@ public class BackendApplication {
 	}
 	
 	//Esto saca dos veces el parámetro del tipo de producto
+	@JsonIgnore
 	@GetMapping("/products/type")
 	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
 	{
