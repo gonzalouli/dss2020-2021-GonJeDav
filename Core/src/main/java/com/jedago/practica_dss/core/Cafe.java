@@ -55,16 +55,28 @@ public class Cafe implements ICafe {
 		return o;
 	}
 	
-	/**
-	 * Create a new order bind to an user
-	 * @param u the user to bind the new order
-	 * @return the new order created
-	 */
+	@Override
 	public Order newOrder(User u)
 	{
 		Order o = new Order();
 		o.setUser(u);
 		u.setOrder(o);
+		return o;
+	}
+	
+	@Override
+	public Order newOrder(int u)
+	{
+		Order o = new Order();
+		Optional<User> user = Optional.empty();
+		try {
+			user = this.usersRepository.findById(u);
+		} catch (Exception e) {e.printStackTrace();}
+		if(user.isPresent())
+		{
+			o.setUser(user.get());
+			user.get().setOrder(o);
+		}
 		return o;
 	}
 	
@@ -272,8 +284,9 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public void registerUser(User u) throws Exception {
+	public long registerUser(User u) throws Exception {
 		this.usersRepository.add(u);
+		return (int) u.getIdUser();
 	}
 
 	@Override

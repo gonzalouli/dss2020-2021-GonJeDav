@@ -30,6 +30,13 @@ public interface ICafe {
 	public Order newOrder(User u);
 	
 	/**
+	 * Create a new order bind to an user by its id
+	 * @param u the id of the user to bind the new order
+	 * @return the new order created
+	 */
+	public Order newOrder(int u);
+	
+	/**
 	 * Set the desired collection time for the order
 	 * @param o Order to set the collection time
 	 * @param t Time to collect the order
@@ -121,8 +128,9 @@ public interface ICafe {
 	/**
 	 * To register a new user in the system
 	 * @param u The new user in the system
+	 * @retun the id of the registered user
 	 */
-	public void registerUser(User u) throws Exception;
+	public long registerUser(User u) throws Exception;
 	
 	/**
 	 * To update the first name of an existing user
