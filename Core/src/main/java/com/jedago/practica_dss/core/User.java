@@ -3,12 +3,17 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 /**@author Gonzalo Ulibarri Garcia
  *@version 1.0
  */
 
-public class User {
+public class User implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1854084262648629283L;
 	public static long currentid_user = 1;
 	private List<Order> orderList;
 	private long id_user;
