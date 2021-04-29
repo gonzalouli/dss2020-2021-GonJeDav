@@ -26,6 +26,8 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private LocalDateTime date; //Local time, local date, localdatetime
 	private LocalDateTime PickUpTime;
 	private User user;
+	
+	
 	 /*
 	 * Create empty order with a unique id, a list
 	 * of OrderLine empty and a given collected date.
@@ -38,7 +40,6 @@ public class Order implements Iterable<OrderLine>, Serializable
 		currentid++;
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
-
 		
 	}	
 	

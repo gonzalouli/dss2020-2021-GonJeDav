@@ -31,9 +31,12 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+
+
 @SpringBootApplication
 @RestController
 public class BackendApplication {
+	
 	private static OrdersRepositoryByFile or;
 	private static ProductsRepositoryByFile pr;
 	private static UsersRepositoryByFile ur;
@@ -125,17 +128,13 @@ public class BackendApplication {
 			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
 	}
 	
-	@PostMapping("/order/user")
+	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
 	public void createOrder(@RequestBody User u) 
 	{
 		cafe.newOrder(u);
 	}
 	
-	@PostMapping("/order")
-	public void createOrder() 
-	{
-		cafe.newOrder();
-	}
+
 	
 	@PostMapping("/order/product")
 	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestBody(required=true) int idorder ) 

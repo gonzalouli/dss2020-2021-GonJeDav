@@ -15,6 +15,8 @@ public class ProductType implements Serializable {
 
 	private int id;
 	private String TypeName;
+	
+	public ProductType() {super();}
 
 	public ProductType(int id, String TypeName) {
 		this.id = id;

@@ -22,6 +22,10 @@ public class User implements Serializable {
 	private LocalDate birthDate;
 	private String dni;
 	
+	
+	
+	public User() { super(); }
+	
 	/** 
      * Create an user;
      * @param firstName The first name of an user

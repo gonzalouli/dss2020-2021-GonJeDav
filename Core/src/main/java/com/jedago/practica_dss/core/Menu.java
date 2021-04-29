@@ -21,6 +21,8 @@ public class Menu implements Product {
 	private ProductType type; 
 	private List<Product> components;
 	
+	
+	public Menu() {super();}
 	/**
 	 * Constructor for a void menu.
 	 * @param id id of the menu.

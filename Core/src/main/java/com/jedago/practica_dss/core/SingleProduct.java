@@ -17,6 +17,8 @@ public class SingleProduct implements Product{
 	private BigDecimal 	priceUnit;
 	private ProductType type; 
 	
+	public SingleProduct() {super();}
+	
 	/** 
      * Assigns a name, stock, price unit and id
      * to a certain product.
