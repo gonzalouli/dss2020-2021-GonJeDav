@@ -24,7 +24,7 @@ public class User implements Serializable {
 	
 	
 	
-	public User() { super(); }
+	public User() {}
 	
 	/** 
      * Create an user;

@@ -286,7 +286,7 @@ public class Cafe implements ICafe {
 	@Override
 	public long registerUser(User u) throws Exception {
 		this.usersRepository.add(u);
-		return (int) u.getIdUser();
+		return u.getIdUser();
 	}
 
 	@Override
