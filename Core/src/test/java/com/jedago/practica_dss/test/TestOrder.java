@@ -87,6 +87,11 @@ public class TestOrder {
 		assertEquals( order.getDateTime().getMinute(), time.getMinute());
 
 		assertEquals( order.getId_order(), Order.currentid-1);
+		
+		Order secondOrder = new Order();		
+		assertEquals( order.getId_order(), secondOrder.getId_order()-1);
+
+		
 		assertEquals(cero ,order.getPrice());
 		
 }

@@ -1,5 +1,6 @@
 package com.jedago.practica_dss.core;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,27 +28,26 @@ public class User implements Serializable {
 	public User() {}
 	
 	/** 
-     * Create an user;
-     * @param firstName The first name of an user
-     * @param lastName The last name of an user
-     * @param birthDate The birthDate of an user
-     * @param dni The dni of an user
-	 */
+	* Create an user;
+	* @param firstName The first name of an user
+	* @param lastName The last name of an user
+	* @param birthDate The birthDate of an user
+	* @param dni The dni of an user
+	*/
 	public User(String firstName, String lastName, LocalDate birthDate, String dni) {
-		
 		LocalDate now = LocalDate.now();
 		Period period = Period.between(birthDate, now);
 		
 		assert(period.getYears()>=18);
 		
 		orderList = new ArrayList<Order>();
-		this.id_user = User.currentid_user;
-		User.currentid_user++;
+		this.id_user = LocalDateTime.now().hashCode();
+		//this.id_user = User.currentid_user;
+		//User.currentid_user++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.dni = dni;
-		
 	}
 	
 	/** 
@@ -153,7 +153,5 @@ public class User implements Serializable {
 		return period.getYears();
 		
 	}
-	
-	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -176,4 +177,41 @@ public class BackendApplication {
 			cafe.FinishOrder(order);
 		}
 	}
+	
+	@PutMapping("/user/firstname")
+	public void updateUserFirstName(@RequestParam(required=true) int id_user, @RequestParam(required=true) String firstname) throws Exception 
+	{
+		User user = cafe.getUserById(id_user).get();
+		user.setFirstName(firstname);
+	}
+	
+	@PutMapping("/user/lastname")
+	public void updateUserLastName(@RequestParam(required=true) int id_user, @RequestParam(required=true) String lastname) throws Exception 
+	{
+		User user = cafe.getUserById(id_user).get();
+		user.setFirstName(lastname);
+	}
+	
+	@PutMapping("/user/dni")
+	public void updateUserDni(@RequestParam(required=true) int id_user, @RequestParam(required=true) String dni) throws Exception 
+	{
+		User user = cafe.getUserById(id_user).get();
+		user.setFirstName(dni);
+	}
+	
+	@PutMapping("/user/birthdate")
+	public void updateUserDni(@RequestParam(required=true) int id_user, @RequestParam(required=true) LocalDate birthdate) throws Exception 
+	{
+		User user = cafe.getUserById(id_user).get();
+		user.setBirthDate(birthdate);
+	}
+	
+	@PostMapping("/user/delete")
+	public void deleteUser(@RequestParam(required=true) int id_user) throws Exception 
+	{
+		cafe.deleteUserbyId(id_user);
+	}
+	
+	
+	
 }

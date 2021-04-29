@@ -368,6 +368,16 @@ public class Cafe implements ICafe {
 		} catch (Exception e) {e.printStackTrace();}
 		return o;
 	}
+	
+	@Override
+	public void deleteUserbyId(int id)
+	{ 
+		Optional<User> u = this.getUserById(id);
+		if(u.isPresent())
+			try {
+				this.usersRepository.delete(u.get());
+			} catch (Exception e) {e.printStackTrace();}
+	}
 
 	
 

@@ -196,5 +196,11 @@ public interface ICafe {
 	 * @return The order which is looked for
 	 */
 	public Optional<Order> getOrderById(int id);
+
+	/**
+	 * Delete an user with an id
+	 * @param id The id of the user to delete.
+	 */
+	void deleteUserbyId(int id);
 	
 }
