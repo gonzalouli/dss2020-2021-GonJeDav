@@ -30,6 +30,11 @@ import com.jedago.practica_dss.core.User;
 import com.jedago.practica_dss.persistance.OrdersRepositoryByFile;
 import com.jedago.practica_dss.persistance.ProductsRepositoryByFile;
 import com.jedago.practica_dss.persistance.UsersRepositoryByFile;
+
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
 @SpringBootApplication
 @RestController
 public class BackendApplication {
@@ -37,6 +42,15 @@ public class BackendApplication {
 	private static ProductsRepositoryByFile pr;
 	private static UsersRepositoryByFile ur;
 	private static Cafe cafe;
+	
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
+	}
 	
 	public static void main(String[] args) throws Exception {
 		
