@@ -41,7 +41,8 @@ public class User implements Serializable {
 		assert(period.getYears()>=18);
 		
 		orderList = new ArrayList<Order>();
-		this.id_user = currentid_user++;
+		this.id_user = User.currentid_user;
+		User.currentid_user++;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
