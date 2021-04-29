@@ -112,7 +112,7 @@ public class BackendApplication {
 			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
 	}
 	
-	@PostMapping("/order")
+	@PostMapping("/order/user")
 	public void createOrder(@RequestBody User u) 
 	{
 		cafe.newOrder(u);
