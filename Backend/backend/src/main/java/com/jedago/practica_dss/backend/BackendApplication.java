@@ -125,7 +125,7 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/product")
-	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestParam(required=true) int idorder ) 
+	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestBody(required=true) int idorder ) 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
 			Product newProduct = cafe.getProductById(idproduct).get();
@@ -152,7 +152,7 @@ public class BackendApplication {
 	
 	
 	@GetMapping("/cashbox")
-	public CashBox getCashBox(@PathVariable LocalDate ld) {
+	public CashBox getCashBox(@RequestBody LocalDate ld) {
 		if(ld==null)
 			return cafe.getCashBox(LocalDate.now());
 		else
