@@ -118,20 +118,20 @@ public class BackendApplication {
 	
 	
 	@PostMapping("/order/time")
-	public void setPickUpTime( @RequestBody int idorder, @RequestBody LocalDateTime ldt) throws Exception 
+	public void setPickUpTime( @RequestParam int idorder, @RequestParam LocalDateTime ldt) throws Exception 
 	{
 		if(cafe.getOrderById(idorder).isPresent())
 			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
-	public Order createOrder(@RequestBody int idUser) 
+	public Order createOrder(@RequestParam int idUser) 
 	{
 		return cafe.newOrder(idUser);
 	}
 	
 	@PostMapping("/order/product")
-	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestBody(required=true) int idorder ) 
+	public void addProduct(@RequestParam(required=true) int idproduct, @RequestParam int cant, @RequestParam(required=true) int idorder ) 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
 			Product newProduct = cafe.getProductById(idproduct).get();
@@ -140,7 +140,7 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/delete")
-	public void deleteProduct(@RequestBody(required=true) int idproduct, @RequestBody(required=true) int cant,
+	public void deleteProduct(@RequestParam(required=true) int idproduct, @RequestParam(required=true) int cant,
 			@RequestParam(required=true, name="idorder") int idorder ) 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) 
@@ -157,7 +157,7 @@ public class BackendApplication {
 	}
 	
 	@GetMapping("/cashbox")
-	public CashBox getCashBox(@RequestBody LocalDate ld) {
+	public CashBox getCashBox(@RequestParam LocalDate ld) {
 		
 		if(ld==null)
 			return cafe.getTodayCashBox();
@@ -166,7 +166,7 @@ public class BackendApplication {
 	}
 
 	@PostMapping("/order/end")
-	public void finishOrder(@RequestBody(required=true) int idorder) throws Exception 
+	public void finishOrder(@RequestParam(required=true) int idorder) throws Exception 
 	{
 		EnvioEmail mail = new EnvioEmail();
 		if(  cafe.getOrderById(idorder).isPresent() ) 
