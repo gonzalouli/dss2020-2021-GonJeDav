@@ -111,9 +111,9 @@ public class BackendApplication {
 	//RequestParam va en la URI
 	//RequestBody va en la petición HTTP
 	@PostMapping("/users")
-	public void newUser(@RequestBody User newUser) throws Exception 
+	public long newUser(@RequestBody User newUser) throws Exception 
 	{
-		cafe.registerUser(newUser);
+		return cafe.registerUser(newUser);
 	}
 	
 	
