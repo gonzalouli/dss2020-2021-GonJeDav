@@ -108,10 +108,6 @@ public class BackendApplication {
 		return orders;  
 	}
 	
-	
-	
-	
-	
 	//RequestParam va en la URI
 	//RequestBody va en la petición HTTP
 	@PostMapping("/users")
@@ -133,8 +129,6 @@ public class BackendApplication {
 	{
 		cafe.newOrder(u);
 	}
-	
-
 	
 	@PostMapping("/order/product")
 	public void addProduct(@RequestBody(required=true) int idproduct, @RequestBody int cant, @RequestBody(required=true) int idorder ) 
@@ -162,7 +156,6 @@ public class BackendApplication {
 		}
 	}
 	
-	
 	@GetMapping("/cashbox")
 	public CashBox getCashBox(@RequestBody LocalDate ld) {
 		
@@ -172,7 +165,6 @@ public class BackendApplication {
 			return cafe.getCashBox(ld);
 	}
 
-	
 	@PostMapping("/order/end")
 	public void finishOrder(@RequestBody(required=true) int idorder) throws Exception 
 	{
@@ -183,13 +175,5 @@ public class BackendApplication {
 			mail.sendEmail(order);
 			cafe.FinishOrder(order);
 		}
-			
-		
 	}
-	
-	
-	
-	
-			
-
 }
