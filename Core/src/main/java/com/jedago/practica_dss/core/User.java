@@ -1,9 +1,11 @@
 package com.jedago.practica_dss.core;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
+
 import java.io.Serializable;
 /**@author Gonzalo Ulibarri Garcia
  *@version 1.0
@@ -17,7 +19,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -1854084262648629283L;
 	public static long currentid_user = 1;
 	private List<Order> orderList;
-	private long id_user;
+	private String id_user;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
@@ -34,21 +36,26 @@ public class User implements Serializable {
 	* @param birthDate The birthDate of an user
 	* @param dni The dni of an user
 	*/
-	public User(String firstName, String lastName, LocalDate birthDate, String dni) {
+	public User( String firstName, String lastName, LocalDate birthDate, String dni) {
 		LocalDate now = LocalDate.now();
 		Period period = Period.between(birthDate, now);
 		
 		assert(period.getYears()>=18);
 		
 		orderList = new ArrayList<Order>();
-		this.id_user = LocalDateTime.now().hashCode();
-		//this.id_user = User.currentid_user;
-		//User.currentid_user++;
+		//this.id_user = firstName+lastName+dni;
+
+		//this.id_user = UUID.randomUUID().toString();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.dni = dni;
 	}
+	
+	public void setId(String id) {
+		this.id_user=id;
+	}
+	
 	
 	/** 
      * Bind a new order to an existing user.
@@ -73,7 +80,7 @@ public class User implements Serializable {
      * Return the id of an user.
      * @return the id of the user.
 	 */
-	public long getIdUser() 
+	public String getIdUser() 
 	{
 		return this.id_user;
 	}

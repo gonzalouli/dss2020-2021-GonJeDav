@@ -5,6 +5,7 @@ package com.jedago.practica_dss.persistance;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.jedago.practica_dss.core.User;
 
@@ -23,10 +24,9 @@ public interface UsersRepository {
 	/**
 	 * To get an user from its id
 	 * @param id
-	 * @return The user with that id
 	 * @throws Exception
 	 */
-	public Optional<User> findById(int id) throws Exception;
+	public Optional<User> findById(String id) throws Exception;
 	
 	/**
 	 * To save the current list of users overwriting it
@@ -62,5 +62,5 @@ public interface UsersRepository {
 	 * @param u user info to update
 	 * @throws Exception
 	 */
-	public void update(int id, User u) throws Exception; 
+	public void update(String id, User u) throws Exception; 
 }

@@ -3,6 +3,7 @@ package com.jedago.practica_dss.persistance;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.jedago.practica_dss.core.User;
 
@@ -15,7 +16,7 @@ public class UsersRepositoryOnMemory implements UsersRepository {
 	}
 
 	@Override
-	public Optional<User> findById(int id) throws Exception {
+	public Optional<User> findById(String id) throws Exception {
 		boolean found = false;
 		User seekUser = null, u;
 		
@@ -43,6 +44,7 @@ public class UsersRepositoryOnMemory implements UsersRepository {
 
 	@Override
 	public void add(User u) throws Exception {
+		assert(u.getAge()>=18);
 		this.users.add(u);
 	}
 
@@ -57,7 +59,7 @@ public class UsersRepositoryOnMemory implements UsersRepository {
 	}
 
 	@Override
-	public void update(int id, User u) throws Exception {
+	public void update(String id, User u) throws Exception {
 		Optional<User> toUpdate = this.findById(id);
 		if(!toUpdate.isPresent())
 		{

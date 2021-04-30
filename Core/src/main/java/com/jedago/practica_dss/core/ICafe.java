@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 
@@ -34,7 +35,7 @@ public interface ICafe {
 	 * @param u the id of the user to bind the new order
 	 * @return the new order created
 	 */
-	public Order newOrder(int u);
+	public Order newOrder(String uid);
 	
 	/**
 	 * Set the desired collection time for the order
@@ -130,7 +131,7 @@ public interface ICafe {
 	 * @param u The new user in the system
 	 * @retun the id of the registered user
 	 */
-	public long registerUser(User u) throws Exception;
+	public String registerUser(User u) throws Exception;
 	
 	/**
 	 * To update the first name of an existing user
@@ -177,7 +178,7 @@ public interface ICafe {
 	 * To get an specified user by id
 	 * @return The user which is looked for
 	 */
-	public Optional<User> getUserById(int id);
+	public Optional<User> getUserById(String id);
 	
 	/**
 	 * To get an specified product by id
@@ -201,6 +202,6 @@ public interface ICafe {
 	 * Delete an user with an id
 	 * @param id The id of the user to delete.
 	 */
-	void deleteUserbyId(int id);
+	void deleteUserbyId(String id);
 	
 }

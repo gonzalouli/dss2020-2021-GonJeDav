@@ -3,14 +3,18 @@ package com.jedago.practica_dss.backend;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -91,6 +95,7 @@ public class BackendApplication {
 		return cafe.getAvailableProductsbyType(id); 
 	}
 
+	@JsonIgnore
 	@GetMapping("/users")
 	public List<User> getUsers() throws Exception 
 	{
@@ -99,7 +104,7 @@ public class BackendApplication {
 	
 	
 	@GetMapping("/users/orders/{iduser}")
-	public List<Order> getUserOrders(@PathVariable int iduser ) throws Exception 
+	public List<Order> getUserOrders(@PathVariable String iduser ) throws Exception 
 	{
 		Optional<User> u = cafe.getUserById(iduser);
 		List<Order> orders = null;
@@ -111,10 +116,11 @@ public class BackendApplication {
 	
 	//RequestParam va en la URI
 	//RequestBody va en la petición HTTP
-	@PostMapping("/users")
-	public long newUser(@RequestBody User newUser) throws Exception 
+	@PostMapping("/user")
+	public void newUser(@RequestBody User newUser) throws Exception 
 	{
-		return cafe.registerUser(newUser);
+		
+		cafe.registerUser(newUser);
 	}
 	
 	
@@ -126,7 +132,7 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
-	public Order createOrder(@RequestParam int idUser) 
+	public Order createOrder(@RequestParam String idUser) 
 	{
 		return cafe.newOrder(idUser);
 	}
@@ -140,7 +146,7 @@ public class BackendApplication {
 		}
 	}
 	
-	@PostMapping("/order/delete")
+	@DeleteMapping("/order/delete")
 	public void deleteProduct(@RequestParam(required=true) int idproduct, @RequestParam(required=true) int cant,
 			@RequestParam(required=true, name="idorder") int idorder ) 
 	{
@@ -178,40 +184,44 @@ public class BackendApplication {
 		}
 	}
 	
-	@PutMapping("/user/firstname")
-	public void updateUserFirstName(@RequestParam(required=true) int id_user, @RequestParam(required=true) String firstname) throws Exception 
+	@PatchMapping("/user/firstname")
+	public void updateUserFirstName(@RequestParam(required=true) String id_user, @RequestParam(required=true) String firstname) throws Exception 
 	{
 		User user = cafe.getUserById(id_user).get();
-		user.setFirstName(firstname);
+		cafe.updateUserFirstName(user, firstname);
+
 	}
 	
-	@PutMapping("/user/lastname")
-	public void updateUserLastName(@RequestParam(required=true) int id_user, @RequestParam(required=true) String lastname) throws Exception 
+	@PatchMapping("/user/lastname")
+	public void updateUserLastName(@RequestParam(required=true) String id_user, @RequestParam(required=true) String lastname) throws Exception 
 	{
 		User user = cafe.getUserById(id_user).get();
-		user.setFirstName(lastname);
+		cafe.updateUserLastName(user, lastname);
 	}
 	
-	@PutMapping("/user/dni")
-	public void updateUserDni(@RequestParam(required=true) int id_user, @RequestParam(required=true) String dni) throws Exception 
+	@PatchMapping("/user/dni")
+	public void updateUserDni(@RequestParam(required=true) String id_user, @RequestParam(required=true) String dni) throws Exception 
 	{
 		User user = cafe.getUserById(id_user).get();
-		user.setFirstName(dni);
+		cafe.updateUserDNI(user, dni);
+
 	}
 	
-	@PutMapping("/user/birthdate")
-	public void updateUserDni(@RequestParam(required=true) int id_user, @RequestParam(required=true) LocalDate birthdate) throws Exception 
-	{
+	@PatchMapping("/user/birthdate")
+	public void updateUserBirthdate(@RequestParam(required=true) String id_user, @RequestParam(required=true) String birthdate) throws Exception 
+	{	
+		LocalDate localDate1 = LocalDate.parse(birthdate);
 		User user = cafe.getUserById(id_user).get();
-		user.setBirthDate(birthdate);
+		cafe.updateUserBirthDate(user, localDate1);
 	}
 	
-	@PostMapping("/user/delete")
-	public void deleteUser(@RequestParam(required=true) int id_user) throws Exception 
+	@DeleteMapping("/user/delete")
+	public void deleteUser(@RequestParam(required=true) String id_user) throws Exception 
 	{
 		cafe.deleteUserbyId(id_user);
 	}
 	
+
 	
 	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepository;
@@ -65,12 +66,12 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
-	public Order newOrder(int u)
+	public Order newOrder(String uid)
 	{
 		Order o = new Order();
 		Optional<User> user = Optional.empty();
 		try {
-			user = this.usersRepository.findById(u);
+			user = this.usersRepository.findById(uid);
 		} catch (Exception e) {e.printStackTrace();}
 		if(user.isPresent())
 		{
@@ -284,35 +285,35 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public long registerUser(User u) throws Exception {
+	public String registerUser(User u) throws Exception {
 		this.usersRepository.add(u);
 		return u.getIdUser();
 	}
 
 	@Override
 	public void updateUserFirstName(User u, String newFirstName) throws Exception {
-		int id = (int) u.getIdUser();
+		String id = u.getIdUser();
 		u.setFirstName(newFirstName);
 		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserLastName(User u, String newLastName) throws Exception{
-		int id = (int) u.getIdUser();
+		String id =  u.getIdUser();
 		u.setLastName(newLastName);
 		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception{
-		int id = (int) u.getIdUser();
+		String id =  u.getIdUser();
 		u.setBirthDate(newBirthDate);
 		this.usersRepository.update(id, u);
 	}
 
 	@Override
 	public void updateUserDNI(User u, String newDNI) throws Exception{
-		int id = (int) u.getIdUser();
+		String id =  u.getIdUser();
 		u.setDni(newDNI);
 		this.usersRepository.update(id, u);
 	}
@@ -334,7 +335,7 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public Optional<User> getUserById(int id) {
+	public Optional<User> getUserById(String id) {
 		Optional<User> u = null;
 		try {
 			u = this.usersRepository.findById(id);
@@ -370,7 +371,7 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
-	public void deleteUserbyId(int id)
+	public void deleteUserbyId(String id)
 	{ 
 		Optional<User> u = this.getUserById(id);
 		if(u.isPresent())
@@ -378,7 +379,6 @@ public class Cafe implements ICafe {
 				this.usersRepository.delete(u.get());
 			} catch (Exception e) {e.printStackTrace();}
 	}
-
 	
 
 }
