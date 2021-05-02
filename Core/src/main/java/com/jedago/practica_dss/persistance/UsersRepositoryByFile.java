@@ -100,10 +100,6 @@ public class UsersRepositoryByFile implements UsersRepository {
 	public void delete(User u) throws Exception {
 		List<User> currentUsers = findAll();
 		currentUsers.remove(u);
-		for(User p : currentUsers)
-		{
-			System.out.println(p.getIdUser());
-		}
 		save(currentUsers);
 	}
 	
