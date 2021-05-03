@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.jedago.practica_dss.core.Order;
+import com.jedago.practica_dss.core.User;
 
 public class OrdersRepositoryByFile implements OrdersRepository {
 	
@@ -103,6 +104,16 @@ public class OrdersRepositoryByFile implements OrdersRepository {
 		saved = findAll();
 		saved.remove(o);
 		save(saved);
+	}
+
+	@Override
+	public void update(String id, Order o) throws Exception {
+		Optional<Order> toUpdate = this.findById(id);
+		if(toUpdate.isPresent())
+		{
+			this.delete(toUpdate.get());
+			this.add(o);
+		}
 	}
 	
 }

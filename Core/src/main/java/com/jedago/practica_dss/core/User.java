@@ -24,6 +24,7 @@ public class User implements Serializable {
 	private String lastName;
 	private LocalDate birthDate;
 	private String dni;
+	private List<Order> orderList;
 	
 	public User() {
 		this.id_user = UUID.randomUUID().toString();

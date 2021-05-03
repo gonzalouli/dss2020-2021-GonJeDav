@@ -60,10 +60,12 @@ public interface OrdersRepository {
 	public void delete(Order o) throws Exception; 
 	
 	/**
-	 * To add an user to an existing order
-	 * @param u user to add 
-	 * @param o order to update
+	 * To update a user from the repository
+	 * @param id Id of the existing order to update
+	 * @param o order info to update
 	 * @throws Exception
 	 */
-	public void addUsertoOrder(User u, Order o) throws Exception;
+	public void update(String id, Order o) throws Exception; 
+	
+	
 }

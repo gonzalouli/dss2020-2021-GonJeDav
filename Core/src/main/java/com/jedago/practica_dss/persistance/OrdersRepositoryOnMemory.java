@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.jedago.practica_dss.core.Order;
+import com.jedago.practica_dss.core.User;
 
 public class OrdersRepositoryOnMemory implements OrdersRepository {
 	List<Order> orders;
@@ -56,5 +57,15 @@ public class OrdersRepositoryOnMemory implements OrdersRepository {
 	@Override
 	public void delete(Order o) throws Exception {
 		this.orders.remove(o);
+	}
+
+	@Override
+	public void update(String id, Order o) throws Exception {
+		Optional<Order> toUpdate = this.findById(id); 
+		if(!toUpdate.isPresent())
+		{
+			this.delete(toUpdate.get());
+			this.add(o);
+		}
 	}
 }

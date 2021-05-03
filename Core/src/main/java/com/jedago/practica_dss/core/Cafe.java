@@ -77,6 +77,10 @@ public class Cafe implements ICafe {
 		{
 			o.setUser(user.get());
 			user.get().setOrder(o);
+			try {
+				this.usersRepository.update(user.get().getIdUser(), user.get());
+				this.ordersRepository.add(o);
+			} catch (Exception e) {e.printStackTrace();}
 		}
 		return o;
 	}
