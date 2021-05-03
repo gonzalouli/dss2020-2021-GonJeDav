@@ -1,6 +1,7 @@
 package com.jedago.practica_dss.core;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 /**
  * A class to represent the details of the product.
@@ -12,12 +13,15 @@ public class SingleProduct implements Product{
 	
 	private static final long serialVersionUID = 2836988550921564899L;
 	private String	name;
-	private int		id; 
+	private String		id; 
 	private int 	stock;
 	private BigDecimal 	priceUnit;
 	private ProductType type; 
 	
-	public SingleProduct() {super();}
+	public SingleProduct() {
+		super();
+		this.id = UUID.randomUUID().toString();
+		}
 	
 	/** 
      * Assigns a name, stock, price unit and id
@@ -28,8 +32,7 @@ public class SingleProduct implements Product{
      * @param priceunit Represents the price of a single unit of the product .
      * @param type ProductType of the product that we are crating .
      **/
-	public SingleProduct(int id, String name, int stock, BigDecimal priceunit, ProductType type) {
-		this.id = id;
+	public SingleProduct( String name, int stock, BigDecimal priceunit, ProductType type) {
 		this.name = name;
 		this.stock = stock;
 		this.priceUnit = priceunit;
@@ -54,7 +57,7 @@ public class SingleProduct implements Product{
      * @return The ID of  a product.
      * 
      **/
-	public int getID() {
+	public String getID() {
 		return id;
 	}
 	

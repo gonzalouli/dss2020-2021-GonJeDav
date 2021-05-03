@@ -18,23 +18,23 @@ public class FirstProducts {
 		int id_products = 0;
 		int id_types = 0;
 		
-		ProductType Complementos = new ProductType(id_types++, "Complemento");
-		ProductType Bebidas = new ProductType(id_types++,"Bebidas");
-		ProductType Dulces = new ProductType(id_types++,"Dulces");
-		ProductType Bocadillos = new ProductType(id_types++,"Bocadillos");
-		ProductType Postres = new ProductType(id_types++,"Postres");
-		ProductType Menus = new ProductType(id_types++,"Menus");
+		ProductType Complementos = new ProductType("Complemento");
+		ProductType Bebidas = new ProductType("Bebidas");
+		ProductType Dulces = new ProductType("Dulces");
+		ProductType Bocadillos = new ProductType("Bocadillos");
+		ProductType Postres = new ProductType("Postres");
+		ProductType Menus = new ProductType("Menus");
 		
-		Product Patatas = new SingleProduct(++id_products, "Patatas fritas", 10, new BigDecimal(2), Complementos);
-		Product CocaCola = new SingleProduct(++id_products, "CocaCola", 15, new BigDecimal(1), Bebidas);
-		Product Cafe = new SingleProduct(++id_products, "Cafe", 30, new BigDecimal(0.75), Bebidas);
-		Product Croissant = new SingleProduct(++id_products, "Croissant", 14, new BigDecimal(0.5), Dulces);
-		Product Sandwich = new SingleProduct(++id_products, "Sandwich", 8, new BigDecimal(2.5), Bocadillos);
-		Product Serranito = new SingleProduct(++id_products, "Serranito", 6, new BigDecimal(3.5), Bocadillos);
-		Product Helado = new SingleProduct(++id_products, "Helado de chocolate", 8, new BigDecimal(1.5), Postres);
+		Product Patatas = new SingleProduct("Patatas fritas", 10, new BigDecimal(2), Complementos);
+		Product CocaCola = new SingleProduct("CocaCola", 15, new BigDecimal(1), Bebidas);
+		Product Cafe = new SingleProduct("Cafe", 30, new BigDecimal(0.75), Bebidas);
+		Product Croissant = new SingleProduct("Croissant", 14, new BigDecimal(0.5), Dulces);
+		Product Sandwich = new SingleProduct("Sandwich", 8, new BigDecimal(2.5), Bocadillos);
+		Product Serranito = new SingleProduct("Serranito", 6, new BigDecimal(3.5), Bocadillos);
+		Product Helado = new SingleProduct("Helado de chocolate", 8, new BigDecimal(1.5), Postres);
 		
 		//Constructor sin lista y se van añadiendo
-		Menu MenuAlmuerzo = new Menu(++id_products, "Menu para almorzar", Menus);
+		Menu MenuAlmuerzo = new Menu("Menu para almorzar", Menus);
 		MenuAlmuerzo.add(CocaCola);
 		MenuAlmuerzo.add(Serranito);
 		MenuAlmuerzo.add(Patatas);
@@ -43,7 +43,7 @@ public class FirstProducts {
 		List<Product> lp = new ArrayList<Product>();
 		lp.add(Cafe);
 		lp.add(Croissant);
-		Product MenuDesayuno = new Menu(++id_products, "Menu para desayunar", Menus, lp);
+		Product MenuDesayuno = new Menu("Menu para desayunar", Menus, lp);
 
 		List<Product> ProductList =  new ArrayList<Product>();
 		ProductList.add(MenuAlmuerzo);

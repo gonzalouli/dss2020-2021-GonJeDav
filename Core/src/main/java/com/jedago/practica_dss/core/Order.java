@@ -19,8 +19,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 {
 	private static final long serialVersionUID = -7323804151378580352L;
 	
-	public static long currentid = 1;
-	private long id_order;
+	private String id_order;
 	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
 	private LocalDateTime date; //Local time, local date, localdatetime
@@ -34,10 +33,8 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 */	
 	
 	public Order(){
-		
+		this.id_order = UUID.randomUUID().toString();
 		date = LocalDateTime.now();
-		this.id_order = currentid;
-		currentid++;
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
 		
@@ -67,7 +64,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 * Returns the id of a specific order.
 	 * @return The order id.
 	 */
-	public long getId_order() {
+	public String getId_order() {
 		return this.id_order;
 	}
 	
