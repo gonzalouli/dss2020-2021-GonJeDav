@@ -17,6 +17,7 @@ import java.util.*;
 
 public class Order implements Iterable<OrderLine>, Serializable
 {
+	
 	private static final long serialVersionUID = -7323804151378580352L;
 	
 	private String id_order;
@@ -259,7 +260,66 @@ public class Order implements Iterable<OrderLine>, Serializable
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((PickUpTime == null) ? 0 : PickUpTime.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((id_order == null) ? 0 : id_order.hashCode());
+		result = prime * result + ((orderLineProduct == null) ? 0 : orderLineProduct.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (PickUpTime == null) {
+			if (other.PickUpTime != null)
+				return false;
+		} else if (!PickUpTime.equals(other.PickUpTime))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (id_order == null) {
+			if (other.id_order != null)
+				return false;
+		} else if (!id_order.equals(other.id_order))
+			return false;
+		if (orderLineProduct == null) {
+			if (other.orderLineProduct != null)
+				return false;
+		} else if (!orderLineProduct.equals(other.orderLineProduct))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}
+
+
+
 
 }
 	

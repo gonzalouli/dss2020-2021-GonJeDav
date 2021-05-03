@@ -263,8 +263,10 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
+		//System.out.println(ord.getPrice());
 		this.ordersRepository.update(ord.getId_order(), ord);
 		this.productsRepository.save(currentProducts);
+
 	}
 
 	@Override

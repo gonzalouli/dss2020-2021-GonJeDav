@@ -338,6 +338,7 @@ public class Screen   {
 	public static void payAndFinishOrder(ICafe currentCafe, Order currentOrder) throws Exception 
 	{
 		currentCafe.FinishOrder(currentOrder);
+		
 		return;
 	}
 	
