@@ -45,6 +45,7 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 		else //Si no, devolvemos los FirstProducts
 		{
 			productList = FirstProducts.getFirstProducts();
+			this.save(productList);
 		}
 
 		return productList;
