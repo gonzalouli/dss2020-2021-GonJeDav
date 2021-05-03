@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 /**@author Gonzalo Ulibarri Garcia
  *@version 1.0
@@ -21,6 +23,7 @@ public class User implements Serializable {
 	private String lastName;
 	private LocalDate birthDate;
 	private String dni;
+	@JsonIgnore
 	private List<Order> orderList;
 	
 	public User() {
