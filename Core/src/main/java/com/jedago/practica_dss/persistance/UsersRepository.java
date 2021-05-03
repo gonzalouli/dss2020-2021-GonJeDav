@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.jedago.practica_dss.core.Order;
 import com.jedago.practica_dss.core.User;
 
 /**
@@ -63,4 +64,12 @@ public interface UsersRepository {
 	 * @throws Exception
 	 */
 	public void update(String id, User u) throws Exception; 
+	
+	/**
+	 * To add an order to an existing user
+	 * @param u user info to update
+	 * @param o order to add
+	 * @throws Exception
+	 */
+	public void addOrdertoUser(Order o, User u) throws Exception;
 }

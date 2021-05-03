@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.jedago.practica_dss.core.Order;
+import com.jedago.practica_dss.core.User;
 
 /**
  * @author Jesus Serrano Gallan
@@ -57,4 +58,12 @@ public interface OrdersRepository {
 	 * @throws Exception
 	 */
 	public void delete(Order o) throws Exception; 
+	
+	/**
+	 * To add an user to an existing order
+	 * @param u user to add 
+	 * @param o order to update
+	 * @throws Exception
+	 */
+	public void addUsertoOrder(User u, Order o) throws Exception;
 }
