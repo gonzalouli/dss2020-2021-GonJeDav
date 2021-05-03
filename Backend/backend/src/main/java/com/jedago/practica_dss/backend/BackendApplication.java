@@ -71,6 +71,7 @@ public class BackendApplication {
 		return cafe.getAvailableProducts(); 
 	}
 	
+	@JsonIgnore
 	@GetMapping("/orders")
 	public List<Order> getAllOrders() throws Exception 
 	{

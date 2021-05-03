@@ -258,7 +258,6 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 */
 	public void setUser(User user) {
 		this.user = user;
-		System.out.println("Al pedido se asigna el user con id: " + this.user.getIdUser());
 	}
 	
 
