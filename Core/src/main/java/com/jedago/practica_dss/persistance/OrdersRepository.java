@@ -28,7 +28,7 @@ public interface OrdersRepository {
 	 * @return The order with that id
 	 * @throws Exception
 	 */
-	public Optional<Order> findById(int id) throws Exception;
+	public Optional<Order> findById(String id) throws Exception;
 	
 	/**
 	 * To save the orders to the repository, overwriting the previous ones

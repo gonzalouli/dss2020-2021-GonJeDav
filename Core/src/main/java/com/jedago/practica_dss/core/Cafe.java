@@ -146,7 +146,7 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
-	public List<Product> getAvailableProductsbyType(int id) {
+	public List<Product> getAvailableProductsbyType(String id) {
 		List<Product> productList = new ArrayList<Product>();
 		Optional<ProductType> seekProductType = Optional.empty();
 		
@@ -348,7 +348,7 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public Optional<Product> getProductById(int id) {
+	public Optional<Product> getProductById(String id) {
 		Optional<Product> p = null;
 		try {
 			p = this.productsRepository.findById(id);
@@ -357,7 +357,7 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public Optional<ProductType> getProductTypeById(int id) {
+	public Optional<ProductType> getProductTypeById(String id) {
 		Optional<ProductType> pt = null;
 		try {
 			pt = this.productsRepository.findTypeById(id);
@@ -366,7 +366,7 @@ public class Cafe implements ICafe {
 	}
 
 	@Override
-	public Optional<Order> getOrderById(int id) {
+	public Optional<Order> getOrderById(String id) {
 		Optional<Order> o = null;
 		try {
 			o = this.ordersRepository.findById(id);

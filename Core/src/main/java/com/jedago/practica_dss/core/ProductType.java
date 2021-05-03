@@ -24,6 +24,8 @@ public class ProductType implements Serializable {
 
 	public ProductType(String TypeName) {
 		this.TypeName = TypeName;
+		this.id = UUID.randomUUID().toString();
+
 	}
 
 	/**

@@ -38,13 +38,13 @@ public class TestOrder {
 	{
 		
 		BigDecimal precio = BigDecimal.valueOf(cash);
-		ProductType t = new ProductType(1, "Bebidas");
-		ProductType m = new ProductType(2, "Menu");
+		ProductType t = new ProductType("Bebidas");
+		ProductType m = new ProductType("Menu");
 
-		p = new SingleProduct(++idProduct, "producto1", 4, precio, t);
+		p = new SingleProduct("producto1", 4, precio, t);
 		
-		Product p2 = new SingleProduct(++idProduct, "producto2", 5, precio, t);
-		men = new Menu(++idProduct,"Menu1", m);
+		Product p2 = new SingleProduct("producto2", 5, precio, t);
+		men = new Menu("Menu1", m);
 		
 		men.add(p);
 		men.add(p2);
@@ -86,10 +86,9 @@ public class TestOrder {
 		assertEquals( order.getDateTime().getHour(), time.getHour());
 		assertEquals( order.getDateTime().getMinute(), time.getMinute());
 
-		assertEquals( order.getId_order(), Order.currentid-1);
 		
 		Order secondOrder = new Order();		
-		assertEquals( order.getId_order(), secondOrder.getId_order()-1);
+		assertNotEquals( order.getId_order(), secondOrder.getId_order());
 
 		
 		assertEquals(cero ,order.getPrice());
@@ -97,13 +96,13 @@ public class TestOrder {
 }
 
 
-	@Test
-	public void TestgetId_oderSingle() //PASS
-	{ 
-		Order orden = new Order();
-		assertEquals( Order.currentid -1, orden.getId_order());
-		
-	}
+//	@Test
+//	public void TestgetId_oderSingle() //PASS
+//	{ 
+//		Order orden = new Order();
+//		assertEquals( Order.currentid -1, orden.getId_order());
+//		
+//	}
 //	
 
 	@Test
@@ -277,8 +276,6 @@ public void TestConstructorMenu() //PASS
 	assertEquals( order.getDateTime().getHour(), time.getHour());
 	assertEquals( order.getDateTime().getMinute(), time.getMinute());
 
-	
-	assertEquals( order.getId_order(), Order.currentid-1);
 	assertEquals(cero ,order.getPrice());
 }
 
@@ -286,8 +283,8 @@ public void TestConstructorMenu() //PASS
 	@Test
 	public void TestGetId_oderMenu() //PASS
 	{ 
-		Order orden = new Order();
-		assertEquals( Order.currentid -1, orden.getId_order());
+		Order neworden = new Order();
+		assertNotEquals( neworden.getId_order(), order.getId_order());
 		
 	}
 	//

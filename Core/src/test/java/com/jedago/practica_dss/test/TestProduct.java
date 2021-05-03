@@ -26,12 +26,12 @@ public class TestProduct
 	public void setup() 
 	{
 		id = 0;
-		bebida = new ProductType(1, "Bebidas");
-		bocadillo = new ProductType(2, "Bocadillos");
-		menu = new ProductType(3, "Menus");
+		bebida = new ProductType("Bebidas");
+		bocadillo = new ProductType("Bocadillos");
+		menu = new ProductType("Menus");
 		
-		cafe = new SingleProduct(++id, "Cafe con leche", 3, new BigDecimal("2"), bebida);	
-		sandwich = new SingleProduct(++id, "Sandwich", 4, new BigDecimal("2"), bocadillo);
+		cafe = new SingleProduct("Cafe con leche", 3, new BigDecimal("2"), bebida);	
+		sandwich = new SingleProduct("Sandwich", 4, new BigDecimal("2"), bocadillo);
 	}
 	
 	@After
@@ -43,14 +43,14 @@ public class TestProduct
 		cafe = null;
 		sandwich = null;
 	}
-	
-	@Test
-	public void TestGetID() 
-	{
-		assertEquals(1, cafe.getID());
-		assertEquals(2, sandwich.getID());
-	}
-	
+//	Test si los productos se establecen con id desde el ctor
+//	@Test 
+//	public void TestGetID() 
+//	{
+//		assertEquals(1, cafe.getID());
+//		assertEquals(2, sandwich.getID());
+//	}
+//	
 	@Test
 	public void TestSingleProductGetName() 
 	{
@@ -62,14 +62,14 @@ public class TestProduct
 	public void TestMenuConstructors() 
 	{
 		List<Product> SPList = new ArrayList<Product>();
-		Menu Des1 = new Menu(++id, "Desayuno", menu);
+		Menu Des1 = new Menu("Desayuno", menu);
 		assertTrue(Des1.getComponents().isEmpty());
 		Des1.add(cafe);
 		Des1.add(sandwich);
 		
 		SPList.add(cafe);
 		SPList.add(sandwich);
-		Menu Des2 = new Menu(++id, "Desayuno", menu, SPList);
+		Menu Des2 = new Menu("Desayuno", menu, SPList);
 		assertEquals(Des1.getComponents(), Des2.getComponents());
 	}
 	
@@ -83,7 +83,7 @@ public class TestProduct
 	@Test
 	public void TestMenuGetStock() 
 	{
-		Menu Des1 = new Menu(++id, "Desayuno", menu);
+		Menu Des1 = new Menu("Desayuno", menu);
 		Des1.add(cafe);
 		Des1.add(sandwich);
 		assertEquals(Des1.getStock(), Math.min(cafe.getStock(), sandwich.getStock()));
@@ -99,7 +99,7 @@ public class TestProduct
 	@Test
 	public void TestMenuGetPrice() 
 	{
-		Menu Des1 = new Menu(++id, "Desayuno", menu);
+		Menu Des1 = new Menu("Desayuno", menu);
 		Des1.add(cafe);
 		Des1.add(sandwich);
 		assertEquals( Des1.getPrice(), cafe.getPrice().add(sandwich.getPrice()));
@@ -115,7 +115,7 @@ public class TestProduct
 	@Test
 	public void TestMenuProductStock() 
 	{
-		Menu Des1 = new Menu(++id, "Desayuno", menu);
+		Menu Des1 = new Menu("Desayuno", menu);
 		Des1.add(cafe);
 		Des1.add(sandwich);
 		assertEquals(Des1.getStock(), cafe.getStock());

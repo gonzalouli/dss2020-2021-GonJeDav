@@ -37,6 +37,8 @@ public class SingleProduct implements Product{
 		this.stock = stock;
 		this.priceUnit = priceunit;
 		this.type = type;
+		this.id = UUID.randomUUID().toString();
+
 	}
 	
 	/**

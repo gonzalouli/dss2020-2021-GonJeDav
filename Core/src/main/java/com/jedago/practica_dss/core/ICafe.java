@@ -69,7 +69,7 @@ public interface ICafe {
 	 * @param id ID of the type of the products you want to get
 	 * @return List with the availables products
 	 */
-	public List<Product> getAvailableProductsbyType(int id);
+	public List<Product> getAvailableProductsbyType(String id);
 	
 	/**
 	 * Returns a set of registered orders
@@ -184,19 +184,19 @@ public interface ICafe {
 	 * To get an specified product by id
 	 * @return The product which is looked for
 	 */
-	public Optional<Product> getProductById(int id);
+	public Optional<Product> getProductById(String id);
 	
 	/**
 	 * To get an specified product type by id
 	 * @return The product type which is looked for
 	 */
-	public Optional<ProductType> getProductTypeById(int id);
+	public Optional<ProductType> getProductTypeById(String id);
 	
 	/**
 	 * To get an specified order by id
 	 * @return The order which is looked for
 	 */
-	public Optional<Order> getOrderById(int id);
+	public Optional<Order> getOrderById(String id);
 
 	/**
 	 * Delete an user with an id

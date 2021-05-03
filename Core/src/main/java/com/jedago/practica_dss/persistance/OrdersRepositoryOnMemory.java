@@ -16,7 +16,7 @@ public class OrdersRepositoryOnMemory implements OrdersRepository {
 	}
 	
 	@Override
-	public Optional<Order> findById(int id) {
+	public Optional<Order> findById(String id) {
 		
 		boolean found = false;
 		Order seekOrder = null, order;

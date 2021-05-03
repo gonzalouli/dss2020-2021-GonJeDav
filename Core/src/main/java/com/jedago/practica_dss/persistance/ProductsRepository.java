@@ -41,7 +41,7 @@ public interface ProductsRepository {
 	 * @return The product with that id
 	 * @throws Exception
 	 */
-	public Optional<Product> findById(int id) throws Exception;
+	public Optional<Product> findById(String id) throws Exception;
 	
 	/**
 	 * To get a product Type from its id
@@ -49,7 +49,7 @@ public interface ProductsRepository {
 	 * @return The productType with that id
 	 * @throws Exception
 	 */
-	public Optional<ProductType> findTypeById(int id) throws Exception;
+	public Optional<ProductType> findTypeById(String id) throws Exception;
 	
 	/**
 	 * To get the list of all registered products that have some stock from its type

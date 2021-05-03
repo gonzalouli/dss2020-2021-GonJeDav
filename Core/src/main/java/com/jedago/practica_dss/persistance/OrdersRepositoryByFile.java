@@ -46,7 +46,7 @@ public class OrdersRepositoryByFile implements OrdersRepository {
 	}
 
 	@Override
-	public Optional<Order> findById(int id) throws Exception {
+	public Optional<Order> findById(String id) throws Exception {
 		boolean found = false;
 		Order seekOrder = null, order;
 		List<Order> orders =  findAll();

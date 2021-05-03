@@ -87,7 +87,7 @@ public class BackendApplication {
 	//Esto saca dos veces el parámetro del tipo de producto
 	@JsonIgnore
 	@GetMapping("/products/type")
-	public List<Product> getProductsByType(@RequestParam int id) throws Exception 
+	public List<Product> getProductsByType(@RequestParam String id) throws Exception 
 	{
 		return cafe.getAvailableProductsbyType(id); 
 	}
@@ -131,20 +131,20 @@ public class BackendApplication {
 	
 	
 	@PostMapping("/order/time")
-	public void setPickUpTime( @RequestParam int idorder, @RequestParam LocalDateTime ldt) throws Exception 
+	public void setPickUpTime( @RequestParam String idorder, @RequestParam LocalDateTime ldt) throws Exception 
 	{
 		if(cafe.getOrderById(idorder).isPresent())
 			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
-	public long createOrder(@RequestParam String idUser) 
+	public String createOrder(@RequestParam String idUser) 
 	{
 		return cafe.newOrder(idUser).getId_order();
 	}
 	
 	@PostMapping("/order/product")
-	public void addProduct(@RequestParam(required=true) int idproduct, @RequestParam int cant, @RequestParam(required=true) int idorder ) 
+	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
 			Product newProduct = cafe.getProductById(idproduct).get();
@@ -153,8 +153,8 @@ public class BackendApplication {
 	}
 	
 	@DeleteMapping("/order/delete")
-	public void deleteProduct(@RequestParam(required=true) int idproduct, @RequestParam(required=true) int cant,
-			@RequestParam(required=true, name="idorder") int idorder ) 
+	public void deleteProduct(@RequestParam(required=true) String idproduct, @RequestParam(required=true) int cant,
+			@RequestParam(required=true, name="idorder") String idorder ) 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) 
 		{	
@@ -179,7 +179,7 @@ public class BackendApplication {
 	}
 
 	@PostMapping("/order/end")
-	public void finishOrder(@RequestParam(required=true) int idorder) throws Exception 
+	public void finishOrder(@RequestParam(required=true) String idorder) throws Exception 
 	{
 		EnvioEmail mail = new EnvioEmail();
 		if(  cafe.getOrderById(idorder).isPresent() ) 

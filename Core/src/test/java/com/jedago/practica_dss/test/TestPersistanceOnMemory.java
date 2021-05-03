@@ -46,8 +46,8 @@ public class TestPersistanceOnMemory {
 		lista_pedidos = new ArrayList<Order>();
 		lista_users = new ArrayList<User>();
 		price1 = new BigDecimal(2.5);
-		 t = new ProductType(1, "Bocadillo");
-		p1 = new SingleProduct(1, "Producto1", 3, price1, t);
+		 t = new ProductType("Bocadillo");
+		p1 = new SingleProduct("Producto1", 3, price1, t);
 		lista_productos.add(p1);
 		PR = new ProductsRepositoryOnMemory();
 		PR.save(lista_productos);

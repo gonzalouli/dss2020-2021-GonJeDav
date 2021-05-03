@@ -43,7 +43,7 @@ public class ProductsRepositoryOnMemory implements ProductsRepository {
 	}
 
 	@Override
-	public Optional<Product> findById(int id) throws Exception {
+	public Optional<Product> findById(String id) throws Exception {
 		
 		boolean found = false;
 		Product seekProduct = null, p;
@@ -66,7 +66,7 @@ public class ProductsRepositoryOnMemory implements ProductsRepository {
 	}
 	
 	@Override
-	public Optional<ProductType> findTypeById(int id) throws Exception {
+	public Optional<ProductType> findTypeById(String id) throws Exception {
 		List<ProductType> productTypes = this.findAllTypes();
 		boolean found = false;
 		ProductType seekType = null, t;
