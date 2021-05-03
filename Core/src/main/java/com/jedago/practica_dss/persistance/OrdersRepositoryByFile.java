@@ -56,7 +56,7 @@ public class OrdersRepositoryByFile implements OrdersRepository {
 		while(i.hasNext() && !found)
 		{
 			order = i.next();
-			if(order.getId_order()==id) 
+			if(order.getId_order().equals(id)) 
 			{
 				seekOrder = order;
 				found = true;
