@@ -101,7 +101,7 @@ public interface ICafe {
 	 * To delete several unit of a product from an order
 	 * @param ord the order in which you want to add the product
 	 * @param p the product which you want to be added
-	 * @param c the quantity of the product you wannt to delete 
+	 * @param c the quantity of the product you want to delete 
 	 */
 	public void deleteProductFromOrder(Order ord, Product p, int c);
 	

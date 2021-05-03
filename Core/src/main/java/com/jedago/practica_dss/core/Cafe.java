@@ -137,9 +137,10 @@ public class Cafe implements ICafe {
 	@Override
 	public List<ProductType> getAvailableProductTypes() {
 		List<ProductType> productTypeList = new ArrayList<ProductType>();
-		
+
 		try {
 			productTypeList = this.productsRepository.findAllTypes();
+
 		} catch (Exception e) {e.printStackTrace();}
 		
 		return productTypeList;
@@ -240,7 +241,7 @@ public class Cafe implements ICafe {
 			//Pillar de cada orderLine el producto y las cantidades
 			orderProduct = ol.getProduct();
 			orderQuantity = ol.getAmount();
-			
+
 			//Iteramos a través de la lista de productos disponibles
 			Iterator<Product> it = currentProducts.iterator();
 			Product registeredProduct;
@@ -279,7 +280,7 @@ public class Cafe implements ICafe {
 		try {
 			orders = this.ordersRepository.findAll();
 		} catch (Exception e) {e.printStackTrace();}
-		
+
 		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
 		for(Order o:orders)
 		{
@@ -290,6 +291,9 @@ public class Cafe implements ICafe {
 				cb.incrementOrders();
 				//Añadimos el total del pedido 
 				cb.addtoTotal(o.getPrice());
+				
+				System.out.println(o.getPrice());
+
 			}
 		}
 		

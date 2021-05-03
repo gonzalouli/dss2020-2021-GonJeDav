@@ -39,12 +39,14 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
+
 		}
 		else //Si no, devolvemos los FirstProducts
 		{
 			productList = FirstProducts.getFirstProducts();
 		}
-		
+
 		return productList;
 	}
 
@@ -66,11 +68,13 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 	@Override
 	public List<ProductType> findAllTypes() throws Exception {
 		List<ProductType> typeList = new ArrayList<ProductType>();
+
 		for(Product p : findAll())
 		{
 			if(!typeList.contains(p.getType()))
 				typeList.add(p.getType());
 		}
+
 		return typeList;
 	}
 
@@ -123,7 +127,7 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 		List<Product> products = new ArrayList<Product>();
 		for(Product p : findAllStockAvailable())
 		{
-			if(p.getType().getId() == pt.getId())
+			if(p.getType().getId().equals(pt.getId()))
 				products.add(p);
 		}
 		return products;

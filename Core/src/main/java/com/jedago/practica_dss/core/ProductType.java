@@ -9,7 +9,10 @@ import java.util.UUID;
  */
 public class ProductType implements Serializable {
 
-	private static final long serialVersionUID = -3544695254552823682L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2981205118937580274L;
 	/**
 	 * 
 	 */

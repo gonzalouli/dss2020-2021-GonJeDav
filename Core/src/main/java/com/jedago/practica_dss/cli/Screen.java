@@ -54,8 +54,10 @@ public class Screen   {
 			switch(option) 
 			{
 
-				case "1":	Order newOrder = currentCafe.newOrder();
-						 	currentOrder(currentCafe, newOrder);
+				case "1":	try{
+								Order newOrder = currentCafe.newOrder();
+								currentOrder(currentCafe, newOrder);
+							}catch(Exception e) {e.getMessage();}
 					break;
 				case "2": 	viewCashBox(currentCafe.getTodayCashBox());
 					break;
@@ -100,8 +102,12 @@ public class Screen   {
 				break;
 			case "2":  deleteProductFromCurrentOrder(currentCafe, currentOrder);
 				break;
-			case "3":  finishCurrentOrder(currentCafe, currentOrder);
-					   return;
+			case "3":  if(!currentOrder.isEmpty()) {
+							finishCurrentOrder(currentCafe, currentOrder);
+					   		return;
+						}else
+							System.out.println("Su pedido esta vacio, no se puede terminar un pedido vacio...");
+						break;
 			case "R":
 			case "r":
 				break;
@@ -119,12 +125,12 @@ public class Screen   {
 	 * @throws IOException 
 	 */
 	public static void selectProductType(ICafe currentCafe, Order currentOrder) throws IOException {
-		
+
 		int convertToInt = 0;
 		String option;
 		int index;
 		List<ProductType> productTypeList = currentCafe.getAvailableProductTypes();
-		
+
 		do {
 			index=1;
 			System.out.println("\n\n"); 
@@ -143,7 +149,7 @@ public class Screen   {
 		
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]") && !option.equals("") ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("") && !option.equals(" ")  ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -196,7 +202,7 @@ public class Screen   {
 			System.out.println("Introduzca una opción:"); 
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]") && !option.equals("")   ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("")  && !option.equals(" ")    ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -260,7 +266,7 @@ public class Screen   {
 			
 			option = sc.nextLine();
 
-			if( !option.matches("[a-zA-Z]") && !option.equals("") ) {
+			if( !option.matches("[a-zA-Z]") && !option.equals("") && !option.equals(" ") ) {
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -269,7 +275,8 @@ public class Screen   {
 						System.out.println("Introduzca la cantidad a eliminar:"); 
 						cant = scCantidad.nextInt();
 					}while(cant<0);
-					currentCafe.deleteProductFromOrder(currentOrder, productsInOrder.get(convertToInt-1).getProduct(), cant);
+					
+					currentCafe.deleteProductFromOrder(currentOrder, productsInOrder.get(convertToInt-1).getProduct()  , cant);
 				
 				}else
 						System.out.println("No existe ese producto en el pedido, pruebe otra vez...");
@@ -322,7 +329,6 @@ public class Screen   {
 						e.printStackTrace();
 					}
 				break;
-
 			default: System.out.println("Seleccione una opcion valida...");
 			}
 		}while(!option.equalsIgnoreCase("R"));	

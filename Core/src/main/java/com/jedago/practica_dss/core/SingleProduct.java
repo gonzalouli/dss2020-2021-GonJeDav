@@ -11,7 +11,11 @@ import java.util.UUID;
  */
 public class SingleProduct implements Product{
 	
-	private static final long serialVersionUID = 2836988550921564899L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7796674007914533608L;
 	private String	name;
 	private String		id; 
 	private int 	stock;

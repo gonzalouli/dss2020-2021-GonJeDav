@@ -15,8 +15,7 @@ public class FirstProducts {
 
 	public static List<Product> getFirstProducts()
 	{
-		int id_products = 0;
-		int id_types = 0;
+
 		
 		ProductType Complementos = new ProductType("Complemento");
 		ProductType Bebidas = new ProductType("Bebidas");

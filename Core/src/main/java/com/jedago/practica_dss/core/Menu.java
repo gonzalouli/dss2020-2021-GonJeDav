@@ -16,7 +16,11 @@ import java.util.UUID;
  */
 public class Menu implements Product {
 	
-	private static final long serialVersionUID = 9051623461335977451L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5832190653296602944L;
 	private String	id;
 	private String	name;
 	private ProductType type; 
