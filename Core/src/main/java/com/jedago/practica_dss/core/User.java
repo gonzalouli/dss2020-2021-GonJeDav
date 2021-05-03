@@ -17,17 +17,16 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1854084262648629283L;
-	public static long currentid_user = 1;
 	private List<Order> orderList;
-	private String id_user;
+	private final String id_user;
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
 	private String dni;
 	
-	
-	
-	public User() {}
+	public User() {
+		this.id_user = UUID.randomUUID().toString();
+	}
 	
 	/** 
 	* Create an user;
@@ -41,21 +40,13 @@ public class User implements Serializable {
 		Period period = Period.between(birthDate, now);
 		
 		assert(period.getYears()>=18);
-		
+		this.id_user = UUID.randomUUID().toString();
 		orderList = new ArrayList<Order>();
-		//this.id_user = firstName+lastName+dni;
-
-		//this.id_user = UUID.randomUUID().toString();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.dni = dni;
 	}
-	
-	public void setId(String id) {
-		this.id_user=id;
-	}
-	
 	
 	/** 
      * Bind a new order to an existing user.

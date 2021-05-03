@@ -119,7 +119,6 @@ public class BackendApplication {
 	@PostMapping("/user")
 	public void newUser(@RequestBody User newUser) throws Exception 
 	{
-		
 		cafe.registerUser(newUser);
 	}
 	

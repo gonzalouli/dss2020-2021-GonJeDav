@@ -83,7 +83,7 @@ public class UsersRepositoryByFile implements UsersRepository {
 	public void add(User u) throws Exception {
 		List<User> usersList = findAll();
 		assert(u.getAge()>=18);
-		u.setId( UUID.randomUUID().toString());
+		//u.setId( UUID.randomUUID().toString());
 
 		usersList.add(u);
 		save(usersList);
