@@ -53,6 +53,9 @@ public class Cafe implements ICafe {
 	 */
 	public Order newOrder() {
 		Order o = new Order();
+		try {
+			this.ordersRepository.add(o);
+		} catch (Exception e) {e.printStackTrace();}
 		return o;
 	}
 	
@@ -62,6 +65,10 @@ public class Cafe implements ICafe {
 		Order o = new Order();
 		o.setUser(u);
 		u.setOrder(o);
+		try {
+			this.usersRepository.update(u.getIdUser(), u);
+			this.ordersRepository.add(o);
+		} catch (Exception e) {e.printStackTrace();}
 		return o;
 	}
 	
@@ -93,6 +100,9 @@ public class Cafe implements ICafe {
 	public void setPickUpTime(Order o, LocalDateTime t)
 	{
 		o.setPickUpTime(t);
+		try {
+			this.ordersRepository.update(o.getId_order(), o);
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	@Override
@@ -181,7 +191,12 @@ public class Cafe implements ICafe {
 	 */
 	public void addProductToOrder(Order ord, Product p, int c) throws NoStockException{
 		if(p.getStock() >= c || c < 1)
+		{
 			ord.addProductToOrder(p, c);
+			try {
+				this.ordersRepository.update(ord.getId_order(), ord);
+			} catch (Exception e) {e.printStackTrace();}
+		}
 		else
 			throw new NoStockException("No hay suficiente stock del producto " + p.getID());
 	}
@@ -193,7 +208,7 @@ public class Cafe implements ICafe {
 	 * @param p the product which you want to be added
 	 */ 
 	public void deleteProductFromOrder(Order ord, Product p) {
-		ord.deleteProductFromOrder(p, 1);
+		this.deleteProductFromOrder(ord, p, 1);
 	}
 	
 	@Override
@@ -205,6 +220,9 @@ public class Cafe implements ICafe {
 	 */
 	public void deleteProductFromOrder(Order ord, Product p, int c) {
 		ord.deleteProductFromOrder(p, c);
+		try {
+			this.ordersRepository.update(ord.getId_order(), ord);
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	@Override
@@ -244,7 +262,7 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
-		this.ordersRepository.add(ord);
+		this.ordersRepository.update(ord.getId_order(), ord);
 		this.productsRepository.save(currentProducts);
 	}
 

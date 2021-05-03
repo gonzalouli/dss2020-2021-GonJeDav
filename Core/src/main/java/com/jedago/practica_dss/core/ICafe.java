@@ -7,8 +7,6 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 
 /**
