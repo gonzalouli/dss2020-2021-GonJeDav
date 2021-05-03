@@ -25,6 +25,7 @@ import com.jedago.practica_dss.core.OrderLine;
 import com.jedago.practica_dss.core.Product;
 import com.jedago.practica_dss.core.ProductType;
 import com.jedago.practica_dss.core.User;
+import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepositoryByFile;
 import com.jedago.practica_dss.persistance.ProductsRepositoryByFile;
 import com.jedago.practica_dss.persistance.UsersRepositoryByFile;
@@ -107,16 +108,12 @@ public class BackendApplication {
 		List<Order> orders = null;
 		if(u.isPresent()) 
 		{
-			System.out.println("El user está presente");
 			orders = cafe.getUserOrders(u.get());
-			System.out.println("Sus pedidos son:");
 			for(Order or : orders)
 			{
 				System.out.println(or.getId_order());
 			}
 		}
-			
-		
 		return orders;  
 	}
 	
@@ -144,11 +141,11 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/product")
-	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) 
+	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) throws NoStockException 
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
 			Product newProduct = cafe.getProductById(idproduct).get();
-			cafe.getOrderById(idorder).get().addProductToOrder(newProduct, cant);
+			cafe.addProductToOrder(cafe.getOrderById(idorder).get(), newProduct, cant);
 		}
 	}
 	
@@ -158,14 +155,9 @@ public class BackendApplication {
 	{
 		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) 
 		{	
-			List<OrderLine> orderLineProducts = cafe.getOrderById(idorder).get().getProducts();
 			Product oldProduct = cafe.getProductById(idproduct).get();
-			
-			for(OrderLine ol: orderLineProducts )
-				if(ol.getProduct()==oldProduct) {
-					cafe.getOrderById(idorder).get().deleteProductFromOrder( cafe.getProductById(idproduct).get(), cant);
-					return;
-				}
+			Order order = cafe.getOrderById(idorder).get();
+			cafe.deleteProductFromOrder(order , oldProduct, cant );
 		}
 	}
 	
