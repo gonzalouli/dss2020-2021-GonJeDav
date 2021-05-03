@@ -109,7 +109,16 @@ public class BackendApplication {
 		Optional<User> u = cafe.getUserById(iduser);
 		List<Order> orders = null;
 		if(u.isPresent()) 
+		{
+			System.out.println("El user está presente");
 			orders = cafe.getUserOrders(u.get());
+			System.out.println("Sus pedidos son:");
+			for(Order or : orders)
+			{
+				System.out.println(or.getId_order());
+			}
+		}
+			
 		
 		return orders;  
 	}
@@ -117,9 +126,10 @@ public class BackendApplication {
 	//RequestParam va en la URI
 	//RequestBody va en la petición HTTP
 	@PostMapping("/user")
-	public void newUser(@RequestBody User newUser) throws Exception 
+	public String newUser(@RequestBody User newUser) throws Exception 
 	{
 		cafe.registerUser(newUser);
+		return newUser.getIdUser();
 	}
 	
 	
@@ -131,9 +141,9 @@ public class BackendApplication {
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
-	public Order createOrder(@RequestParam String idUser) 
+	public long createOrder(@RequestParam String idUser) 
 	{
-		return cafe.newOrder(idUser);
+		return cafe.newOrder(idUser).getId_order();
 	}
 	
 	@PostMapping("/order/product")

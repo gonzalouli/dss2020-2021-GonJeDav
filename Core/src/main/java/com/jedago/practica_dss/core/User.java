@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 /**@author Gonzalo Ulibarri Garcia
@@ -17,7 +19,6 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1854084262648629283L;
-	private List<Order> orderList;
 	private final String id_user;
 	private String firstName;
 	private String lastName;
@@ -26,6 +27,7 @@ public class User implements Serializable {
 	
 	public User() {
 		this.id_user = UUID.randomUUID().toString();
+		orderList = new ArrayList<Order>();
 	}
 	
 	/** 
@@ -55,6 +57,11 @@ public class User implements Serializable {
 	public void setOrder(Order o) 
 	{
 		orderList.add(o);
+		System.out.println("Los pedidos del user son:");
+		for(Order or: this.orderList)
+		{
+			System.out.println(or.getId_order());
+		}
 	}
 	
 	
@@ -64,6 +71,11 @@ public class User implements Serializable {
 	 */
 	public List<Order> getOrders() 
 	{
+		System.out.println("Desde getOrders de user, los pedidos son:");
+		for(Order or : orderList)
+		{
+			System.out.println(or.getId_order());
+		}
 		return orderList;
 	}
 	
