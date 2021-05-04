@@ -57,7 +57,8 @@ public class Screen   {
 				case "1":	try{
 								Order newOrder = currentCafe.newOrder();
 								currentOrder(currentCafe, newOrder);
-							}catch(Exception e) {e.getMessage();}
+							}catch(Exception e) {
+							System.out.println("Excepcion producida, pedido sin efecto");}
 					break;
 				case "2": 	viewCashBox(currentCafe.getTodayCashBox());
 					break;

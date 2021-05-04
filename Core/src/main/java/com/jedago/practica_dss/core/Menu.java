@@ -54,6 +54,7 @@ public class Menu implements Product {
 		this.name = name;
 		this.type = type;
 		components = lp;
+		this.id = UUID.randomUUID().toString();
 	}
 	
 	/**

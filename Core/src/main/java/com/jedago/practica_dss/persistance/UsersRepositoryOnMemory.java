@@ -3,8 +3,6 @@ package com.jedago.practica_dss.persistance;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import com.jedago.practica_dss.core.User;
 
 public class UsersRepositoryOnMemory implements UsersRepository {

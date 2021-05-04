@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepository;
@@ -251,7 +250,7 @@ public class Cafe implements ICafe {
 			{
 				registeredProduct = it.next();
 				//Actualizarlos de la lista de productos disponibles
-				if(registeredProduct.getID() == orderProduct.getID())
+				if(registeredProduct.getID().equals(orderProduct.getID()))
 				{
 					if(registeredProduct.getStock() >= orderQuantity)
 						//Restarle la cantidad al stock

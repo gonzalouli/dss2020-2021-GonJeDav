@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 import com.jedago.practica_dss.core.User;
 
 public class UsersRepositoryByFile implements UsersRepository {
