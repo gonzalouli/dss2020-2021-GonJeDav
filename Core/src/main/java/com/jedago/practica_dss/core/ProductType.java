@@ -1,6 +1,7 @@
 package com.jedago.practica_dss.core;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author Jesús Serrano Gallán
@@ -8,25 +9,32 @@ import java.io.Serializable;
  */
 public class ProductType implements Serializable {
 
-	private static final long serialVersionUID = -3544695254552823682L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2981205118937580274L;
 	/**
 	 * 
 	 */
 
-	private int id;
+	private String id;
 	private String TypeName;
-	private static int LastId = 0;
+	
+	public ProductType() {
+		super();
+		this.id = UUID.randomUUID().toString();
+	}
 
 	public ProductType(String TypeName) {
-		LastId++;
-		this.id = LastId;
 		this.TypeName = TypeName;
+		this.id = UUID.randomUUID().toString();
+
 	}
 
 	/**
 	 * @return Return the id_.
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 

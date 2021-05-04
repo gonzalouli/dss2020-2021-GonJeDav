@@ -26,7 +26,7 @@ public interface Product extends Serializable{
      * @return The ID of  a product.
      * 
      **/
-	public int getID();
+	public String getID();
 	
 	/** 
      * @return The name of  a product.

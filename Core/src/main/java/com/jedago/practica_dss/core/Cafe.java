@@ -4,33 +4,45 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import com.jedago.practica_dss.core.exceptions.NoStockException;
 import com.jedago.practica_dss.persistance.OrdersRepository;
 import com.jedago.practica_dss.persistance.ProductsRepository;
+import com.jedago.practica_dss.persistance.UsersRepository;
 
 /**
  * @author Jesús Serrano Gallán
  *	@version 2.0
  */
 public class Cafe implements ICafe {
-
-	private List<Order> orders;
-	private List<Product> products;
 	private OrdersRepository ordersRepository;
 	private ProductsRepository productsRepository;
+	private UsersRepository usersRepository;
 	
 	/**
-	 * Constructor
-	 * @param orders List of initial orders (regularly a void one)
-	 * @param products List of initial available products
-	 * @throws Exception 
+	 * Constructor with orders and products repository
+	 * @param orders Repository with the orders in the system
+	 * @param products Repository with the products in the system
+	 * @throws Exception
+
 	 */
 	public Cafe(OrdersRepository orders, ProductsRepository products) throws Exception { 
 		this.ordersRepository = orders;
-		this.orders = orders.readOrders();
 		this.productsRepository = products;
-		this.products = products.readProducts();
+	}
+	
+	/**
+	 * Constructor with orders, products and users repository
+	 * @param orders Repository with the orders in the system
+	 * @param products Repository with the products in the system
+	 * @param users Repository with the users in the system
+	 * @throws Exception
+	 */
+	public Cafe(OrdersRepository orders, ProductsRepository products, UsersRepository users) throws Exception { 
+		this.ordersRepository = orders;
+		this.productsRepository = products;
+		this.usersRepository = users;
 	}
 	
 	@Override
@@ -40,7 +52,56 @@ public class Cafe implements ICafe {
 	 */
 	public Order newOrder() {
 		Order o = new Order();
+		try {
+			this.ordersRepository.add(o);
+		} catch (Exception e) {e.printStackTrace();}
 		return o;
+	}
+	
+	@Override
+	public Order newOrder(User u)
+	{
+		Order o = new Order();
+		o.setUser(u);
+		u.setOrder(o);
+		try {
+			this.usersRepository.update(u.getIdUser(), u);
+			this.ordersRepository.add(o);
+		} catch (Exception e) {e.printStackTrace();}
+		return o;
+	}
+	
+	@Override
+	public Order newOrder(String uid)
+	{
+		Order o = new Order();
+		Optional<User> user = Optional.empty();
+		try {
+			user = this.usersRepository.findById(uid);
+		} catch (Exception e) {e.printStackTrace();}
+		if(user.isPresent())
+		{
+			o.setUser(user.get());
+			user.get().setOrder(o);
+			try {
+				this.usersRepository.update(user.get().getIdUser(), user.get());
+				this.ordersRepository.add(o);
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		return o;
+	}
+	
+	/**
+	 * Set the desired pickup time for the order
+	 * @param o Order to set the collection time
+	 * @param t Time to pick up the order
+	 */
+	public void setPickUpTime(Order o, LocalDateTime t)
+	{
+		o.setPickUpTime(t);
+		try {
+			this.ordersRepository.update(o.getId_order(), o);
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	@Override
@@ -48,56 +109,82 @@ public class Cafe implements ICafe {
 	 * Returns a set of registered orders
 	 * @return List with the registered orders
 	 */
-	public List<Order> getRegisteredOrders() {
+	public List<Order> getRegisteredOrders(){
+		List<Order> orders = new ArrayList<Order>();
+		try {
+			orders = this.ordersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
 		return orders;
 	}
 	
-	@Override
+
 	/**
 	 * Returns a set of available products
-	 * @return List with the availables products
+	 * @return List with the available products
 	 */
+	@Override
 	public List<Product> getAvailableProducts() {
 		
-		List<Product> availableProduct = new ArrayList<Product>();
+		List<Product> availableProducts = new ArrayList<Product>();
 		
-		for(Product p: products)
-		{
-			if(p.getStock()>0)
-			{
-				availableProduct.add(p);
-			}
-		}
+		try {
+			availableProducts = this.productsRepository.findAllStockAvailable();
+		} catch (Exception e) {e.printStackTrace();}
 		
-		return availableProduct;
+		return availableProducts;
 	}
 	
+	/**
+	 * Returns a set of available product types.
+	 * @return List with the available products types
+	 */
 	@Override
 	public List<ProductType> getAvailableProductTypes() {
 		List<ProductType> productTypeList = new ArrayList<ProductType>();
-		
-		for(Product p: products)
-		{
-			if(!productTypeList.contains(p.getType()))
-				productTypeList.add(p.getType());
-		}
+
+		try {
+			productTypeList = this.productsRepository.findAllTypes();
+
+		} catch (Exception e) {e.printStackTrace();}
 		
 		return productTypeList;
 	}
 	
+	/**
+	 * Returns a set of available product.
+	 * @param t Product type to filter the products to return.
+	 * @return List with the available products.
+	 */
 	@Override
 	public List<Product> getAvailableProductsbyType(ProductType t) {
 		List<Product> seekProducts = new ArrayList<Product>();
 		  
-		for(Product p: products)
-		{
-			if(p.getType().equals(t) && p.getStock()>0)
-			{
-				seekProducts.add(p);
-			}
-		}
-		
+		try {
+			seekProducts = this.productsRepository.findAllStockAvailableByType(t);
+		} catch (Exception e) {e.printStackTrace();}
 		return seekProducts;
+	}
+	
+	/**
+	 * Returns a set of available product.
+	 * @param id ID to the product type to filter the products to return.
+	 * @return List with the available products.
+	 */
+	@Override
+	public List<Product> getAvailableProductsbyType(String id) {
+		List<Product> productList = new ArrayList<Product>();
+		Optional<ProductType> seekProductType = Optional.empty();
+		
+		try {
+			seekProductType = this.productsRepository.findTypeById(id);
+		} catch (Exception e1) {e1.printStackTrace();}
+		
+		if(seekProductType.isPresent())
+			try {
+				productList = this.productsRepository.findAllStockAvailableByType(seekProductType.get());
+			} catch (Exception e) {e.printStackTrace();}
+	
+		return productList;
 	}
 
 	@Override
@@ -119,7 +206,12 @@ public class Cafe implements ICafe {
 	 */
 	public void addProductToOrder(Order ord, Product p, int c) throws NoStockException{
 		if(p.getStock() >= c || c < 1)
+		{
 			ord.addProductToOrder(p, c);
+			try {
+				this.ordersRepository.update(ord.getId_order(), ord);
+			} catch (Exception e) {e.printStackTrace();}
+		}
 		else
 			throw new NoStockException("No hay suficiente stock del producto " + p.getID());
 	}
@@ -131,7 +223,7 @@ public class Cafe implements ICafe {
 	 * @param p the product which you want to be added
 	 */ 
 	public void deleteProductFromOrder(Order ord, Product p) {
-		ord.deleteProductFromOrder(p, 1);
+		this.deleteProductFromOrder(ord, p, 1);
 	}
 	
 	@Override
@@ -143,6 +235,9 @@ public class Cafe implements ICafe {
 	 */
 	public void deleteProductFromOrder(Order ord, Product p, int c) {
 		ord.deleteProductFromOrder(p, c);
+		try {
+			this.ordersRepository.update(ord.getId_order(), ord);
+		} catch (Exception e) {e.printStackTrace();}
 	}
 
 	@Override
@@ -151,52 +246,57 @@ public class Cafe implements ICafe {
 	 * @param ord the order you want to register
 	 */
 	public void FinishOrder(Order ord) throws Exception{
-		Product p;
-		int c;
+		Product orderProduct;
+		int orderQuantity;
 		boolean found;
+		List<Product> currentProducts = this.productsRepository.findAll();
 		for(OrderLine ol: ord) //Recorro los orderLine de cada order
 		{
 			//Pillar de cada orderLine el producto y las cantidades
-			p = ol.getProduct();
-			c = ol.getAmount();
-			
+			orderProduct = ol.getProduct();
+			orderQuantity = ol.getAmount();
+
 			//Iteramos a través de la lista de productos disponibles
-			Iterator<Product> it = products.iterator();
-			Product ip;
+			Iterator<Product> it = currentProducts.iterator();
+			Product registeredProduct;
 			found=false;
 			
 			while(!found && it.hasNext())
 			{
-				ip = it.next();
+				registeredProduct = it.next();
 				//Actualizarlos de la lista de productos disponibles
-				if(( ip.getID() == p.getID()))
+				if(registeredProduct.getID().equals(orderProduct.getID()))
 				{
-					if(p.getStock() >= c)
+					if(registeredProduct.getStock() >= orderQuantity)
 						//Restarle la cantidad al stock
-						ip.setStock(ip.getStock() - c); 
+						registeredProduct.setStock(registeredProduct.getStock() - orderQuantity); 
 					else
-						throw new NoStockException("No hay suficiente stock del producto " + p.getID());
+						throw new NoStockException("No hay suficiente stock del producto " + orderProduct.getID());
 					
 					found=true;
 				}
 			}
 		}
-		orders.add(ord);
-		
-		//Controlamos serialización
-		this.ordersRepository.writeOrders(orders);
-		this.productsRepository.writeProducts(products);
+		//System.out.println(ord.getPrice());
+		this.ordersRepository.update(ord.getId_order(), ord);
+		this.productsRepository.save(currentProducts);
+
 	}
 
 	@Override
 	/**
-	 * Returs the amount of registered orders and the money earned in a day
+	 * Returns the amount of registered orders and the money earned in a day
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 * @param date The date of the CashBox you want to check
 	 */
 	public CashBox getCashBox(LocalDate date)
 	{
 		CashBox cb = new CashBox();
+		List<Order> orders = new ArrayList<Order>();
+		try {
+			orders = this.ordersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
+
 		//Recorrer la lista de pedidos y meter en el CashBox los pedidos con la fecha deseada
 		for(Order o:orders)
 		{
@@ -207,16 +307,182 @@ public class Cafe implements ICafe {
 				cb.incrementOrders();
 				//Añadimos el total del pedido 
 				cb.addtoTotal(o.getPrice());
+				
+				System.out.println(o.getPrice());
+
 			}
 		}
 		
 		return cb;
 	}
 
+	/**
+	 * Returns the amount of registered orders and the money earned today
+	 * @return a CashBox with the amount of orders registered and the money earned
+	 */
 	@Override
 	public CashBox getTodayCashBox() {
 		LocalDate today = LocalDate.now();
-		return this.getCashBox(today);
+		CashBox todayCashBox = new CashBox(); 
+		try {
+			todayCashBox = this.getCashBox(today);
+		} catch (Exception e) {e.printStackTrace();}
+		return todayCashBox;
 	}
+
+	/**
+	 * Returns the id of the current register User
+	 * @return a String that represent the user
+	 * @param u User to add to the repository.
+	 */
+	@Override
+	public String registerUser(User u) throws Exception {
+		this.usersRepository.add(u);
+		return u.getIdUser();
+	}
+
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newFirstName New parameter to update in user u.
+	 */
+	@Override
+	public void updateUserFirstName(User u, String newFirstName) throws Exception {
+		String id = u.getIdUser();
+		u.setFirstName(newFirstName);
+		this.usersRepository.update(id, u);
+	}
+
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newLastName New parameter to update in user u.
+	 */
+	@Override
+	public void updateUserLastName(User u, String newLastName) throws Exception{
+		String id =  u.getIdUser();
+		u.setLastName(newLastName);
+		this.usersRepository.update(id, u);
+	}
+
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newBirthDate New parameter to update in user u.
+	 */
+	@Override
+	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception{
+		String id =  u.getIdUser();
+		u.setBirthDate(newBirthDate);
+		this.usersRepository.update(id, u);
+	}
+
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newBirthDate New parameter to update in user u.
+	 */
+	@Override
+	public void updateUserDNI(User u, String newDNI) throws Exception{
+		String id =  u.getIdUser();
+		u.setDni(newDNI);
+		this.usersRepository.update(id, u);
+	}
+
+	/**
+	 * Get the orders with a user given.
+	 * @return A list of orders that own to user u
+	 * @param u The user to own all orders.
+	 */
+	@Override
+	public List<Order> getUserOrders(User u) {
+		List<Order> orderList = new ArrayList<Order>();
+		orderList = u.getOrders();
+		return orderList;
+	}
+
+	/**
+	 * Get all the users of the system.
+	 * @return A list of users registered.
+	 */
+	@Override
+	public List<User> getRegisteredUsers() {
+		List<User> users = new ArrayList<User>();
+		try {
+			users = this.usersRepository.findAll();
+		} catch (Exception e) {e.printStackTrace();}
+		return users;
+	}
+
+	/**
+	 * Get an optional of an user by an id.
+	 * @return A optional user.
+	 * @param id The id of the user to return.
+	 */
+	@Override
+	public Optional<User> getUserById(String id) {
+		Optional<User> u = null;
+		try {
+			u = this.usersRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return u;
+	}
+
+	/**
+	 * Get an optional of a product by an id.
+	 * @return A optional product.
+	 * @param id The id of the product to return.
+	 */
+	@Override
+	public Optional<Product> getProductById(String id) {
+		Optional<Product> p = null;
+		try {
+			p = this.productsRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return p;
+	}
+
+	/**
+	 * Get an optional of a product type by an id.
+	 * @return A optional product type.
+	 * @param id The id of the product type to return.
+	 */
+	@Override
+	public Optional<ProductType> getProductTypeById(String id) {
+		Optional<ProductType> pt = null;
+		try {
+			pt = this.productsRepository.findTypeById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return pt;
+	}
+
+	/**
+	 * Get an optional of a product type by an id.
+	 * @return A optional product type.
+	 * @param id The id of the product type to return.
+	 */
+	@Override
+	public Optional<Order> getOrderById(String id) {
+		Optional<Order> o = null;
+		try {
+			o = this.ordersRepository.findById(id);
+		} catch (Exception e) {e.printStackTrace();}
+		return o;
+	}
+	
+	/**
+	 * Delete an user by an id.
+	 * @param id The id of the user to delete.
+	 */
+	@Override
+	public void deleteUserbyId(String id)
+	{ 
+		Optional<User> u = this.getUserById(id);
+		if(u.isPresent())
+			try {
+				this.usersRepository.delete(u.get());
+			} catch (Exception e) {e.printStackTrace();}
+	}
+	
 
 }

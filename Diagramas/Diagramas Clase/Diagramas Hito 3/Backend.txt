@@ -1,0 +1,40 @@
+@startuml
+class EmailServiceImpl [[java:com.jedago.practica_dss.backend.EmailServiceImpl]] {
+	+void sendSimpleMessage(Order order, JavaMailSender emailSender)
+	+MimeMessage send(Email mimeEmail)
+	+MimeMessage send(Email mimeEmail, String template, Map<String,Object> modelObject, InlinePicture[] inlinePictures)
+}
+interface EmailService [[java:it.ozimov.springboot.mail.service.EmailService]] {
+}
+EmailService <|.. EmailServiceImpl
+class BackendApplication [[java:com.jedago.practica_dss.backend.BackendApplication]] {
+	-{static}OrdersRepositoryByFile or
+	-{static}ProductsRepositoryByFile pr
+	-{static}UsersRepositoryByFile ur
+	-{static}Cafe cafe
+	-JavaMailSender emailSender
+	+Docket api()
+	+JavaMailSender getJavaMailSender()
+	+{static}void main(String[] args)
+	+List<Product> getProducts()
+	+List<Order> getAllOrders()
+	+List<ProductType> getProductTypes()
+	+List<Product> getProductsByType(String id)
+	+List<User> getUsers()
+	+List<String> getUserOrders(String iduser)
+	+String newUser(User newUser)
+	+void setPickUpTime(String idorder, LocalDateTime ldt)
+	+Order getOrderWithID(String id_order)
+	+String createOrder(String idUser)
+	+void addProduct(String idproduct, int cant, String idorder)
+	+void deleteProduct(String idproduct, int cant, String idorder)
+	+CashBox getCashBox(LocalDate ld)
+	+void finishOrder(String idorder)
+	+void updateUserFirstName(String id_user, String firstname)
+	+void updateUserLastName(String id_user, String lastname)
+	+void updateUserDni(String id_user, String dni)
+	+void updateUserBirthdate(String id_user, String birthdate)
+	+void deleteUser(String id_user)
+}
+BackendApplication --> EmailService
+@enduml

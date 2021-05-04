@@ -1,0 +1,20 @@
+@startuml
+class VoidOrderException [[java:com.jedago.practica_dss.core.exceptions.VoidOrderException]] {
+	-{static}long serialVersionUID
+	+VoidOrderException(String message)
+	+VoidOrderException(Throwable cause)
+	+VoidOrderException(String message, Throwable cause)
+}
+class Exception [[java:com.sun.tools.jdi.JDWP$Event$Composite$Events$Exception]] {
+}
+Exception <|-- VoidOrderException
+class NoStockException [[java:com.jedago.practica_dss.core.exceptions.NoStockException]] {
+	-{static}long serialVersionUID
+	+NoStockException(String message)
+	+NoStockException(Throwable cause)
+	+NoStockException(String message, Throwable cause)
+}
+class Exception [[java:com.sun.tools.jdi.JDWP$Event$Composite$Events$Exception]] {
+}
+Exception <|-- NoStockException
+@enduml

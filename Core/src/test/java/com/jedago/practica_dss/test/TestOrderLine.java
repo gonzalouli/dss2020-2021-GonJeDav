@@ -16,11 +16,10 @@ import com.jedago.practica_dss.core.SingleProduct;
 
 public class TestOrderLine {
 	
-	private static int idProduct=0;
 	private int amount;
 	private OrderLine testOrderLineProductSimple;
 	private OrderLine testOrderLineProductMenu;
-
+	private Product p2;
 	private Product p;
 	private Menu men;
 	private int cash = 2;
@@ -35,10 +34,10 @@ public class TestOrderLine {
 		 m = new ProductType("Menu");
 
 		
-		p = new SingleProduct(++idProduct,"producto", 4, precio, t);
-		Product p2 = new SingleProduct(++idProduct, "producto2", 5, precio, t);
+		p = new SingleProduct("producto", 4, precio, t);
+	    p2 = new SingleProduct("producto2", 5, precio, t);
 		amount = 1;
-		men = new Menu(++idProduct,"Menu1", m);
+		men = new Menu("Menu1", m);
 		
 		men.add(p);
 		men.add(p2);
@@ -64,6 +63,7 @@ public class TestOrderLine {
 		assertNotNull(p);
 		assertEquals(amount, 1);
 		assertEquals(testOrderLineProductSimple.getProduct(), p);
+		assertNotEquals(p.getID(),p2.getID());
 		
 	}
 	
@@ -78,7 +78,7 @@ public class TestOrderLine {
 	@Test
 	public void TestsetProductSingle() 
 	{
-		Product np = new SingleProduct(++idProduct,"productoprueba", 2, precio, t);
+		Product np = new SingleProduct("productoprueba", 2, precio, t);
 		
 		
 		testOrderLineProductSimple.setProduct(np);
@@ -149,13 +149,13 @@ public void TestgetProductMenu()
 @Test
 public void TestsetProductMenu() 
 {
-	Menu m2 = new Menu(++idProduct,"productomenuprueba", m);
+	Menu m2 = new Menu("productomenuprueba", m);
 	
 	
 	testOrderLineProductMenu.setProduct(m2);
 	
 	assertEquals(testOrderLineProductMenu.getProduct(), m2);
-	
+	assertNotEquals(m2.getID(),men.getID());
 	
 
 }

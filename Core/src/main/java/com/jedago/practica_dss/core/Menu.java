@@ -6,6 +6,7 @@ package com.jedago.practica_dss.core;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @version 1.0 12/4/21
@@ -15,37 +16,45 @@ import java.util.List;
  */
 public class Menu implements Product {
 	
-	private static final long serialVersionUID = 9051623461335977451L;
-	private int		id;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5832190653296602944L;
+	private String	id;
 	private String	name;
 	private ProductType type; 
 	private List<Product> components;
 	
+	
+	public Menu() {
+		super();
+		this.id = UUID.randomUUID().toString();
+	}
 	/**
 	 * Constructor for a void menu.
-	 * @param id id of the menu.
 	 * @param name name of the menu.
 	 * @param type type of the product menu.
 	 */
-	public Menu(int id, String name, ProductType type) {
-		this.id = id;
+	public Menu(String name, ProductType type) {
 		this.name = name;
 		this.type = type;
 		components = new ArrayList<Product>();
+		this.id = UUID.randomUUID().toString();
+
 	}
 	
 	/**
 	 * Constructor for a menu with some products.
-	 * @param id id of the menu.
 	 * @param name name of the menu.
 	 * @param type type of the product menu.
 	 * @param lp list of products inside the menu.
 	 */
-	public Menu(int id, String name, ProductType type, List<Product> lp) {
-		this.id = id;
+	public Menu(String name, ProductType type, List<Product> lp) {
 		this.name = name;
 		this.type = type;
 		components = lp;
+		this.id = UUID.randomUUID().toString();
 	}
 	
 	/**
@@ -86,7 +95,7 @@ public class Menu implements Product {
 	}
 
 	@Override
-	public int getID() {
+	public String getID() {
 		return id;
 	}
 

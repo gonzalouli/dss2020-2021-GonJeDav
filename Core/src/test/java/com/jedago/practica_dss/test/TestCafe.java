@@ -1,3 +1,4 @@
+
 package com.jedago.practica_dss.test;
 
 import static org.junit.Assert.assertEquals;
@@ -40,12 +41,12 @@ public class TestCafe {
 		lista_pedidos = new ArrayList<Order>();
 		price1 = new BigDecimal(2.5);
 		 t = new ProductType("Bocadillo");
-		p1 = new SingleProduct(1, "Producto1", 3, price1, t);
+		p1 = new SingleProduct("Producto1", 3, price1, t);
 		lista_productos.add(p1);
 		PR = new ProductsRepositoryOnMemory();
-		PR.writeProducts(lista_productos);
+		PR.save(lista_productos);
 		OR = new OrdersRepositoryOnMemory();
-		OR.writeOrders(lista_pedidos);
+		OR.save(lista_pedidos);
 		C = new Cafe(OR, PR);
 	}
 

@@ -19,6 +19,9 @@ public class OrderLine implements Serializable {
 	private static final long serialVersionUID = 4358074819046808171L;
 	Product product;
 	int amount;
+	
+	
+	public OrderLine() {}
 
  /** 
  * Create empty order with an uniquye id, a list empty of OrderLine and a given date.

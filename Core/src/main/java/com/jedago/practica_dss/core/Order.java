@@ -17,26 +17,28 @@ import java.util.*;
 
 public class Order implements Iterable<OrderLine>, Serializable
 {
+	
 	private static final long serialVersionUID = -7323804151378580352L;
-	public static long currentid = 1;
-	private long id_order;
+	
+	private String id_order;
 	private List<OrderLine> orderLineProduct;
 	private BigDecimal price;
 	private LocalDateTime date; //Local time, local date, localdatetime
-	private LocalDateTime collectedDate;
+	private LocalDateTime PickUpTime;
+	private User user;
+	
+	
 	 /*
 	 * Create empty order with a unique id, a list
 	 * of OrderLine empty and a given collected date.
 	 */	
 	
 	public Order(){
-		
+		this.id_order = UUID.randomUUID().toString();
 		date = LocalDateTime.now();
-		this.id_order = currentid;
-		currentid++;
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
-	
+		
 	}	
 	
 	
@@ -44,51 +46,26 @@ public class Order implements Iterable<OrderLine>, Serializable
 		 * Returns the id of a specific order.
 		 * @return The collected date of the order.
 		 */
-	public LocalDateTime getCollectedDate() {
-		return collectedDate;
+	public LocalDateTime getPickUpTime() {
+		return PickUpTime;
 	}
 	
 	
-	/** 
-	 * @param days Order delivery day.
-	 * @param hours Order delivery hour.
-	 * @param minutes Order delivery minutes.
-
+	/** Set the collected date
+	 * @param ldt Date to collect the order
 	 */
-	public void setCollectedDate(int days, int hours, int minutes ) 
+	public void setPickUpTime(LocalDateTime ldt) 
 	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),days,hours,minutes);
-		collectedDate = newdate;
+		PickUpTime = ldt;
 	}
 	
-	/** 
-	 * @param hours Order delivery hour.
-	 * @param minutes Order delivery minutes.
-	 */
-	public void setCollectedDate( int hours, int minutes ) 
-	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),hours,minutes);
-		collectedDate = newdate;
-
-	}
-	
-
-	/** 
-	 * @param days Order delivery minutes.
-	 */
-	public void setCollectedDate( int minutes )
-	{
-		LocalDateTime newdate = LocalDateTime.of(date.getYear(),date.getMonthValue(),date.getDayOfMonth(),date.getHour(), minutes);
-		collectedDate = newdate;
-
-	}
 
 
 	 /** 
 	 * Returns the id of a specific order.
 	 * @return The order id.
 	 */
-	public long getId_order() {
+	public String getId_order() {
 		return this.id_order;
 	}
 	
@@ -188,7 +165,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
 		for(OrderLine pivot : orderLineProduct) {
-			if(pivot.getProduct().getID() == currentProduct.getID()) {
+			if(pivot.getProduct().getID().equals(currentProduct.getID())) {
 				pivot.setAmount(pivot.getAmount()+cant);
 				BigDecimal namount = new BigDecimal(pivot.getAmount()) ;
 				this.price = this.price.add(pivot.getProduct().getPrice().multiply(namount));
@@ -215,7 +192,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 		Iterator<OrderLine> it = orderLineProduct.iterator();
 		while(it.hasNext()) { 
 			ol = it.next();
-			if(ol.getProduct().getID() == currentProduct.getID()) {
+			if(ol.getProduct().getID().equals(currentProduct.getID())) {
 				if(cant>0) {
 					BigDecimal newamount = new BigDecimal(ol.getAmount()-cant);
 
@@ -265,8 +242,51 @@ public class Order implements Iterable<OrderLine>, Serializable
 	public Iterator<OrderLine> iterator() {
 		return orderLineProduct.iterator();
 	}
-	
 
+
+	/** 
+	 * Returns the owner to this order
+	 * @return user return the user of this order.
+	 */
+	public User getUser() {
+		return user;
+	}
+	
+	
+	/** 
+	 * Bind an user to an order.
+	 * @param user User to bing with a order
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id_order == null) ? 0 : id_order.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id_order == null) {
+			if (other.id_order != null)
+				return false;
+		} else if (!id_order.equals(other.id_order))
+			return false;
+		return true;
+	}
 }
 	
 
