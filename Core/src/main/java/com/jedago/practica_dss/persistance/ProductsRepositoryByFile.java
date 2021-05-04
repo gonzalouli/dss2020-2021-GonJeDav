@@ -89,7 +89,7 @@ public class ProductsRepositoryByFile implements ProductsRepository {
 		while(i.hasNext() && !found)
 		{
 			p = i.next();
-			if(p.getID()==id) 
+			if(p.getID().equals(id)) 
 			{
 				seekProduct = p;
 				found = true;

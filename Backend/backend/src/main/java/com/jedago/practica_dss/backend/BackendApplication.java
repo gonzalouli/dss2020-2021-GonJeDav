@@ -144,8 +144,12 @@ public class BackendApplication {
 	@PostMapping("/order/product")
 	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) throws NoStockException 
 	{
-		if(cafe.getProductById(idproduct).isPresent() && cafe.getOrderById(idorder).isPresent() ) {
+		System.out.println("entra en addproduct");
+		if(cafe.getProductById(idproduct).isPresent() &&  cafe.getOrderById(idorder).isPresent() ) {
+			System.out.println("entra en el if de addproduct");
+
 			Product newProduct = cafe.getProductById(idproduct).get();
+			System.out.println(newProduct.getName());
 			cafe.addProductToOrder(cafe.getOrderById(idorder).get(), newProduct, cant);
 		}
 	}
