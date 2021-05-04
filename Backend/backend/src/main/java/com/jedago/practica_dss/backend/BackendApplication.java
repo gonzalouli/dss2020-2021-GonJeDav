@@ -110,10 +110,6 @@ public class BackendApplication {
 		if(u.isPresent()) 
 		{
 			orders = cafe.getUserOrders(u.get());
-			for(Order or : orders)
-			{
-				System.out.println(or.getId_order());
-			}
 		}
 		return orders;  
 	}
@@ -131,8 +127,12 @@ public class BackendApplication {
 	@PostMapping("/order/time")
 	public void setPickUpTime( @RequestParam String idorder, @RequestParam LocalDateTime ldt) throws Exception 
 	{
+		Order order = null;
 		if(cafe.getOrderById(idorder).isPresent())
-			cafe.getOrderById(idorder).get().setPickUpTime(ldt);
+		{
+			order = cafe.getOrderById(idorder).get();
+			cafe.setPickUpTime(order, ldt);
+		}
 	}
 	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
