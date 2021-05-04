@@ -6,11 +6,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,6 +36,7 @@ import com.jedago.practica_dss.persistance.OrdersRepositoryByFile;
 import com.jedago.practica_dss.persistance.ProductsRepositoryByFile;
 import com.jedago.practica_dss.persistance.UsersRepositoryByFile;
 
+import it.ozimov.springboot.mail.configuration.EnableEmailTools;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -44,12 +50,16 @@ import springfox.documentation.spring.web.plugins.Docket;
  */
 @SpringBootApplication
 @RestController
+@EnableEmailTools
 public class BackendApplication {
 	
 	private static OrdersRepositoryByFile or;
 	private static ProductsRepositoryByFile pr;
 	private static UsersRepositoryByFile ur;
 	private static Cafe cafe;
+	@Autowired
+    private JavaMailSender emailSender;
+
 	
 	@Bean
 	public Docket api() {
@@ -59,6 +69,24 @@ public class BackendApplication {
 				.paths(PathSelectors.any())
 				.build();
 	}
+	
+	@Bean
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        
+        mailSender.setUsername("cafejedago@gmail.com");
+        mailSender.setPassword("lnhmvuheexolkrlp");
+        
+        Properties props = mailSender.getJavaMailProperties();
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.debug", "true");
+       
+        return mailSender;
+    }
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -156,6 +184,7 @@ public class BackendApplication {
 	@PostMapping("/user")
 	public String newUser(@RequestBody User newUser) throws Exception 
 	{
+		assert(newUser.getAge()>=18);
 		cafe.registerUser(newUser);
 		return newUser.getIdUser();
 	}
@@ -256,11 +285,12 @@ public class BackendApplication {
 	@PostMapping("/order/end")
 	public void finishOrder(@RequestParam(required=true) String idorder) throws Exception 
 	{
-		EnvioEmail mail = new EnvioEmail();
+		EmailServiceImpl mail = new EmailServiceImpl();
 		if(  cafe.getOrderById(idorder).isPresent() ) 
 		{
 			Order order =  cafe.getOrderById(idorder).get();
-			mail.sendEmail(order);
+			mail.sendSimpleMessage(order, emailSender);
+		
 			cafe.FinishOrder(order);
 		}
 	}
