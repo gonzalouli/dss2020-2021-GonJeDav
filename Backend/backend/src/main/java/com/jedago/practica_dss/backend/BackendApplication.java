@@ -36,7 +36,12 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
-
+/**
+ * @version 1.0 12/4/21
+ * Endpoints of the backend application
+ * @author Gonzalo Ulibarri Garcia
+ *
+ */
 @SpringBootApplication
 @RestController
 public class BackendApplication {
@@ -66,12 +71,20 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 	
+	/**
+	 * Returns a set of available product.
+	 * @return List with the available products.
+	 */
 	@GetMapping("/products")
 	public List<Product> getProducts() throws Exception 
 	{
 		return cafe.getAvailableProducts(); 
 	}
 	
+	/**
+	 * Returns a set of all orders.
+	 * @return List with all orders.
+	 */
 	@JsonIgnore
 	@GetMapping("/orders")
 	public List<Order> getAllOrders() throws Exception 
@@ -80,14 +93,21 @@ public class BackendApplication {
 	}
 	
 	
-	
+	/**
+	 * Returns a set of available product types.
+	 * @return List with the available products types.
+	 */
 	@GetMapping("/productTypes")
 	public List<ProductType> getProductTypes() throws Exception 
 	{
 		return cafe.getAvailableProductTypes(); 
 	}
 	
-	//Esto saca dos veces el parámetro del tipo de producto
+	/**
+	 * Returns a set of available product.
+	 * @param id The id of the product type to filter the products.
+	 * @return List with the available products to a determined type.
+	 */	
 	@JsonIgnore
 	@GetMapping("/products/type")
 	public List<Product> getProductsByType(@RequestParam String id) throws Exception 
@@ -95,6 +115,10 @@ public class BackendApplication {
 		return cafe.getAvailableProductsbyType(id); 
 	}
 
+	/**
+	 * Returns a set of all users.
+	 * @return List of all users.
+	 */	
 	@JsonIgnore
 	@GetMapping("/users")
 	public List<User> getUsers() throws Exception 
@@ -102,7 +126,11 @@ public class BackendApplication {
 		return cafe.getRegisteredUsers(); 
 	}
 	
-	
+	/**
+	 * Returns a set of orders id's to a determined user.
+	 * @param iduser The id of the user to give all his orders.
+	 * @return List of orders id's that own to the given user.
+	 */	
 	@GetMapping("/users/orders/{iduser}")
 	public List<String> getUserOrders(@PathVariable String iduser ) throws Exception 
 	{
@@ -120,8 +148,11 @@ public class BackendApplication {
 		return idOrders;  
 	}
 	
-	//RequestParam va en la URI
-	//RequestBody va en la petición HTTP
+	/**
+	 * Returns the id to the user added.
+	 * @param newUser The user added to the system.
+	 * @return A string to represent the user id.
+	 */	
 	@PostMapping("/user")
 	public String newUser(@RequestBody User newUser) throws Exception 
 	{
@@ -129,7 +160,11 @@ public class BackendApplication {
 		return newUser.getIdUser();
 	}
 	
-	
+	/**
+	 * Set a pickup time to a order given.
+	 * @param idorder The id of the order to update the pick up time
+	 * @param ldt The date to pick up.
+	 */	
 	@PostMapping("/order/time")
 	public void setPickUpTime( @RequestParam String idorder, @RequestParam LocalDateTime ldt) throws Exception 
 	{
@@ -141,6 +176,11 @@ public class BackendApplication {
 		}
 	}
 	
+	/**
+	 * Get an order from a id given..
+	 * @param idorder The id of the order to show.
+	 * @return The order with the id given.
+	 */	
 	@GetMapping("/order/{id_order}")
 	public Order getOrderWithID(@PathVariable String id_order) {
 		Order noOrder = null;
@@ -150,13 +190,23 @@ public class BackendApplication {
 		
 	}
 	
-	
+	/**
+	 * Create a new order binded to an existing user.
+	 * @param idUser The id of the user to add a new order.
+	 * @return The id of the order created.
+	 */	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
 	public String createOrder(@RequestParam String idUser) 
 	{
 		return cafe.newOrder(idUser).getId_order();
 	}
 	
+	/**
+	 * Add a product to an existing order
+	 * @param idproduct The id of the product to add.
+	 * @param cant The quantity to product to add.
+	 * @param idorder The id of order to add the product.
+	 */	
 	@PostMapping("/order/product")
 	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) throws NoStockException 
 	{
@@ -167,6 +217,12 @@ public class BackendApplication {
 		}
 	}
 	
+	/**
+	 * Delete a determined quantity of a product from an order.
+	 * @param idproduct The id of the product to remove a determined quantity.
+	 * @param cant The quantity to product to remove.
+	 * @param idorder The id of order to remove a quantity of the product.
+	 */	
 	@DeleteMapping("/order/delete")
 	public void deleteProduct(@RequestParam(required=true) String idproduct, @RequestParam(required=true) int cant,
 			@RequestParam(required=true, name="idorder") String idorder ) 
@@ -179,6 +235,11 @@ public class BackendApplication {
 		}
 	}
 	
+	/**
+	 * Get a day's cash box.
+	 * @param ld The date to return the cashbox.
+	 * @return The cashbox to a day given.
+	 */	
 	@GetMapping("/cashbox")
 	public CashBox getCashBox(@RequestParam LocalDate ld) {
 		
@@ -188,6 +249,10 @@ public class BackendApplication {
 			return cafe.getCashBox(ld);
 	}
 
+	/**
+	 * End a determined order.
+	 * @param idorder The od to the order to finish.
+	 */	
 	@PostMapping("/order/end")
 	public void finishOrder(@RequestParam(required=true) String idorder) throws Exception 
 	{
@@ -200,6 +265,11 @@ public class BackendApplication {
 		}
 	}
 	
+	/**
+	 * Updater the first name of an existing user.
+	 * @param id_user The id to the user to modified.
+	 * @param firstname The parameter to modified in the user given.
+	 */	
 	@PatchMapping("/user/firstname")
 	public void updateUserFirstName(@RequestParam(required=true) String id_user, @RequestParam(required=true) String firstname) throws Exception 
 	{
@@ -208,6 +278,11 @@ public class BackendApplication {
 
 	}
 	
+	/**
+	 * Updater the last name of an existing user.
+	 * @param id_user The id to the user to modified.
+	 * @param firstname The parameter to modified in the user given.
+	 */	
 	@PatchMapping("/user/lastname")
 	public void updateUserLastName(@RequestParam(required=true) String id_user, @RequestParam(required=true) String lastname) throws Exception 
 	{
@@ -215,6 +290,11 @@ public class BackendApplication {
 		cafe.updateUserLastName(user, lastname);
 	}
 	
+	/**
+	 * Updater the dni of an existing user.
+	 * @param id_user The id to the user to modified.
+	 * @param firstname The parameter to modified in the user given.
+	 */	
 	@PatchMapping("/user/dni")
 	public void updateUserDni(@RequestParam(required=true) String id_user, @RequestParam(required=true) String dni) throws Exception 
 	{
@@ -223,6 +303,11 @@ public class BackendApplication {
 
 	}
 	
+	/**
+	 * Updater the birthdate of an existing user.
+	 * @param id_user The id to the user to modified.
+	 * @param firstname The parameter to modified in the user given.
+	 */	
 	@PatchMapping("/user/birthdate")
 	public void updateUserBirthdate(@RequestParam(required=true) String id_user, @RequestParam(required=true) String birthdate) throws Exception 
 	{	
@@ -231,6 +316,10 @@ public class BackendApplication {
 		cafe.updateUserBirthDate(user, localDate1);
 	}
 	
+	/**
+	 * Delete an existing user by an id.
+	 * @param id_user The id to the user to delete.
+	 */	
 	@DeleteMapping("/user/delete")
 	public void deleteUser(@RequestParam(required=true) String id_user) throws Exception 
 	{

@@ -117,11 +117,12 @@ public class Cafe implements ICafe {
 		return orders;
 	}
 	
-	@Override
+
 	/**
 	 * Returns a set of available products
-	 * @return List with the availables products
+	 * @return List with the available products
 	 */
+	@Override
 	public List<Product> getAvailableProducts() {
 		
 		List<Product> availableProducts = new ArrayList<Product>();
@@ -133,6 +134,10 @@ public class Cafe implements ICafe {
 		return availableProducts;
 	}
 	
+	/**
+	 * Returns a set of available product types.
+	 * @return List with the available products types
+	 */
 	@Override
 	public List<ProductType> getAvailableProductTypes() {
 		List<ProductType> productTypeList = new ArrayList<ProductType>();
@@ -145,6 +150,11 @@ public class Cafe implements ICafe {
 		return productTypeList;
 	}
 	
+	/**
+	 * Returns a set of available product.
+	 * @param t Product type to filter the products to return.
+	 * @return List with the available products.
+	 */
 	@Override
 	public List<Product> getAvailableProductsbyType(ProductType t) {
 		List<Product> seekProducts = new ArrayList<Product>();
@@ -155,6 +165,11 @@ public class Cafe implements ICafe {
 		return seekProducts;
 	}
 	
+	/**
+	 * Returns a set of available product.
+	 * @param id ID to the product type to filter the products to return.
+	 * @return List with the available products.
+	 */
 	@Override
 	public List<Product> getAvailableProductsbyType(String id) {
 		List<Product> productList = new ArrayList<Product>();
@@ -270,7 +285,7 @@ public class Cafe implements ICafe {
 
 	@Override
 	/**
-	 * Returs the amount of registered orders and the money earned in a day
+	 * Returns the amount of registered orders and the money earned in a day
 	 * @return a CashBox with the amount of orders registered and the money earned
 	 * @param date The date of the CashBox you want to check
 	 */
@@ -301,6 +316,10 @@ public class Cafe implements ICafe {
 		return cb;
 	}
 
+	/**
+	 * Returns the amount of registered orders and the money earned today
+	 * @return a CashBox with the amount of orders registered and the money earned
+	 */
 	@Override
 	public CashBox getTodayCashBox() {
 		LocalDate today = LocalDate.now();
@@ -311,12 +330,22 @@ public class Cafe implements ICafe {
 		return todayCashBox;
 	}
 
+	/**
+	 * Returns the id of the current register User
+	 * @return a String that represent the user
+	 * @param u User to add to the repository.
+	 */
 	@Override
 	public String registerUser(User u) throws Exception {
 		this.usersRepository.add(u);
 		return u.getIdUser();
 	}
 
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newFirstName New parameter to update in user u.
+	 */
 	@Override
 	public void updateUserFirstName(User u, String newFirstName) throws Exception {
 		String id = u.getIdUser();
@@ -324,6 +353,11 @@ public class Cafe implements ICafe {
 		this.usersRepository.update(id, u);
 	}
 
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newLastName New parameter to update in user u.
+	 */
 	@Override
 	public void updateUserLastName(User u, String newLastName) throws Exception{
 		String id =  u.getIdUser();
@@ -331,6 +365,11 @@ public class Cafe implements ICafe {
 		this.usersRepository.update(id, u);
 	}
 
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newBirthDate New parameter to update in user u.
+	 */
 	@Override
 	public void updateUserBirthDate(User u, LocalDate newBirthDate) throws Exception{
 		String id =  u.getIdUser();
@@ -338,6 +377,11 @@ public class Cafe implements ICafe {
 		this.usersRepository.update(id, u);
 	}
 
+	/**
+	 * Update a  parameter of the user given.
+	 * @param u User to update
+	 * @param newBirthDate New parameter to update in user u.
+	 */
 	@Override
 	public void updateUserDNI(User u, String newDNI) throws Exception{
 		String id =  u.getIdUser();
@@ -345,6 +389,11 @@ public class Cafe implements ICafe {
 		this.usersRepository.update(id, u);
 	}
 
+	/**
+	 * Get the orders with a user given.
+	 * @return A list of orders that own to user u
+	 * @param u The user to own all orders.
+	 */
 	@Override
 	public List<Order> getUserOrders(User u) {
 		List<Order> orderList = new ArrayList<Order>();
@@ -352,6 +401,10 @@ public class Cafe implements ICafe {
 		return orderList;
 	}
 
+	/**
+	 * Get all the users of the system.
+	 * @return A list of users registered.
+	 */
 	@Override
 	public List<User> getRegisteredUsers() {
 		List<User> users = new ArrayList<User>();
@@ -361,6 +414,11 @@ public class Cafe implements ICafe {
 		return users;
 	}
 
+	/**
+	 * Get an optional of an user by an id.
+	 * @return A optional user.
+	 * @param id The id of the user to return.
+	 */
 	@Override
 	public Optional<User> getUserById(String id) {
 		Optional<User> u = null;
@@ -370,6 +428,11 @@ public class Cafe implements ICafe {
 		return u;
 	}
 
+	/**
+	 * Get an optional of a product by an id.
+	 * @return A optional product.
+	 * @param id The id of the product to return.
+	 */
 	@Override
 	public Optional<Product> getProductById(String id) {
 		Optional<Product> p = null;
@@ -379,6 +442,11 @@ public class Cafe implements ICafe {
 		return p;
 	}
 
+	/**
+	 * Get an optional of a product type by an id.
+	 * @return A optional product type.
+	 * @param id The id of the product type to return.
+	 */
 	@Override
 	public Optional<ProductType> getProductTypeById(String id) {
 		Optional<ProductType> pt = null;
@@ -388,6 +456,11 @@ public class Cafe implements ICafe {
 		return pt;
 	}
 
+	/**
+	 * Get an optional of a product type by an id.
+	 * @return A optional product type.
+	 * @param id The id of the product type to return.
+	 */
 	@Override
 	public Optional<Order> getOrderById(String id) {
 		Optional<Order> o = null;
@@ -397,6 +470,10 @@ public class Cafe implements ICafe {
 		return o;
 	}
 	
+	/**
+	 * Delete an user by an id.
+	 * @param id The id of the user to delete.
+	 */
 	@Override
 	public void deleteUserbyId(String id)
 	{ 
