@@ -109,6 +109,7 @@ public class Screen   {
 						}else
 							System.out.println("Su pedido esta vacio, no se puede terminar un pedido vacio...");
 						break;
+
 			case "R":
 			case "r":
 				break;
@@ -151,6 +152,7 @@ public class Screen   {
 			option = sc.nextLine();
 
 			if( !option.matches("[a-zA-Z]") && !option.equals("") && !option.equals(" ")  ) {
+
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -204,6 +206,7 @@ public class Screen   {
 			option = sc.nextLine();
 
 			if( !option.matches("[a-zA-Z]") && !option.equals("")  && !option.equals(" ")    ) {
+
 				
 				convertToInt = Integer.parseInt(option);
 			
@@ -268,6 +271,7 @@ public class Screen   {
 			option = sc.nextLine();
 
 			if( !option.matches("[a-zA-Z]") && !option.equals("") && !option.equals(" ") ) {
+
 				
 				convertToInt = Integer.parseInt(option);
 			
