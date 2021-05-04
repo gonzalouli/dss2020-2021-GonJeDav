@@ -70,13 +70,9 @@ public class User implements Serializable {
      * Return a list of products bind to an user.
      * @return the order list of the user.
 	 */
+	@JsonIgnore
 	public List<Order> getOrders() 
 	{
-		System.out.println("Desde getOrders de user, los pedidos son:");
-		for(Order or : orderList)
-		{
-			System.out.println(or.getId_order());
-		}
 		return orderList;
 	}
 	
