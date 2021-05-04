@@ -195,13 +195,14 @@ public class BackendApplication {
 	 * @param ldt The date to pick up.
 	 */	
 	@PostMapping("/order/time")
-	public void setPickUpTime( @RequestParam String idorder, @RequestParam LocalDateTime ldt) throws Exception 
+	public void setPickUpTime( @RequestParam String idorder, @RequestParam String ldt) throws Exception 
 	{
 		Order order = null;
+		LocalDateTime newldt = LocalDateTime.parse(ldt);
 		if(cafe.getOrderById(idorder).isPresent())
 		{
 			order = cafe.getOrderById(idorder).get();
-			cafe.setPickUpTime(order, ldt);
+			cafe.setPickUpTime(order, newldt);
 		}
 	}
 	
