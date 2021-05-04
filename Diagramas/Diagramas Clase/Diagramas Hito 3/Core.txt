@@ -1,0 +1,192 @@
+@startuml
+class FirstProducts [[java:com.jedago.practica_dss.core.FirstProducts]] {
+	+{static}List<Product> getFirstProducts()
+}
+interface Product [[java:com.jedago.practica_dss.core.Product]] {
+	ProductType getType()
+	void setType(ProductType type)
+	String getID()
+	String getName()
+	BigDecimal getPrice()
+	int getStock()
+	void setStock(int stock)
+}
+class SingleProduct [[java:com.jedago.practica_dss.core.SingleProduct]] {
+	-{static}long serialVersionUID
+	-String name
+	-String id
+	-int stock
+	-BigDecimal priceUnit
+	+SingleProduct()
+	+SingleProduct(String name, int stock, BigDecimal priceunit, ProductType type)
+	+ProductType getType()
+	+void setType(ProductType type)
+	+String getID()
+	+String getName()
+	+int getStock()
+	+void setStock(int stock)
+	+BigDecimal getPrice()
+	+void setPrice(BigDecimal price)
+	+void setTypeProduct(ProductType newType)
+	+ProductType getTypeProduct()
+	+boolean equals(Object obj)
+}
+
+class Cafe [[java:com.jedago.practica_dss.core.Cafe]] {
+	-OrdersRepository ordersRepository
+	-ProductsRepository productsRepository
+	-UsersRepository usersRepository
+	+Cafe(OrdersRepository orders, ProductsRepository products)
+	+Cafe(OrdersRepository orders, ProductsRepository products, UsersRepository users)
+}
+
+class OrderLine [[java:com.jedago.practica_dss.core.OrderLine]] {
+	-{static}long serialVersionUID
+	~int amount
+	+OrderLine()
+	+OrderLine(Product product, int amount)
+	+Product getProduct()
+	+void setProduct(Product newproduct)
+	+String getProductName()
+	+int getAmount()
+	+void setAmount(int q)
+	+BigDecimal getTotalPrice()
+}
+interface ICafe [[java:com.jedago.practica_dss.core.ICafe]] {
+	Order newOrder()
+	Order newOrder(User u)
+	Order newOrder(String uid)
+	void setPickUpTime(Order o, LocalDateTime t)
+	List<Product> getAvailableProducts()
+	List<ProductType> getAvailableProductTypes()
+	List<Product> getAvailableProductsbyType(ProductType t)
+	List<Product> getAvailableProductsbyType(String id)
+	List<Order> getRegisteredOrders()
+	void addProductToOrder(Order ord, Product p)
+	void addProductToOrder(Order ord, Product p, int c)
+	void deleteProductFromOrder(Order ord, Product p)
+	void deleteProductFromOrder(Order ord, Product p, int c)
+	void FinishOrder(Order ord)
+	CashBox getCashBox(LocalDate date)
+	CashBox getTodayCashBox()
+	String registerUser(User u)
+	void updateUserFirstName(User u, String newFirstName)
+	void updateUserLastName(User u, String newLastName)
+	void updateUserBirthDate(User u, LocalDate newBirthDate)
+	void updateUserDNI(User u, String newDNI)
+	List<User> getRegisteredUsers()
+	List<Order> getUserOrders(User u)
+	Optional<User> getUserById(String id)
+	Optional<Product> getProductById(String id)
+	Optional<ProductType> getProductTypeById(String id)
+	Optional<Order> getOrderById(String id)
+	void deleteUserbyId(String id)
+}
+class CashBox [[java:com.jedago.practica_dss.core.CashBox]] {
+	-int nOrders
+	-BigDecimal total
+	+CashBox()
+	+int getnOrders()
+	+void setnOrders(int nOrders)
+	+void incrementOrders()
+	+BigDecimal getTotal()
+	+void setTotal(BigDecimal total)
+	+void addtoTotal(BigDecimal inc)
+}
+class User [[java:com.jedago.practica_dss.core.User]] {
+	-{static}long serialVersionUID
+	-String id_user
+	-String firstName
+	-String lastName
+	-LocalDate birthDate
+	-String dni
+	+User()
+	+User(String firstName, String lastName, LocalDate birthDate, String dni)
+	+void setOrder(Order o)
+	+List<Order> getOrders()
+	+String getIdUser()
+	+String getFirstName()
+	+void setFirstName(String firstName)
+	+String getLastName()
+	+void setLastName(String lastName)
+	+LocalDate getBirthDate()
+	+void setBirthDate(LocalDate birthDate)
+	+String getDni()
+	+void setDni(String dni)
+	+int getAge()
+	+int hashCode()
+	+boolean equals(Object obj)
+}
+class ProductType [[java:com.jedago.practica_dss.core.ProductType]] {
+	-{static}long serialVersionUID
+	-String id
+	-String TypeName
+	+ProductType()
+	+ProductType(String TypeName)
+	+String getId()
+	+String getTypeName()
+}
+
+class Menu [[java:com.jedago.practica_dss.core.Menu]] {
+	-{static}long serialVersionUID
+	-String id
+	-String name
+	+Menu()
+	+Menu(String name, ProductType type)
+	+Menu(String name, ProductType type, List<Product> lp)
+	+void add(Product p)
+	+void remove(Product p)
+	+List<Product> getComponents()
+	+ProductType getType()
+	+void setType(ProductType type)
+	+String getID()
+	+String getName()
+	+int getStock()
+	+void setStock(int newStock)
+	+BigDecimal getPrice()
+}
+class Order [[java:com.jedago.practica_dss.core.Order]] {
+	-{static}long serialVersionUID
+	-String id_order
+	-BigDecimal price
+	-LocalDateTime date
+	-LocalDateTime PickUpTime
+	+Order()
+	+LocalDateTime getPickUpTime()
+	+void setPickUpTime(LocalDateTime ldt)
+	+String getId_order()
+	+BigDecimal getPrice()
+	+LocalDate getDate()
+	+LocalDateTime getDateTime()
+	+boolean isEmpty()
+	+int size()
+	+List<OrderLine> getProducts()
+	+void setProducts(OrderLine currentOrderLine)
+	+void addProductToOrder(Product currentProduct)
+	+void addProductToOrder(Product currentProduct, int cant)
+	+void deleteProductFromOrder(Product currentProduct, int cant)
+	+void deleteOrderlineFromOrder(OrderLine currentOrderLine)
+	+void deleteOrderlineFromOrder(Iterator<OrderLine> it)
+	+Iterator<OrderLine> iterator()
+	+User getUser()
+	+void setUser(User user)
+	+int hashCode()
+	+boolean equals(Object obj)
+}
+
+User *-- "*" Order : orderList
+Order --> "0..1" User : user
+
+Order *-- "*" OrderLine : orderLineProduct
+OrderLine --> "1" Product : product
+
+Menu --> "1" ProductType : type
+Menu *-- "*" Product : components
+Product <|.. Menu
+
+SingleProduct --> "1" ProductType : type
+Product <|.. SingleProduct
+ICafe <|.. Cafe
+Cafe --> CashBox
+Cafe --> FirstProducts
+@enduml

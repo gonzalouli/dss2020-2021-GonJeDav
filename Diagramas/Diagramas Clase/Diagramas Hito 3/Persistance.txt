@@ -1,0 +1,116 @@
+@startuml
+interface UsersRepository [[java:com.jedago.practica_dss.persistance.UsersRepository]] {
+	List<User> findAll()
+	Optional<User> findById(String id)
+	void save(List<User> usersList)
+	void add(User u)
+	void delete(List<User> usersList)
+	void delete(User u)
+	void update(String id, User u)
+}
+class UsersRepositoryByFile [[java:com.jedago.practica_dss.persistance.UsersRepositoryByFile]] {
+	+{static}boolean isFileCreated()
+	+List<User> findAll()
+	+Optional<User> findById(String id)
+	+void save(List<User> usersList)
+	+void add(User u)
+	+void delete(List<User> usersList)
+	+void delete(User u)
+	+void update(String id, User u)
+}
+interface UsersRepository [[java:com.jedago.practica_dss.persistance.UsersRepository]] {
+}
+UsersRepository <|.. UsersRepositoryByFile
+class UsersRepositoryOnMemory [[java:com.jedago.practica_dss.persistance.UsersRepositoryOnMemory]] {
+	-List<User> users
+	+List<User> findAll()
+	+Optional<User> findById(String id)
+	+void save(List<User> usersList)
+	+void add(User u)
+	+void delete(List<User> usersList)
+	+void delete(User u)
+	+void update(String id, User u)
+}
+interface UsersRepository [[java:com.jedago.practica_dss.persistance.UsersRepository]] {
+}
+UsersRepository <|.. UsersRepositoryOnMemory
+interface ProductsRepository [[java:com.jedago.practica_dss.persistance.ProductsRepository]] {
+	List<Product> findAll()
+	List<Product> findAllStockAvailable()
+	List<ProductType> findAllTypes()
+	Optional<Product> findById(String id)
+	Optional<ProductType> findTypeById(String id)
+	List<Product> findAllStockAvailableByType(ProductType pt)
+	void save(List<Product> productList)
+	void add(Product p)
+	void delete(List<Product> productList)
+	void delete(Product p)
+}
+class OrdersRepositoryByFile [[java:com.jedago.practica_dss.persistance.OrdersRepositoryByFile]] {
+	+{static}boolean isFileCreated()
+	+List<Order> findAll()
+	+Optional<Order> findById(String id)
+	+void save(List<Order> orderList)
+	+void add(Order o)
+	+void delete(List<Order> orderList)
+	+void delete(Order o)
+	+void update(String id, Order o)
+}
+interface OrdersRepository [[java:com.jedago.practica_dss.persistance.OrdersRepository]] {
+}
+OrdersRepository <|.. OrdersRepositoryByFile
+class ProductsRepositoryOnMemory [[java:com.jedago.practica_dss.persistance.ProductsRepositoryOnMemory]] {
+	-List<Product> products
+	+List<Product> findAll()
+	+List<Product> findAllStockAvailable()
+	+List<ProductType> findAllTypes()
+	+Optional<Product> findById(String id)
+	+Optional<ProductType> findTypeById(String id)
+	+List<Product> findAllStockAvailableByType(ProductType pt)
+	+void save(List<Product> productList)
+	+void add(Product p)
+	+void delete(List<Product> productList)
+	+void delete(Product p)
+}
+interface ProductsRepository [[java:com.jedago.practica_dss.persistance.ProductsRepository]] {
+}
+ProductsRepository <|.. ProductsRepositoryOnMemory
+class OrdersRepositoryOnMemory [[java:com.jedago.practica_dss.persistance.OrdersRepositoryOnMemory]] {
+	~List<Order> orders
+	+List<Order> findAll()
+	+Optional<Order> findById(String id)
+	+void save(List<Order> orderList)
+	+void add(Order o)
+	+void delete(List<Order> orderList)
+	+void delete(Order o)
+	+void update(String id, Order o)
+}
+interface OrdersRepository [[java:com.jedago.practica_dss.persistance.OrdersRepository]] {
+}
+OrdersRepository <|.. OrdersRepositoryOnMemory
+class ProductsRepositoryByFile [[java:com.jedago.practica_dss.persistance.ProductsRepositoryByFile]] {
+	+{static}boolean isFileCreated()
+	+List<Product> findAll()
+	+List<Product> findAllStockAvailable()
+	+List<ProductType> findAllTypes()
+	+Optional<Product> findById(String id)
+	+Optional<ProductType> findTypeById(String id)
+	+List<Product> findAllStockAvailableByType(ProductType pt)
+	+void save(List<Product> productList)
+	+void add(Product p)
+	+void delete(List<Product> productList)
+	+void delete(Product p)
+}
+interface ProductsRepository [[java:com.jedago.practica_dss.persistance.ProductsRepository]] {
+}
+ProductsRepository <|.. ProductsRepositoryByFile
+interface OrdersRepository [[java:com.jedago.practica_dss.persistance.OrdersRepository]] {
+	List<Order> findAll()
+	Optional<Order> findById(String id)
+	void save(List<Order> orderList)
+	void add(Order o)
+	void delete(List<Order> orderList)
+	void delete(Order o)
+	void update(String id, Order o)
+}
+@enduml
