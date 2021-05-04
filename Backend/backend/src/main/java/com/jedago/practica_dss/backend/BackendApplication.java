@@ -3,6 +3,7 @@ package com.jedago.practica_dss.backend;
 import java.time.LocalDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -103,15 +104,20 @@ public class BackendApplication {
 	
 	
 	@GetMapping("/users/orders/{iduser}")
-	public List<Order> getUserOrders(@PathVariable String iduser ) throws Exception 
+	public List<String> getUserOrders(@PathVariable String iduser ) throws Exception 
 	{
 		Optional<User> u = cafe.getUserById(iduser);
-		List<Order> orders = null;
+		List<Order> orders = new ArrayList<Order>();
 		if(u.isPresent()) 
 		{
 			orders = cafe.getUserOrders(u.get());
 		}
-		return orders;  
+		List<String> idOrders = new ArrayList<String>();
+		for(Order o: orders) {
+			idOrders.add(o.getId_order());
+		}
+		
+		return idOrders;  
 	}
 	
 	//RequestParam va en la URI
@@ -135,6 +141,16 @@ public class BackendApplication {
 		}
 	}
 	
+	@GetMapping("/order/{id_order}")
+	public Order getOrderWithID(@PathVariable String id_order) {
+		Order noOrder = null;
+		if(cafe.getOrderById(id_order).isPresent())
+			return cafe.getOrderById(id_order).get();
+		return noOrder;
+		
+	}
+	
+	
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
 	public String createOrder(@RequestParam String idUser) 
 	{
@@ -144,13 +160,10 @@ public class BackendApplication {
 	@PostMapping("/order/product")
 	public void addProduct(@RequestParam(required=true) String idproduct, @RequestParam int cant, @RequestParam(required=true) String idorder ) throws NoStockException 
 	{
-		System.out.println("entra en addproduct");
 		if(cafe.getProductById(idproduct).isPresent() &&  cafe.getOrderById(idorder).isPresent() ) {
-			System.out.println("entra en el if de addproduct");
-
 			Product newProduct = cafe.getProductById(idproduct).get();
-			System.out.println(newProduct.getName());
 			cafe.addProductToOrder(cafe.getOrderById(idorder).get(), newProduct, cant);
+
 		}
 	}
 	
@@ -223,5 +236,7 @@ public class BackendApplication {
 	{
 		cafe.deleteUserbyId(id_user);
 	}
+	
+	
 	
 }

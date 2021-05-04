@@ -165,7 +165,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	public void addProductToOrder(Product currentProduct , int cant)
 	{	
 		for(OrderLine pivot : orderLineProduct) {
-			if(pivot.getProduct().getID() == currentProduct.getID()) {
+			if(pivot.getProduct().getID().equals(currentProduct.getID())) {
 				pivot.setAmount(pivot.getAmount()+cant);
 				BigDecimal namount = new BigDecimal(pivot.getAmount()) ;
 				this.price = this.price.add(pivot.getProduct().getPrice().multiply(namount));
@@ -192,7 +192,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 		Iterator<OrderLine> it = orderLineProduct.iterator();
 		while(it.hasNext()) { 
 			ol = it.next();
-			if(ol.getProduct().getID() == currentProduct.getID()) {
+			if(ol.getProduct().getID().equals(currentProduct.getID())) {
 				if(cant>0) {
 					BigDecimal newamount = new BigDecimal(ol.getAmount()-cant);
 
