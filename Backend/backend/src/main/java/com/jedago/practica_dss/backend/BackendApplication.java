@@ -271,12 +271,12 @@ public class BackendApplication {
 	 * @return The cashbox to a day given.
 	 */	
 	@GetMapping("/cashbox")
-	public CashBox getCashBox(@RequestParam LocalDate ld) {
+	public CashBox getCashBox(@RequestParam(required=false) LocalDate date) {
 		
-		if(ld==null)
+		if(date==null)
 			return cafe.getTodayCashBox();
 		else
-			return cafe.getCashBox(ld);
+			return cafe.getCashBox(date);
 	}
 
 	/**
