@@ -277,7 +277,6 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
-		//System.out.println(ord.getPrice());
 		this.ordersRepository.update(ord.getId_order(), ord);
 		this.productsRepository.save(currentProducts);
 
@@ -308,8 +307,6 @@ public class Cafe implements ICafe {
 				//Añadimos el total del pedido 
 				cb.addtoTotal(o.getPrice());
 				
-				System.out.println(o.getPrice());
-
 			}
 		}
 		
@@ -329,7 +326,6 @@ public class Cafe implements ICafe {
 		} catch (Exception e) {e.printStackTrace();}
 		return todayCashBox;
 	}
-
 	/**
 	 * Returns the id of the current register User
 	 * @return a String that represent the user
