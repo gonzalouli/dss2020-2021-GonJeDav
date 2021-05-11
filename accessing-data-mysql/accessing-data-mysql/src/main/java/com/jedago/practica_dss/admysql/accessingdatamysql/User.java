@@ -26,7 +26,10 @@ public class User {
 	  private List<Transaccion> transacciones;
 	  private BigDecimal saldo;
 	  
-	  User(){super();}
+	  User(){
+		  transacciones = new ArrayList<Transaccion>();
+		  saldo = BigDecimal.ZERO;
+	  }
 	  
 	  User(String firstName, String lastName, String email){
 		  this.firstName = firstName;
@@ -96,12 +99,14 @@ public class User {
 		this.saldo = this.saldo.subtract(substract);
 	}
 	
-	public void pago(User user, String concepto, BigDecimal amount) {
+	public void addTransaccion(Transaccion t)
+	{
+		this.transacciones.add(t);
+	}
+	
+	public void pago(BigDecimal amount) {
 		if(getSaldo().compareTo(amount)>=0) {
-			user.retiro(amount);
-			LocalDateTime td = LocalDateTime.now();
-			Transaccion t = new Transaccion(user, concepto, td, amount);
-			this.transacciones.add(t);
+			retiro(amount);
 		}
 	}
 }
