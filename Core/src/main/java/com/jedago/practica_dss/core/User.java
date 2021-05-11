@@ -65,7 +65,6 @@ public class User implements Serializable {
 		}
 	}
 	
-	
 	/** 
      * Return a list of products bind to an user.
      * @return the order list of the user.
