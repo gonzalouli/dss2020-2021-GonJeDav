@@ -1,6 +1,7 @@
 package com.jedago.practica_dss.admysql.accessingdatamysql;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class User {
   private String firstName;
   private String lastName;
   private String email;
-  //private List<Transaccion> traspasos;
+  private List<Transaccion> transacciones;
   private BigDecimal saldo;
   
   User(){super();}
@@ -26,7 +27,7 @@ public class User {
 	  this.firstName = firstName;
 	  this.lastName = lastName;
 	  this.email = email;
-	  //traspasos = new ArrayList<Transaccion>();
+	  transacciones = new ArrayList<Transaccion>();
 	  saldo = BigDecimal.ZERO;
   }
 
@@ -90,12 +91,13 @@ public void retiro(BigDecimal substract) {
 	this.saldo = this.saldo.subtract(substract);
 }
 
-public synchronized void pago(User sender, User receiver, BigDecimal amount) {
-	try {
-		sender.retiro(amount);
-		receiver.ingreso(amount);
-		//this.traspasos.add(new Transaccion(sender,receiver,amount));
-	}catch(Exception e) {e.getMessage();}
+public void pago(User user, String concepto, BigDecimal amount) {
+	if(getSaldo().compareTo(amount)>=0) {
+		user.retiro(amount);
+		LocalDateTime td = LocalDateTime.now();
+		Transaccion t = new Transaccion(user, concepto, td, amount);
+		this.transacciones.add(t);
+	}
 }
 
 
