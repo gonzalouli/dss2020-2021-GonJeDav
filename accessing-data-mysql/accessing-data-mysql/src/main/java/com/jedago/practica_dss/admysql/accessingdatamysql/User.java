@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.jedago.practica_dss.admysql.accessingdatamysql;
 
 import java.math.BigDecimal;
@@ -103,4 +104,3 @@ public void pago(User user, String concepto, BigDecimal amount) {
 
 
 }
-

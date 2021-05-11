@@ -2,6 +2,7 @@ package com.jedago.practica_dss.backend;
 
 import java.time.LocalDate;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,9 @@ import java.util.Properties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.SpringApplication;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -41,6 +44,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import com.jedago.practica_dss.core.User;
 
 /**
  * @version 1.0 12/4/21
@@ -48,6 +52,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author Gonzalo Ulibarri Garcia
  *
  */
+
 @SpringBootApplication
 @RestController
 @EnableEmailTools
@@ -243,6 +248,7 @@ public class BackendApplication {
 		if(cafe.getProductById(idproduct).isPresent() &&  cafe.getOrderById(idorder).isPresent() ) {
 			Product newProduct = cafe.getProductById(idproduct).get();
 			cafe.addProductToOrder(cafe.getOrderById(idorder).get(), newProduct, cant);
+
 
 		}
 	}

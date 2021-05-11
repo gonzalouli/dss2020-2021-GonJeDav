@@ -19,6 +19,7 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = -1854084262648629283L;
 	private final String id_user;
+
 	private String firstName;
 	private String lastName;
 	private LocalDate birthDate;
@@ -88,6 +89,7 @@ public class User implements Serializable {
      * Return the first name of an user.
      * @return the first name of the user.
 	 */
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -104,6 +106,7 @@ public class User implements Serializable {
      * Return the last name of an user
      * @return the last name of the user
 	 */
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -112,6 +115,7 @@ public class User implements Serializable {
      * Set the last name of an existing user.
      * @param lastName the first name of the user.
 	 */
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -128,6 +132,7 @@ public class User implements Serializable {
      * Set the birth date of an existing user.
      * @param birthDate the birth date of the user.
 	 */
+
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
@@ -136,6 +141,7 @@ public class User implements Serializable {
      * Return the dni of an user.
      * @return the dni of the user.
 	 */
+
 	public String getDni() {
 		return dni;
 	}
@@ -148,10 +154,12 @@ public class User implements Serializable {
 		this.dni = dni;
 	}
 	
+
 	/** 
      * Return the age of an user.
      * @return the age of the user.
 	 */
+
 	public int getAge() {
 		
 		LocalDate now = LocalDate.now();
@@ -184,4 +192,5 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}
+
 }
