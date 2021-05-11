@@ -5,16 +5,18 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-import javassist.compiler.ast.Pair;
+import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Transaccion {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
 	private String id;
 	private String concepto;
+	@OneToOne(targetEntity = User.class)
 	private User usuario;
 	private LocalDateTime fecha;
 	private BigDecimal price;
@@ -35,12 +37,6 @@ public class Transaccion {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	/**
 	 * @return the concepto
