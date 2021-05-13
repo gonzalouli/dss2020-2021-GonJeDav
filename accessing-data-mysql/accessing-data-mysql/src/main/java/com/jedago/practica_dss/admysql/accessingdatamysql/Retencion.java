@@ -1,9 +1,12 @@
 package com.jedago.practica_dss.admysql.accessingdatamysql;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -11,16 +14,17 @@ import org.hibernate.annotations.GenericGenerator;
 public class Retencion {
 
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid")
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid")
 	private String id;
-	@ManyToOne(targetEntity = Transaccion.class)
+	@OneToOne(targetEntity = Transaccion.class)
 	private Transaccion transaccionRetenida;
 	
 	Retencion(){}
 	
 	Retencion(Transaccion t){
 		this.transaccionRetenida =t;
+		this.id = UUID.randomUUID().toString();
 	}
 	
 	public String getId() {

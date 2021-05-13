@@ -10,21 +10,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
-		@Id
-		@GeneratedValue(generator = "uuid")
-		@GenericGenerator(name = "uuid", strategy = "uuid")
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
 	  private String id;
 	  private String firstName;
 	  private String lastName;
 	  private String email;
-	  @ManyToOne(targetEntity = Transaccion.class)
+	  @OneToMany(targetEntity = Transaccion.class)
 	  private List<Transaccion> transacciones;
-	  @ManyToOne(targetEntity = Retencion.class)
+	  @OneToMany(targetEntity = Retencion.class)
 	  private List<Retencion> retenciones;
 	  private BigDecimal saldo;
 

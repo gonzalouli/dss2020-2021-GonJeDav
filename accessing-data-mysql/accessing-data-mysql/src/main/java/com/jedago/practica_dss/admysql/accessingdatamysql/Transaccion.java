@@ -2,6 +2,7 @@ package com.jedago.practica_dss.admysql.accessingdatamysql;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Transaccion {
 	@Id
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid")
+//	@GeneratedValue(generator = "uuid")
+//	@GenericGenerator(name = "uuid", strategy = "uuid")
 	private String id;
 	private String concepto;
 	@OneToOne(targetEntity = User.class)
@@ -28,6 +29,7 @@ public class Transaccion {
 		this.concepto= concepto;
 		this.fecha = fecha;
 		this.setPrice(pay);
+		this.id = UUID.randomUUID().toString();
 	}
 
 	/**
