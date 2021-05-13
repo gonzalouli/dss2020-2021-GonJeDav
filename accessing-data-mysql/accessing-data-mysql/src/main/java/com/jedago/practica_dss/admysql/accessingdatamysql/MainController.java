@@ -137,8 +137,6 @@ public class MainController {
 		  if(u.get().getSaldo().compareTo(cash) >= 0)
 		  {
 			  Transaccion t = new Transaccion(u.get(), concepto, LocalDateTime.now(), cash);
-			  u.get().addTransaccion(t);
-			  userRepository.save(u.get());
 			  transRepository.save(t);
 			  EmailServiceImpl mail = new EmailServiceImpl();
 			  mail.sendSimpleMessage(t, u.get(), emailSender);
@@ -162,12 +160,14 @@ public class MainController {
 	  if(t.isPresent()) {
 		  if(t.get().getUsuario().getId().equals(idUser))
 	  		{
-			  transRepository.delete(t.get());
+			  transRepository.deleteById(idVerificacion);
 			  t.get().setConfirmado(true);
 			  t.get().updateDate();
 			  u = userRepository.findById(t.get().getUsuario().getId()).get();
 			  u.retiro( t.get().getPrice()); 
-			  transRepository.save(t.get());
+			  u.addTransaccion(t.get());
+
+			  //transRepository.save(t.get());
 			  userRepository.save(u);
 			  return "Se ha realizado el pago: id-"+t.get().getId()+"-- "+t.get().getPrice()+" euros";
 	  		}
