@@ -64,7 +64,7 @@ public class Cafe implements ICafe {
 	{
 		Order o = new Order();
 		o.setUser(u);
-		u.setOrder(o);
+		u.addOrder(o);
 		try {
 			this.usersRepository.update(u.getIdUser(), u);
 			this.ordersRepository.add(o);
@@ -83,7 +83,7 @@ public class Cafe implements ICafe {
 		if(user.isPresent())
 		{
 			o.setUser(user.get());
-			user.get().setOrder(o);
+			user.get().addOrder(o);
 			try {
 				this.usersRepository.update(user.get().getIdUser(), user.get());
 				this.ordersRepository.add(o);
