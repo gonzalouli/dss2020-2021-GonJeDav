@@ -24,10 +24,15 @@ public class User {
 	  private String email;
 	  @ManyToOne(targetEntity = Transaccion.class)
 	  private List<Transaccion> transacciones;
+	  @ManyToOne(targetEntity = Retencion.class)
+	  private List<Retencion> retenciones;
 	  private BigDecimal saldo;
-	  
-	  User(){
+
+
+	User(){
 		  transacciones = new ArrayList<Transaccion>();
+		  retenciones = new ArrayList<Retencion>();
+
 		  saldo = BigDecimal.ZERO;
 	  }
 	  
@@ -36,6 +41,7 @@ public class User {
 		  this.lastName = lastName;
 		  this.email = email;
 		  transacciones = new ArrayList<Transaccion>();
+		  retenciones = new ArrayList<Retencion>();
 		  saldo = BigDecimal.ZERO;
 	  }
 	
@@ -104,9 +110,23 @@ public class User {
 		this.transacciones.add(t);
 	}
 	
+	public void addRetencion(Retencion r)
+	{
+		this.retenciones.add(r);
+	}
+	
+	
 	public void pago(BigDecimal amount) {
 		if(getSaldo().compareTo(amount)>=0) {
 			retiro(amount);
 		}
+	}
+	  
+	 public List<Transaccion> getTransacciones() {
+		return transacciones;
+	}
+	  
+	public List<Retencion> getRetenciones() {
+		return retenciones;
 	}
 }
