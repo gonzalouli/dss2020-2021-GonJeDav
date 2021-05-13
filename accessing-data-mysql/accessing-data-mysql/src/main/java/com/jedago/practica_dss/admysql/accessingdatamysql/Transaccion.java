@@ -33,15 +33,23 @@ public class Transaccion {
 		this.confirmado = false;
 	}
 
+	  /**
+	 *Returns is the transaction is confirmed
+	 * @return the confirmation
+	 */
 	public boolean isConfirmado() {
 		return confirmado;
 	}
 
+	  /**
+		 *Set the transaction to confirmed or not confirmed.
+		 * @param the value of the confirmation
+		 */
 	public void setConfirmado(boolean confirmado) {
 		this.confirmado = confirmado;
 	}
 
-	/**
+	/**Return the id of the transaction
 	 * @return the id
 	 */
 	public String getId() {
@@ -49,52 +57,51 @@ public class Transaccion {
 	}
 
 
-	/**
-	 * @return the concepto
+	/**Return the concept of the transaction
+	 * @return the concept
 	 */
 	public String getConcepto() {
 		return concepto;
 	}
 
-	/**
-	 * @param concepto the concepto to set
+	/**Insert a concept to an transaction.
+	 * @param concepto the concept to set
 	 */
 	public void setConcepto(String concepto) {
 		this.concepto = concepto;
 	}
 
-	/**
-	 * @return the usuario
+	/**Return the user of the transaction
+	 * @return the user
 	 */
 	public User getUsuario() {
 		return usuario;
 	}
 
-	/**
-	 * @param usuario the usuario to set
-	 */
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-	}
-
-	/**
-	 * @return the fecha
+	/** Get the date of a transaction
+	 * @return the date of the transaction
 	 */
 	public LocalDateTime getFecha() {
 		return fecha;
 	}
 
-	/**
-	 * @param fecha the fecha to set
+	/**Set the date of a transaction
+	 * @param fecha the date to set
 	 */
 	public void setFecha(LocalDateTime fecha) {
 		this.fecha = fecha;
 	}
 
+	/** Get the price of a transaction
+	 * @return the price of an transaction
+	 */
 	public BigDecimal getPrice() {
 		return price;
 	}
 
+	/**Update the date to the actual date of an existing transaction
+	 *
+	 */
 	public void updateDate() {
 		this.fecha=LocalDateTime.now();
 	}
