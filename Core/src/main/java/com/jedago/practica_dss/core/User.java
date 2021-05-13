@@ -56,16 +56,10 @@ public class User implements Serializable {
      * Bind a new order to an existing user.
      * @param the new order to this user.
 	 */
-	public void setOrder(Order o) 
+	public void addOrder(Order o) 
 	{
 		orderList.add(o);
-		System.out.println("Los pedidos del user son:");
-		for(Order or: this.orderList)
-		{
-			System.out.println(or.getId_order());
-		}
 	}
-	
 	
 	/** 
      * Return a list of products bind to an user.
