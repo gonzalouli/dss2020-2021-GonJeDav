@@ -22,13 +22,13 @@ public class EmailServiceImpl implements EmailService {
 	
 	
 
-    public void sendSimpleMessage( Retencion r, User u, JavaMailSender emailSender) 
+    public void sendSimpleMessage( Transaccion t, User u, JavaMailSender emailSender) 
     {  
         SimpleMailMessage message = new SimpleMailMessage(); 
         //message.setFrom("cafejedago@gmail.com");
         message.setTo(u.getEmail()); 
         message.setSubject("Codigo de confirmacion"); 
-        message.setText("Su codigo de confirmacion del pago de "+r.getTransaccionRetenida().getPrice()+"  Euros : "+r.getId()
+        message.setText("Su codigo de confirmacion del pago de "+t.getPrice()+"  Euros : "+t.getId()
         +"\nIntroduzca el codigo en /user/payment/code");
         emailSender.send(message);   
     }

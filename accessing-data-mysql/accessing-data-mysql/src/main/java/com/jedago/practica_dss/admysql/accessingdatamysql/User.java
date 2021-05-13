@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,17 +24,12 @@ public class User {
 	  private String firstName;
 	  private String lastName;
 	  private String email;
-	  @OneToMany(targetEntity = Transaccion.class)
+	  @OneToMany(targetEntity = Transaccion.class, cascade = CascadeType.ALL)
 	  private List<Transaccion> transacciones;
-	  @OneToMany(targetEntity = Retencion.class)
-	  private List<Retencion> retenciones;
 	  private BigDecimal saldo;
-
 
 	User(){
 		  transacciones = new ArrayList<Transaccion>();
-		  retenciones = new ArrayList<Retencion>();
-
 		  saldo = BigDecimal.ZERO;
 	  }
 	  
@@ -42,7 +38,6 @@ public class User {
 		  this.lastName = lastName;
 		  this.email = email;
 		  transacciones = new ArrayList<Transaccion>();
-		  retenciones = new ArrayList<Retencion>();
 		  saldo = BigDecimal.ZERO;
 	  }
 	
@@ -110,12 +105,7 @@ public class User {
 	{
 		this.transacciones.add(t);
 	}
-	
-	public void addRetencion(Retencion r)
-	{
-		this.retenciones.add(r);
-	}
-	
+
 	
 	public void pago(BigDecimal amount) {
 		if(getSaldo().compareTo(amount)>=0) {
@@ -126,8 +116,5 @@ public class User {
 	 public List<Transaccion> getTransacciones() {
 		return transacciones;
 	}
-	  
-	public List<Retencion> getRetenciones() {
-		return retenciones;
-	}
+
 }

@@ -48,8 +48,7 @@ public class MainController {
   private UserRepository userRepository;
   @Autowired
   private TransaccionRepository transRepository;
-  @Autowired
-  private RetencionRepository retenRepository;
+  
   @PostMapping(path="/add") // Map ONLY POST Requests
   public String addNewUser (@RequestParam String firstName, @RequestParam String lastName
       , @RequestParam String email) {
@@ -138,10 +137,11 @@ public class MainController {
 		  if(u.get().getSaldo().compareTo(cash) >= 0)
 		  {
 			  Transaccion t = new Transaccion(u.get(), concepto, LocalDateTime.now(), cash);
-			  Retencion r = new Retencion(t);
-			  u.get().addRetencion(r);
+			  u.get().addTransaccion(t);
+			  userRepository.save(u.get());
+			  transRepository.save(t);
 			  EmailServiceImpl mail = new EmailServiceImpl();
-			  mail.sendSimpleMessage(r, u.get(), emailSender);
+			  mail.sendSimpleMessage(t, u.get(), emailSender);
 			  return "Se ha enviado un codigo de verificacion a su email, introduzcalo en /payment/code";
 		  }
 		  else
@@ -158,17 +158,18 @@ public class MainController {
   @PatchMapping(path="/user/payment/code")
   public String confirmTransaction(@RequestParam String idVerificacion, @RequestParam String idUser) {
 	  User u = null;
-	  if(retenRepository.findById(idVerificacion).isPresent()) {
-		  if(retenRepository.findById(idVerificacion).get().getTransaccionRetenida().getUsuario().getId().equals(idUser))
+	  Optional<Transaccion> t = transRepository.findById(idVerificacion);
+	  if(t.isPresent()) {
+		  if(t.get().getUsuario().getId().equals(idUser))
 	  		{
-			  Retencion r = retenRepository.findById(idVerificacion).get();
-			  u = userRepository.findById(r.getTransaccionRetenida().getUsuario().getId()).get();
-			  u.retiro(r.getTransaccionRetenida().getPrice());
-			  u.addTransaccion(r.getTransaccionRetenida());
-			  transRepository.save(r.getTransaccionRetenida());
+			  transRepository.delete(t.get());
+			  t.get().setConfirmado(true);
+			  t.get().updateDate();
+			  u = userRepository.findById(t.get().getUsuario().getId()).get();
+			  u.retiro( t.get().getPrice()); 
+			  transRepository.save(t.get());
 			  userRepository.save(u);
-			  retenRepository.delete(r);
-			  return "Se ha realizado el pago: id-"+r.getId()+"-- "+r.getTransaccionRetenida().getUsuario()+" euros";
+			  return "Se ha realizado el pago: id-"+t.get().getId()+"-- "+t.get().getPrice()+" euros";
 	  		}
 	  		else
 	  			return "Usuario erroneo";

@@ -13,23 +13,32 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Transaccion {
 	@Id
-//	@GeneratedValue(generator = "uuid")
-//	@GenericGenerator(name = "uuid", strategy = "uuid")
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
 	private String id;
 	private String concepto;
 	@OneToOne(targetEntity = User.class)
 	private User usuario;
 	private LocalDateTime fecha;
 	private BigDecimal price;
-	
+	private boolean confirmado;
+
 	Transaccion(){super();}
 	
 	Transaccion(User user, String concepto, LocalDateTime fecha, BigDecimal pay){
 		this.usuario= user;
 		this.concepto= concepto;
 		this.fecha = fecha;
-		this.setPrice(pay);
-		this.id = UUID.randomUUID().toString();
+		this.price = pay;
+		this.confirmado = false;
+	}
+
+	public boolean isConfirmado() {
+		return confirmado;
+	}
+
+	public void setConfirmado(boolean confirmado) {
+		this.confirmado = confirmado;
 	}
 
 	/**
@@ -86,9 +95,8 @@ public class Transaccion {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void updateDate() {
+		this.fecha=LocalDateTime.now();
 	}
-	
 
 }
