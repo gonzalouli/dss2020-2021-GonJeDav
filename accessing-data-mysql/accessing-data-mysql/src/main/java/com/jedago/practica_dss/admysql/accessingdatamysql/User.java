@@ -1,19 +1,18 @@
 package com.jedago.practica_dss.admysql.accessingdatamysql;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -41,6 +40,10 @@ public class User {
 		  saldo = BigDecimal.ZERO;
 	  }
 	
+	  /**
+	 *Returns the id of the user
+	 * @return the id
+	 */
 	  public String getId() {
 	    return id;
 	  }
@@ -79,8 +82,7 @@ public class User {
 	
 		/**
 		 *insert the first name of the user
-
-		 * @param firstname the first name to set
+		 * @param firstName the first name to set
 		 */
 	  public void setFirstName(String firstName) {
 	    this.firstName = firstName;
@@ -141,6 +143,7 @@ public class User {
 	 *Return a list of transactions owned by the user
 	 * @return List of transactions
 	 */
+	@JsonIgnore
 	 public List<Transaccion> getTransacciones() {
 		return transacciones;
 	}
