@@ -2,12 +2,11 @@ package com.jedago.practica_dss.admysql.accessingdatamysql;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 @Entity
@@ -17,7 +16,7 @@ public class Transaccion {
 	@GenericGenerator(name = "uuid", strategy = "uuid")
 	private String id;
 	private String concepto;
-	@OneToOne(targetEntity = User.class)
+	@ManyToOne
 	private User usuario;
 	private LocalDateTime fecha;
 	private BigDecimal price;
