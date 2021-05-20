@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,26 +64,31 @@ public class MainController {
     userRepository.save(n);
     return "Saved with " + n.getId();
   }
-
+  
   @GetMapping(path="/all")
   public List<User> getAllUsers() {
     // This returns a JSON or XML with the users
     return (List<User>) userRepository.findAll();
   }
   
+  //Ejemplo: curl -X GET localhost:8080/gonjepago/user -d 297e77017966a10a017966a2a5580000
+
   @GetMapping(path="/user")
-  public Optional<User> getUser(@RequestParam String id) {
+  public Optional<User> getUser(@RequestBody String id) {
+	  //Como solo hay un parametro no hay que colocar el id= en el curl
     return userRepository.findById(id);
   }
   
+  //Ejemplo: curl -X GET localhost:8080/gonjepago/user/cash -d 297e77017966a10a017966a2a5580000
   @GetMapping(path="/user/cash")
-  public Optional<BigDecimal> getUserBalance(@RequestParam String id) {
+  public Optional<BigDecimal> getUserBalance(@RequestBody String id) {
 	  Optional<BigDecimal> saldo = Optional.empty();
 	  if(userRepository.findById(id).isPresent())
 		  saldo = Optional.of(userRepository.findById(id).get().getSaldo());
 	  return saldo;
   }
   
+  //Ejemplo: curl -X PATCH localhost:8080/gonjepago/user/cash -d id="297e77017966a10a017966a2a5580000" -d cash=40
   @PatchMapping(path="/user/cash")
   public String addUserBalance(@RequestParam String id, @RequestParam BigDecimal cash) {
 	  User u = null;
@@ -100,7 +106,8 @@ public class MainController {
 		  return "No se ha encontrado el usuario";
 	  }
   }
-
+  //Ejemplo: curl -X POST localhost:8080/gonjepago/user/payment -d id=297e77017966a10a017966a2a5580000 -d cash=1000 -d concepto="televisor 4k"
+  //No abusar del uso de comandos ya que hay un correo real asociado
   @PostMapping(path="/user/payment")
   public String addUserPaymentToConfirm(@RequestParam String id, @RequestParam BigDecimal cash, @RequestParam String concepto) {
 	  Optional<User> u = userRepository.findById(id);
@@ -126,6 +133,7 @@ public class MainController {
 	  }
   }
   
+  //Ejemplo: curl -X PATCH localhost:8080/gonjepago/user/payment/code -d idVerificacion=297e77017989446e01798948d9c10000 -d idUser=297e77017966a10a017966a2a5580000
   @PatchMapping(path="/user/payment/code")
   public String confirmTransaction(@RequestParam String idVerificacion, @RequestParam String idUser) {
 	  User u = null;

@@ -43,7 +43,7 @@ public class Transaccion {
 
 	  /**
 		 *Set the transaction to confirmed or not confirmed.
-		 * @param the value of the confirmation
+		 * @param confirmado the value of the confirmation
 		 */
 	public void setConfirmado(boolean confirmado) {
 		this.confirmado = confirmado;
