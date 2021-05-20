@@ -50,6 +50,8 @@ public class MainController {
   @Autowired
   private TransaccionRepository transRepository;
   
+  //Ejemplo: curl -X POST localhost:8080/gonjepago/user -d firstName=nombre -d lastName=apellidos -d email=mail
+
   @PostMapping(path="/user") // Map ONLY POST Requests
   public String addNewUser (@RequestParam String firstName, @RequestParam String lastName
       , @RequestParam String email) {
@@ -65,6 +67,7 @@ public class MainController {
     return "Saved with " + n.getId();
   }
   
+  //Ejemplo: curl -X GET localhost:8080/gonjepago/all
   @GetMapping(path="/all")
   public List<User> getAllUsers() {
     // This returns a JSON or XML with the users
@@ -141,10 +144,11 @@ public class MainController {
 	  if(t.isPresent()) {
 		  if(t.get().getUsuario().getId().equals(idUser))
 	  		{
-			  transRepository.deleteById(idVerificacion);
+			  //transRepository.deleteById(idVerificacion);
 			  t.get().setConfirmado(true);
 			  t.get().updateDate();
-			  u = userRepository.findById(t.get().getUsuario().getId()).get();
+			  u = t.get().getUsuario();
+			  //u = userRepository.findById(t.get().getUsuario().getId()).get();
 			  u.retiro( t.get().getPrice()); 
 			  u.addTransaccion(t.get());
 
