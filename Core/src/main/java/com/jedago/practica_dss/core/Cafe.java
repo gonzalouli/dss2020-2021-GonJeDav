@@ -278,6 +278,7 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
+		ord.setFinished(true);
 		this.ordersRepository.update(ord.getId_order(), ord);
 		this.productsRepository.save(currentProducts);
 
@@ -303,11 +304,13 @@ public class Cafe implements ICafe {
 			//Miramos si la fecha corresponde con la buscada
 			if(o.getDate().isEqual(date))
 			{
-				//Sumamos un pedido
-				cb.incrementOrders();
-				//Añadimos el total del pedido 
-				cb.addtoTotal(o.getPrice());
-				
+				if(o.isFinished())
+				{
+					//Sumamos un pedido
+					cb.incrementOrders();
+					//Añadimos el total del pedido 
+					cb.addtoTotal(o.getPrice());
+				}
 			}
 		}
 		

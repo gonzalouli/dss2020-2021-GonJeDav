@@ -26,7 +26,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private LocalDateTime date; //Local time, local date, localdatetime
 	private LocalDateTime PickUpTime;
 	private User user;
-	
+	private boolean finished;
 	
 	 /*
 	 * Create empty order with a unique id, a list
@@ -34,11 +34,11 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 */	
 	
 	public Order(){
+		this.setFinished(false);
 		this.id_order = UUID.randomUUID().toString();
 		date = LocalDateTime.now();
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
-		
 	}	
 	
 	
@@ -286,6 +286,16 @@ public class Order implements Iterable<OrderLine>, Serializable
 		} else if (!id_order.equals(other.id_order))
 			return false;
 		return true;
+	}
+
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 }
 	
