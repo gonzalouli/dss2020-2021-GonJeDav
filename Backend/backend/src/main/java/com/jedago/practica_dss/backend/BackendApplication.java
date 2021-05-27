@@ -233,7 +233,12 @@ public class BackendApplication {
 	@PostMapping("/order/user") //primero create user, y le pasamos el id user aqui
 	public String createOrder(@RequestParam String idUser) 
 	{
-		return cafe.newOrder(idUser).getId_order();
+		Optional<Order> o = Optional.empty();
+		o = cafe.newOrder(idUser);
+		if(o.isPresent())
+			return o.get().getId_order();
+		else
+			return "No se ha encontrado el usuario";
 	}
 	
 	/**

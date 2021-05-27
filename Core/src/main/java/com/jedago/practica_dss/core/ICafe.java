@@ -33,7 +33,7 @@ public interface ICafe {
 	 * @param u the id of the user to bind the new order
 	 * @return the new order created
 	 */
-	public Order newOrder(String uid);
+	public Optional<Order> newOrder(String uid);
 	
 	/**
 	 * Set the desired collection time for the order
@@ -53,7 +53,6 @@ public interface ICafe {
 	 * @return List with the availables product types
 	 */
 	public List<ProductType> getAvailableProductTypes();
-	
 	
 	/**
 	 * Returns a set of available products of an specified type
