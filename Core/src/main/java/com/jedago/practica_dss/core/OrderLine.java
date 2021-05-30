@@ -10,7 +10,6 @@ import java.math.BigDecimal;
  * @version 1.0. 21/03/2021
  * @author Gonzalo Ulibarri
  */
-
 public class OrderLine implements Serializable {
 	
 	/**
@@ -100,10 +99,4 @@ public class OrderLine implements Serializable {
 		costeTotal = costeTotal.add(coste);
 		return costeTotal;			
 	}
-	
-	
-	
-	
-	
-
 }

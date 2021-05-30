@@ -26,7 +26,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	private LocalDateTime date; //Local time, local date, localdatetime
 	private LocalDateTime PickUpTime;
 	private User user;
-	
+	private boolean finished;
 	
 	 /*
 	 * Create empty order with a unique id, a list
@@ -34,11 +34,11 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 */	
 	
 	public Order(){
+		this.setFinished(false);
 		this.id_order = UUID.randomUUID().toString();
 		date = LocalDateTime.now();
 		this.price = BigDecimal.ZERO;
 		orderLineProduct = new ArrayList<OrderLine>();
-		
 	}	
 	
 	
@@ -143,18 +143,7 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 */
 	public void addProductToOrder(Product currentProduct)
 	{	
-		/*for(OrderLine pivot : OrderLineProduct) {
-			if(pivot.getProduct().getID() == currentProduct.getID()) {
-				pivot.setAmount(pivot.getAmount()+1);
-				this.price = this.price.add(pivot.getProduct().getPriceUnit());				
-				return;
-			}
-		}
-		
-		OrderLine ol = new OrderLine(currentProduct,1);
-		setProducts(ol);	*/
 		this.addProductToOrder(currentProduct, 1);
-		
 	}
 	
 	 /** 
@@ -185,9 +174,6 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 * @param cant defines the quantity of the product to be eliminated.
 	 */
 	public void deleteProductFromOrder(Product currentProduct, int cant) {
-		
-		///for(OrderLine pivot : OrderLineProduct) {
-		//OrderLineProduct.get(i)
 		OrderLine ol;
 		Iterator<OrderLine> it = orderLineProduct.iterator();
 		while(it.hasNext()) { 
@@ -237,7 +223,6 @@ public class Order implements Iterable<OrderLine>, Serializable
 	 * Returns an iterator of type OrderLine.
 	 * @return OrderLineProduct iterator, a list of OrderLine.
 	 */
-	
 	@Override
 	public Iterator<OrderLine> iterator() {
 		return orderLineProduct.iterator();
@@ -286,6 +271,15 @@ public class Order implements Iterable<OrderLine>, Serializable
 		} else if (!id_order.equals(other.id_order))
 			return false;
 		return true;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 }
 	

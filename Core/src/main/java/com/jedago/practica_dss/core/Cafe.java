@@ -73,21 +73,17 @@ public class Cafe implements ICafe {
 	}
 	
 	@Override
-	public Order newOrder(String uid)
+	public Optional<Order> newOrder(String uid)
 	{
-		Order o = new Order();
 		Optional<User> user = Optional.empty();
+		Optional<Order> o = Optional.empty();
 		try {
 			user = this.usersRepository.findById(uid);
 		} catch (Exception e) {e.printStackTrace();}
 		if(user.isPresent())
 		{
-			o.setUser(user.get());
-			user.get().addOrder(o);
-			try {
-				this.usersRepository.update(user.get().getIdUser(), user.get());
-				this.ordersRepository.add(o);
-			} catch (Exception e) {e.printStackTrace();}
+			User found = user.get();
+			o = Optional.of(this.newOrder(found)); 
 		}
 		return o;
 	}
@@ -278,6 +274,7 @@ public class Cafe implements ICafe {
 				}
 			}
 		}
+		ord.setFinished(true);
 		this.ordersRepository.update(ord.getId_order(), ord);
 		this.productsRepository.save(currentProducts);
 
@@ -303,11 +300,13 @@ public class Cafe implements ICafe {
 			//Miramos si la fecha corresponde con la buscada
 			if(o.getDate().isEqual(date))
 			{
-				//Sumamos un pedido
-				cb.incrementOrders();
-				//Añadimos el total del pedido 
-				cb.addtoTotal(o.getPrice());
-				
+				if(o.isFinished())
+				{
+					//Sumamos un pedido
+					cb.incrementOrders();
+					//Añadimos el total del pedido 
+					cb.addtoTotal(o.getPrice());
+				}
 			}
 		}
 		
@@ -418,7 +417,7 @@ public class Cafe implements ICafe {
 	 */
 	@Override
 	public Optional<User> getUserById(String id) {
-		Optional<User> u = null;
+		Optional<User> u = Optional.empty();
 		try {
 			u = this.usersRepository.findById(id);
 		} catch (Exception e) {e.printStackTrace();}
@@ -432,7 +431,7 @@ public class Cafe implements ICafe {
 	 */
 	@Override
 	public Optional<Product> getProductById(String id) {
-		Optional<Product> p = null;
+		Optional<Product> p = Optional.empty();
 		try {
 			p = this.productsRepository.findById(id);
 		} catch (Exception e) {e.printStackTrace();}
@@ -446,7 +445,7 @@ public class Cafe implements ICafe {
 	 */
 	@Override
 	public Optional<ProductType> getProductTypeById(String id) {
-		Optional<ProductType> pt = null;
+		Optional<ProductType> pt = Optional.empty();
 		try {
 			pt = this.productsRepository.findTypeById(id);
 		} catch (Exception e) {e.printStackTrace();}
@@ -460,7 +459,7 @@ public class Cafe implements ICafe {
 	 */
 	@Override
 	public Optional<Order> getOrderById(String id) {
-		Optional<Order> o = null;
+		Optional<Order> o = Optional.empty();
 		try {
 			o = this.ordersRepository.findById(id);
 		} catch (Exception e) {e.printStackTrace();}

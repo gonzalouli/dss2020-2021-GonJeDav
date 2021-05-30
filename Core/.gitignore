@@ -1,3 +1,5 @@
 /target/
 /.metadata/
 /.project
+/orders.txt
+/products.txt

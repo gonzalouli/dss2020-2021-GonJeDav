@@ -154,5 +154,27 @@ public class Menu implements Product {
 		
 		return price;
 	}
+	
+	@Override
+	/** 
+     * Compares if two products are the same.
+     * @param obj_ Object to compare.
+     * @return If the object are the same return true, else return false.
+     **/
+    public boolean equals(Object obj) {
+        if (this == obj) 
+        	return true;
+        if (obj == null) 
+        	return false;
+        if (getClass() != obj.getClass()) 
+        	return false;
+        
+        final Product other = (Product)obj;
+        
+        if (id != other.getID()) 
+        	return false;
+        
+        return true;
+    }
 
 }
