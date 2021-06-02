@@ -18,10 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+
 @RestController // This means that this class is a Controller
 @RequestMapping(path="/gonjepago") // This means URL's start with /demo (after Application path)
 public class MainController {
 	
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build();
+	}
 
 	@Bean
     public JavaMailSender getJavaMailSender() {
@@ -77,14 +90,14 @@ public class MainController {
   //Ejemplo: curl -X GET localhost:8080/gonjepago/user -d 297e77017966a10a017966a2a5580000
 
   @GetMapping(path="/user")
-  public Optional<User> getUser(@RequestBody String id) {
+  public Optional<User> getUser(@RequestParam String id) {
 	  //Como solo hay un parametro no hay que colocar el id= en el curl
     return userRepository.findById(id);
   }
   
   //Ejemplo: curl -X GET localhost:8080/gonjepago/user/cash -d 297e77017966a10a017966a2a5580000
   @GetMapping(path="/user/cash")
-  public Optional<BigDecimal> getUserBalance(@RequestBody String id) {
+  public Optional<BigDecimal> getUserBalance(@RequestParam String id) {
 	  Optional<BigDecimal> saldo = Optional.empty();
 	  if(userRepository.findById(id).isPresent())
 		  saldo = Optional.of(userRepository.findById(id).get().getSaldo());
