@@ -82,7 +82,7 @@ public class BackendApplication {
         mailSender.setPort(587);
         
         mailSender.setUsername("cafejedago@gmail.com");
-        mailSender.setPassword("lnhmvuheexolkrlp");
+        mailSender.setPassword("ekfhnjmubslddycc");
         
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
@@ -282,12 +282,12 @@ public class BackendApplication {
 	 * @return The cashbox to a day given.
 	 */	
 	@GetMapping("/cashbox")
-	public CashBox getCashBox(@RequestParam(required=false) LocalDate date) {
-		
-		if(date==null)
+	public CashBox getCashBox(@RequestParam(required=false) String ldt) {
+		LocalDate newldt = LocalDate.parse(ldt);
+		if(newldt==null)
 			return cafe.getTodayCashBox();
 		else
-			return cafe.getCashBox(date);
+			return cafe.getCashBox(newldt);
 	}
 
 	/**
