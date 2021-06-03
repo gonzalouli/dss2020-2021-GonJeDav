@@ -6,6 +6,7 @@ Para la instalacion y ejecucion del proyecto necesitamos:
   * Maven
   * Eclipse (opcional)
   * JavaVM 8 < Instalado
+  * Mysql Installer/Workbench
 
 Descararemos Maven desde la pagina oficial de apache : https://maven.apache.org/download.cgi#Installation.
 
