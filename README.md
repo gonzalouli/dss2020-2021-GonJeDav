@@ -17,8 +17,7 @@ Los colocaremos en nuestro /backend y realizaremos mvn install
 
 Los colocaremos en nuestro /accessing-data-mysql y realizaremos mvn install
 
+Por ultimo, en el directorio target de nuestro backend o de nuestra accessing-data-mysql, realizaremos el comando java -jar backend-0.0.1-SNAPSHOT.jar o accessing-data-mysql-0.0.1-SNAPSHOT.jar para ejecutar los diferentes proyectos empaquetados. Dependiendo de que servicio queramos lanzar realizaremos el lanzamiento de los dos servicios en paralelo cambiando el puesto de desplegado de uno de ellos.
 
-Por ultimo, en el directorio target de nuestro backend o de nuestra accessing-data-mysql, realizaremos el comando java -jar backend-0.0.1-SNAPSHOT.jar para ejecutar nuestro proyecto empaquetado. Dependiendo de que servicio querramos lanzar, o, realizaremos el lanzamiento de los dos servicios en paralelo cambiando el puesto de desplegado de uno de ellos.
-
-
+Como en esta practica pararemos en el Hito 5, tendremos dos proyectos diferentes, que son el Backend de servicios de la cafeteria, y el backend de pagos telematicos.
 
