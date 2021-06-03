@@ -1,5 +1,5 @@
 # PracticasDSS
-Repositorio para las practicas de DSS en Java.
+Repositorio para las practicas de DSS en Java Spring.
 
 # Instalacion y ejecucion
 Para la instalacion y ejecucion del proyecto necesitamos: 
