@@ -21,3 +21,4 @@ Por ultimo, en el directorio target de nuestro backend o de nuestra accessing-da
 
 Como en esta practica pararemos en el Hito 5, tendremos dos proyectos diferentes, que son el Backend de servicios de la cafeteria, y el backend de pagos telematicos.
 
+Es absolutamente necesario tener el servicio de Mysql80 ejecutandose en nuestra maquina.
