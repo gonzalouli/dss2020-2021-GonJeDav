@@ -282,14 +282,16 @@ public class BackendApplication {
 	 * @return The cashbox to a day given.
 	 */	
 	@GetMapping("/cashbox")
-	public CashBox getCashBox(@RequestParam(required=false) String ldt) {
-		LocalDate newldt = LocalDate.parse(ldt);
-		if(newldt==null)
+	public CashBox getCashBox(@RequestParam(required=false) String ldt) throws Exception  {
+		
+		if(ldt==null)
 			return cafe.getTodayCashBox();
-		else
+		else {
+			LocalDate newldt = LocalDate.parse(ldt);
 			return cafe.getCashBox(newldt);
+		}
 	}
-
+	
 	/**
 	 * End a determined order.
 	 * @param idorder The od to the order to finish.
